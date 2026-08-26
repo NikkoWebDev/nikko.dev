@@ -1,0 +1,158 @@
+---
+import { getTranslation, type Lang } from "../data/translations";
+export interface Props { lang?: Lang; }
+const { lang = "es" } = Astro.props;
+---
+
+<section id="certificaciones">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:28px;">
+      <div class="eyebrow">{getTranslation("certs.eyebrow", lang)}</div>
+      <h2 class="display-sm">{getTranslation("certs.title", lang)}</h2>
+      <p class="section-sub" style="margin-top:12px;">{getTranslation("certs.sub", lang)}</p>
+    </div>
+
+    <div class="certs-wrap">
+      <!-- UNAL - featured -->
+      <div class="cert-card featured">
+        <div class="cert-icon">UN</div>
+        <div>
+          <small>{getTranslation("certs.card1.small", lang)}</small>
+          <h3>{getTranslation("certs.card1.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm">G</div>
+        <div>
+          <small>{getTranslation("certs.card2.small", lang)}</small>
+          <h3>{getTranslation("certs.card2.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--cyan);">PC</div>
+        <div>
+          <small>{getTranslation("certs.card3.small", lang)}</small>
+          <h3>{getTranslation("certs.card3.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(212,168,83,0.08);border-color:rgba(212,168,83,0.15);color:var(--amber);">CA</div>
+        <div>
+          <small>{getTranslation("certs.card4.small", lang)}</small>
+          <h3>{getTranslation("certs.card4.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--green);">EX</div>
+        <div>
+          <small>{getTranslation("certs.card5.small", lang)}</small>
+          <h3>{getTranslation("certs.card5.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.15);color:var(--violet);">SL</div>
+        <div>
+          <small>{getTranslation("certs.card6.small", lang)}</small>
+          <h3>{getTranslation("certs.card6.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--cyan);">LL</div>
+        <div>
+          <small>{getTranslation("certs.card7.small", lang)}</small>
+          <h3>{getTranslation("certs.card7.title", lang)}</h3>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--green);">ND</div>
+        <div>
+          <small>{getTranslation("certs.card8.small", lang)}</small>
+          <h3>{getTranslation("certs.card8.title", lang)}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .certs-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .cert-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+    background: var(--glass-card);
+    transition: border-color 0.3s var(--ease);
+    min-width: 0;
+  }
+
+  .cert-card:hover { border-color: var(--line-green); }
+
+  .cert-card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--bg-glow-1), var(--glass-card));
+    border-color: var(--line-green);
+  }
+
+  .cert-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line-green);
+    background: rgba(0, 208, 132, 0.08);
+    color: var(--green);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .cert-icon.sm {
+    width: 34px;
+    height: 34px;
+    font-size: 0.7rem;
+  }
+
+  .cert-card small {
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cert-card h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 1024px) {
+    .certs-wrap { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .cert-card.featured { grid-column: span 2; }
+    .cert-card { padding: 18px; }
+  }
+
+  @media (max-width: 640px) {
+    .certs-wrap { grid-template-columns: 1fr; gap: 12px; }
+    .cert-card.featured { grid-column: span 1; }
+    .cert-card { padding: 16px; }
+  }
+</style>

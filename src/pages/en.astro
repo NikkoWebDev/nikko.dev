@@ -1,0 +1,301 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import SkillsMarquee from "../components/SkillsMarquee.astro";
+import Services from "../components/Services.astro";
+import Projects from "../components/Projects.astro";
+import About from "../components/About.astro";
+import Experience from "../components/Experience.astro";
+import Metrics from "../components/Metrics.astro";
+import Certifications from "../components/Certifications.astro";
+import FAQ from "../components/FAQ.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+
+const lang = "en";
+const title = "NikkoDev | Web, AI and Automation · Edge-First Full-Stack";
+const description = "Full-Stack Developer specialized in Applied AI, Edge Computing and modern web platforms. Landing pages, AI apps and automation for businesses that want to sell more.";
+const ogDescription = "AI-powered web development: fast, beautiful and optimized. Full-Stack Developer specialized in Edge Computing and modern web platforms.";
+---
+
+<BaseLayout title={title} description={description} lang="en">
+  <Navbar lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <SkillsMarquee />
+    <Services lang={lang} />
+    <Projects />
+    <About lang={lang} />
+    <Experience lang={lang} />
+    <Metrics lang={lang} />
+    <Certifications lang={lang} />
+    <FAQ lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer />
+
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── GSAP Animated Counters ──
+    const animateCounter = (el, target, suffix = "") => {
+      const num = parseFloat(String(target).replace(/[^0-9.]/g, ""));
+      const isK = String(target).includes("k");
+      const finalNum = isK ? num * 1000 : num;
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: finalNum,
+            duration: 2,
+            ease: "power3.out",
+            onUpdate: () => {
+              if (isK) {
+                el.textContent = (obj.val / 1000).toFixed(0) + "k+";
+              } else if (finalNum >= 1000) {
+                el.textContent = Math.round(obj.val).toLocaleString() + suffix;
+              } else {
+                el.textContent = Math.round(obj.val) + suffix;
+              }
+            },
+          });
+        },
+      });
+    };
+
+    // ── Animate numeric values in dash-cards ──
+    document.querySelectorAll(".dash-num").forEach((el) => {
+      const text = el.textContent.trim();
+      if (!text || text === "Edge" || text === "B2" || text === "~$0" || text === "13" || text === "2") return;
+      const parsed = parseFloat(text);
+      if (isNaN(parsed)) return;
+      animateCounter(el, text);
+    });
+
+    // ── GSAP Staggered card entrance ──
+    gsap.utils.toArray<HTMLElement>([
+      ".serv-card", ".project-card", ".dash-card", ".cert-card",
+      ".about-hl"
+    ]).forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(30px)";
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 88%",
+        once: true,
+        onEnter: () => {
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+          });
+        },
+      });
+    });
+
+    // ── Scroll Reveal (IntersectionObserver fallback) ──
+    (() => {
+      const selectors = [
+        ".exp-body", ".faq-item", ".hm-item",
+        ".skill-pill", ".contact-box", ".about-terminal",
+        ".exam-card", ".hero-section", ".section-head",
+        ".term-log", ".dash-gauge", ".about-quote",
+        ".about-footer",
+      ];
+
+      const elements = document.querySelectorAll(selectors.join(","));
+
+      elements.forEach((el, i) => {
+        el.classList.add("reveal");
+        if (el.closest(".dash-grid") || el.closest(".exp-list") || el.closest(".projects-list")) {
+          const parent = el.closest(".dash-grid") || el.closest(".exp-list") || el.closest(".projects-list");
+          const siblings = Array.from(parent?.querySelectorAll(".dash-card, .exp-item, .project-card") || [el]);
+          const idx = siblings.indexOf(el);
+          el.style.setProperty("--reveal-delay", `${(idx * 0.06).toFixed(2)}s`);
+        } else {
+          el.style.setProperty("--reveal-delay", `${(i * 0.03) % 0.3}s`);
+        }
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06, rootMargin: "0px 0px -30px 0px" });
+
+      elements.forEach((el) => observer.observe(el));
+
+      // ── Hero Parallax ──
+      const panel = document.querySelector(".tv-panel .os-window");
+      if (panel && window.innerWidth > 900) {
+        let rafId = null;
+        const handleMove = (e) => {
+          if (rafId) return;
+          rafId = requestAnimationFrame(() => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 4;
+            const y = (e.clientY / window.innerHeight - 0.5) * -2;
+            panel.style.transform = `perspective(1200px) rotateY(${x}deg) rotateX(${y}deg)`;
+            rafId = null;
+          });
+        };
+        window.addEventListener("mousemove", handleMove, { passive: true });
+      }
+
+      // ── Hero typing effect ──
+      document.querySelectorAll(".terminal-lines div").forEach((line, idx) => {
+        line.style.setProperty("--typo-delay", `${(idx * 0.1).toFixed(2)}s`);
+        line.classList.add("typo-line");
+      });
+    })();
+
+    // ── Dynamic dash-card value animation ──
+    (() => {
+      const dashNum = document.querySelector('.dash-featured .dash-num');
+      if (dashNum && dashNum.dataset.count) {
+        const target = parseInt(dashNum.dataset.count);
+        ScrollTrigger.create({
+          trigger: dashNum.closest('.dash-card'),
+          start: "top 85%",
+          once: true,
+          onEnter: () => {
+            const obj = { val: 0 };
+            gsap.to(obj, {
+              val: target,
+              duration: 2,
+              ease: "power3.out",
+              onUpdate: () => {
+                dashNum.textContent = Math.round(obj.val);
+              },
+            });
+          },
+        });
+      }
+    })();
+
+    // ── Scrollytelling: section chapter indicator ──
+    (() => {
+      const sections = [
+        { id: 'servicios', label: 'Services' },
+        { id: 'proyectos', label: 'Projects' },
+        { id: 'sobre-mi', label: 'About' },
+        { id: 'experiencia', label: 'Exp.' },
+        { id: 'metricas', label: 'Metrics' },
+        { id: 'certificaciones', label: 'Certs.' },
+        { id: 'faq', label: 'FAQ' },
+        { id: 'contacto', label: 'Contact' },
+      ];
+
+      let chapterEl = document.querySelector('.sb-chapter');
+      if (!chapterEl) {
+        const sbRight = document.querySelector('.sb-right');
+        if (!sbRight) return;
+        chapterEl = document.createElement('span');
+        chapterEl.className = 'sb-chapter';
+        const sep = document.createElement('span');
+        sep.className = 'sb-sep';
+        sep.textContent = '|';
+        sbRight.prepend(sep);
+        sbRight.prepend(chapterEl);
+      }
+
+      let currentIdx = -1;
+      const updateChapter = () => {
+        const scrollY = window.scrollY;
+        let found = -1;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i].id);
+          if (el && el.offsetTop <= scrollY + 200) {
+            found = i;
+            break;
+          }
+        }
+        if (found !== currentIdx) {
+          currentIdx = found;
+          if (found >= 0) {
+            chapterEl.textContent = `${String(found + 1).padStart(2, '0')} · ${sections[found].label}`;
+          } else {
+            chapterEl.textContent = '00 · Home';
+          }
+        }
+      };
+
+      updateChapter();
+      window.addEventListener('scroll', updateChapter, { passive: true });
+    })();
+
+    // ── Scrollytelling: section background parallax ──
+    (() => {
+      const sections = document.querySelectorAll('section[id]');
+      sections.forEach((section) => {
+        const bg = section.querySelector('.section-bg-mesh, .section-bg-alt, .section-bg-grid');
+        if (!bg) return;
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          onUpdate: (self) => {
+            const y = self.progress * 20;
+            section.style.setProperty('--bg-shift', `${y}px`);
+          },
+        });
+      });
+    })();
+
+    // ── Scrollytelling: enhanced section heading reveal ──
+    (() => {
+      // Section headings already handled by the .reveal system
+    })();
+  </script>
+
+  <style is:global>
+    .reveal {
+      opacity: 0 !important;
+      transform: translateY(24px) !important;
+      transition: opacity 0.7s cubic-bezier(0.22, 0.7, 0.2, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition-delay: var(--reveal-delay, 0s) !important;
+    }
+    .reveal.visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    .typo-line {
+      opacity: 0;
+      animation: typoIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: var(--typo-delay, 0s);
+    }
+    @keyframes typoIn {
+      from { opacity: 0; transform: translateX(-6px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .section-head.reveal,
+    .section-head-compact.reveal {
+      transform: translateY(16px) !important;
+    }
+    .section-head.reveal.visible,
+    .section-head-compact.reveal.visible {
+      transform: translateY(0) !important;
+    }
+    .serv-card, .project-card, .dash-card, .cert-card,
+    .about-hl, .about-terminal, .exp-body, .faq-item,
+    .contact-box {
+      will-change: transform, opacity;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .typo-line { opacity: 1; animation: none; }
+    }
+  </style>
+</BaseLayout>

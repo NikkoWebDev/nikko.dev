@@ -1,0 +1,399 @@
+---
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  lang?: "es" | "en";
+}
+
+const SITE = "https://nikko.dev";
+const CURRENT_DATE = "2026-08-08";
+
+const defaultTitle = {
+  es: "NikkoDev | Desarrollo Web, IA y Automatización",
+  en: "NikkoDev | Web Development, AI and Automation",
+};
+
+const defaultDescription = {
+  es: "Soy Brayan. Hago cosas web que cargan rápido y no desperdician un solo byte. Landing pages, apps con IA y automatización para empresas.",
+  en: "I'm Brayan. I build web things that load fast and don't waste a single byte. Landing pages, AI apps and automation for businesses.",
+};
+
+const {
+  title: propTitle,
+  description: propDescription,
+  ogImage = `${SITE}/og-image.svg`,
+  lang = "es",
+} = Astro.props;
+
+const title = propTitle ?? defaultTitle[lang];
+const description = propDescription ?? defaultDescription[lang];
+
+const ogTitle = lang === "en"
+  ? "NikkoDev | Web Development, AI and Automation"
+  : "NikkoDev | Desarrollo Web, IA y Automatización";
+const ogDescription = lang === "en"
+  ? "AI-powered web development: fast, beautiful and optimized. Landing pages, web apps and intelligent automation for businesses."
+  : "Desarrollo web con IA: rápido, hermoso y optimizado. Landing pages, apps web y automatización inteligente para empresas.";
+const twitterHandle = "@NikkoWebDev";
+
+// JSON-LD Structured Data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE}/#person`,
+      "name": "Brayan Nikolas Gallo León",
+      "alternateName": "NikkoDev",
+      "givenName": "Brayan Nikolas",
+      "familyName": "Gallo León",
+      "jobTitle": lang === "en" ? "Full-Stack Developer & AI Integrator" : "Full-Stack Developer e Integrador de IA",
+      "description": description,
+      "url": SITE,
+      "sameAs": [
+        "https://github.com/NikkoWebDev",
+        "https://www.linkedin.com/in/nikolas-gallo-25546b375/",
+        "https://wa.me/573136638097"
+      ],
+      "knowsAbout": [
+        "Astro",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS3",
+        "Supabase",
+        "PostgreSQL",
+        "SQL",
+        "Cloudflare Workers",
+        "Cloudflare Workers AI",
+        "Edge Computing",
+        "Serverless Architecture",
+        "OpenRouter",
+        "Llama 3.1",
+        "RAG",
+        "Retrieval Augmented Generation",
+        "OAuth",
+        "JWT",
+        "Progressive Web Apps",
+        "SEO",
+        "GSAP",
+        "Linux",
+        "Arch Linux",
+        "Git",
+        "GitHub",
+        "Python",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Web Development",
+        "Automation"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Universidad Nacional de Colombia"
+      },
+      "image": `${SITE}/og-image.svg`
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE}/#organization`,
+      "name": "NikkoDev",
+      "alternateName": "NikkoDev OS",
+      "url": SITE,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE}/favicon.svg`
+      },
+      "description": lang === "en"
+        ? "Edge-First Full-Stack Development. AI-powered web development: fast, beautiful and optimized."
+        : "Edge-First Full-Stack Development. Desarrollo web con IA: rápido, hermoso y optimizado.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-313-663-8097",
+        "contactType": "sales",
+        "availableLanguage": ["Spanish", "English"],
+        "areaServed": "CO"
+      },
+      "sameAs": [
+        "https://github.com/NikkoWebDev",
+        "https://www.linkedin.com/in/nikolas-gallo-25546b375/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      "name": "NikkoDev",
+      "alternateName": "NikkoDev Portfolio",
+      "url": SITE,
+      "description": lang === "en"
+        ? "AI-powered web development: fast, beautiful and optimized."
+        : "Desarrollo web con IA: rápido, hermoso y optimizado.",
+      "inLanguage": ["es", "en"],
+      "publisher": { "@id": `${SITE}/#organization` },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${SITE}/?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE}/#webpage`,
+      "url": SITE,
+      "name": title,
+      "description": description,
+      "inLanguage": lang,
+      "isPartOf": { "@id": `${SITE}/#website` },
+      "about": { "@id": `${SITE}/#person` },
+      "datePublished": CURRENT_DATE,
+      "dateModified": CURRENT_DATE
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE}/#breadcrumb`,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": lang === "en" ? "Home" : "Inicio", "item": SITE },
+        { "@type": "ListItem", "position": 2, "name": lang === "en" ? "Services" : "Servicios", "item": `${SITE}/#servicios` },
+        { "@type": "ListItem", "position": 3, "name": lang === "en" ? "Projects" : "Proyectos", "item": `${SITE}/#proyectos` },
+        { "@type": "ListItem", "position": 4, "name": lang === "en" ? "Contact" : "Contacto", "item": `${SITE}/#contacto` }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE}/#faq`,
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "What kind of clients are you looking for?" : "¿Qué tipo de clientes buscas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Small businesses, startups, educational institutions and businesses that want to sell more, build digital presence, automate processes or integrate AI."
+              : "Empresas pequeñas, startups, instituciones educativas y negocios que quieran mejorar ventas, crear presencia digital, automatizar procesos o integrar IA."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "Do you work remotely?" : "¿Trabajas remoto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Yes. Remote work, per project, per sprint or part-time. I can also collaborate with existing teams."
+              : "Sí. Trabajo remoto, por proyecto, por sprint o medio tiempo. También puedo colaborar con equipos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "Can you build a landing page from scratch?" : "¿Puedes hacer una landing desde cero?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Yes. Copy, design, development, basic SEO, deployment, WhatsApp integration and performance optimization."
+              : "Sí. Puedo crear copy, diseño, desarrollo, SEO básico, despliegue, integración con WhatsApp y optimización de rendimiento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "Do you also do AI?" : "¿También haces IA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Yes. I integrate chatbots, AI APIs, assistants, automations, smart search and educational AI tools for businesses."
+              : "Sí. Integro chatbots, APIs de IA, asistentes, automatizaciones, búsqueda inteligente y herramientas educativas con IA para negocios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "Can you work with small businesses?" : "¿Puedes trabajar con empresas pequeñas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Yes. My main focus is helping small businesses access powerful technology without overspending."
+              : "Sí. De hecho, mi enfoque principal es ayudar a negocios pequeños a acceder a tecnología potente sin gastar de más."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "en" ? "Can you teach AI?" : "¿Puedes enseñar IA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "en"
+              ? "Yes. Workshops for schools and institutions on prompting, AI fundamentals, agents and practical uses."
+              : "Sí. Puedo crear talleres o clases para colegios sobre prompting, fundamentos de IA, agentes y usos prácticos."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="Brayan Nikolas Gallo León" />
+  <meta name="keywords" content="desarrollo web Colombia, landing pages, IA, automatización, Astro, Next.js, Supabase, Cloudflare, freelance desarrollo web, NikkoDev, Brayan Nikolas Gallo León" />
+  <meta name="theme-color" content="#F0FDF6" />
+  <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="generator" content="Astro" />
+  <meta name="application-name" content="NikkoDev OS" />
+
+  <!-- Geo / Local SEO -->
+  <meta name="geo.region" content="CO" />
+  <meta name="geo.placename" content="Bogotá, Colombia" />
+
+  <!-- Theme initialization — mint por defecto (claro) -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('nikkodev-theme');
+      if (!t) t = 'light';
+      if (t === 'light') document.documentElement.classList.add('light');
+      // forzamos mint claro siempre al inicio, usuario puede cambiar a dark si quiere
+      document.documentElement.classList.add('light');
+    })();
+  </script>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={lang === "en" ? "NikkoDev — AI-powered web development: fast, beautiful and optimized" : "NikkoDev — Desarrollo web con IA: rápido, hermoso y optimizado"} />
+  <meta property="og:url" content={SITE} />
+  <meta property="og:site_name" content="NikkoDev" />
+  <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle} />
+  <meta name="twitter:description" content={ogDescription} />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:site" content={twitterHandle} />
+  <meta name="twitter:creator" content={twitterHandle} />
+
+  <!-- Canonical + Hreflang -->
+  <link rel="canonical" href={SITE} />
+  <link rel="alternate" hreflang="es" href={SITE} />
+  <link rel="alternate" hreflang="en" href={`${SITE}/en`} />
+  <link rel="alternate" hreflang="x-default" href={SITE} />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+
+  <!-- Preconnects for performance -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://wa.me" />
+  <link rel="dns-prefetch" href="https://github.com" />
+  <link rel="dns-prefetch" href="https://www.linkedin.com" />
+
+  <!-- Google Fonts - Inter for body, JetBrains Mono for code -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" data-schema="nikkodev" set:html={JSON.stringify(jsonLd)}></script>
+
+  <style is:global>
+    /* Critical inline CSS — mint fallback claro */
+    :root { --bg-fallback: #F0FDF6; --white-fallback: #022C22; --font-fallback: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    :root.light { --bg-fallback: #F0FDF6; --white-fallback: #022C22; }
+    body { background-color: var(--bg-fallback); color: var(--white-fallback); font-family: var(--font-fallback); }
+  </style>
+</head>
+<body>
+  <!-- Page loading progress bar -->
+  <div class="page-progress" id="pageProgress"></div>
+  
+  <slot />
+
+  <!-- OS Status Bar -->
+  <div class="os-statusbar" role="status" aria-label="System status">
+    <div class="sb-left">
+      <span class="sb-dot green"></span>
+      <span>NikkoDev OS</span>
+      <span class="sb-sep">|</span>
+      <span class="sb-hide-mobile">vim · edge-first</span>
+      <span class="sb-sep sb-hide-mobile">|</span>
+      <span class="sb-hide-mobile">● all systems online</span>
+    </div>
+    <div class="sb-right">
+      <span class="sb-hide-mobile">NORM: 0.2s</span>
+      <span class="sb-sep sb-hide-mobile">|</span>
+      <span id="sbTime">--:--</span>
+    </div>
+  </div>
+
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <script>
+    // ── Page Progress Bar ──
+    (() => {
+      const bar = document.getElementById('pageProgress');
+      if (!bar) return;
+      let ticking = false;
+      const update = () => {
+        const scroll = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scroll / docHeight) * 100 : 0;
+        bar.style.width = Math.min(progress, 100) + '%';
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      });
+      update();
+    })();
+
+    // ── Status Bar Clock ──
+    (() => {
+      const el = document.getElementById('sbTime');
+      if (!el) return;
+      const pad = (n) => String(n).padStart(2, '0');
+      const tick = () => {
+        const d = new Date();
+        el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      };
+      tick();
+      setInterval(tick, 30000);
+    })();
+
+    // ── Cursor Glow ──
+    (() => {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow) return;
+      let timer;
+      const show = () => {
+        glow.classList.add('active');
+        clearTimeout(timer);
+        timer = setTimeout(() => glow.classList.remove('active'), 2000);
+      };
+      document.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        show();
+      });
+    })();
+  </script>
+</body>
+</html>

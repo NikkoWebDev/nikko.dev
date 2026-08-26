@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040816"/>
+      <stop offset="50%" stop-color="#0a1325"/>
+      <stop offset="100%" stop-color="#040816"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d084" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#58d8ff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="50%" stop-color="#00d084"/>
+      <stop offset="100%" stop-color="#58d8ff"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d084" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00d084"/>
+      <stop offset="100%" stop-color="#58d8ff"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#glow1)" opacity="0.5"/>
+  <rect width="1200" height="630" fill="url(#glow2)" opacity="0.5"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#00d084" stroke-opacity="0.08" stroke-width="0.5"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="#58d8ff" stroke-opacity="0.08" stroke-width="0.5"/>
+  <!-- Accent line -->
+  <rect x="60" y="200" width="1080" height="2" fill="url(#lineGrad)" opacity="0.6"/>
+  <!-- Terminal-style frame -->
+  <rect x="60" y="100" width="480" height="430" rx="20" fill="none" stroke="#00d084" stroke-opacity="0.2" stroke-width="1.5"/>
+  <!-- Dots -->
+  <circle cx="95" cy="135" r="6" fill="#00d084"/>
+  <circle cx="120" cy="135" r="6" fill="#58d8ff"/>
+  <circle cx="145" cy="135" r="6" fill="#f8fafc" opacity="0.4"/>
+  <!-- Terminal lines -->
+  <text x="95" y="180" font-family="'Courier New',monospace" font-size="18" fill="#00d084">$ init nikkodev-portfolio</text>
+  <text x="95" y="215" font-family="'Courier New',monospace" font-size="16" fill="#58d8ff">stack:</text>
+  <text x="155" y="215" font-family="'Courier New',monospace" font-size="16" fill="#94a3b8"> Astro · IA · Edge · Linux · SQL</text>
+  <text x="95" y="245" font-family="'Courier New',monospace" font-size="16" fill="#58d8ff">focus:</text>
+  <text x="155" y="245" font-family="'Courier New',monospace" font-size="16" fill="#94a3b8"> negocios, educación, startups</text>
+  <text x="95" y="275" font-family="'Courier New',monospace" font-size="16" fill="#58d8ff">mode:</text>
+  <text x="155" y="275" font-family="'Courier New',monospace" font-size="16" fill="#94a3b8"> premium visual + optimización brutal</text>
+  <text x="95" y="305" font-family="'Courier New',monospace" font-size="16" fill="#00d084">status:</text>
+  <text x="165" y="305" font-family="'Courier New',monospace" font-size="16" fill="#94a3b8"> listo para construir soluciones reales</text>
+  <!-- System status -->
+  <rect x="80" y="340" width="440" height="130" rx="12" fill="none" stroke="#58d8ff" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="100" y="370" font-family="'Courier New',monospace" font-size="13" fill="#58d8ff" letter-spacing="2">SYSTEM STATUS</text>
+  <circle cx="105" cy="400" r="4" fill="#00d084"/>
+  <text x="120" y="405" font-family="'Courier New',monospace" font-size="14" fill="#94a3b8">SinPresupuesto</text>
+  <text x="380" y="405" font-family="'Courier New',monospace" font-size="14" fill="#00d084" text-anchor="end">ONLINE</text>
+  <circle cx="105" cy="425" r="4" fill="#00d084"/>
+  <text x="120" y="430" font-family="'Courier New',monospace" font-size="14" fill="#94a3b8">FIBOG</text>
+  <text x="380" y="430" font-family="'Courier New',monospace" font-size="14" fill="#00d084" text-anchor="end">ONLINE</text>
+  <circle cx="105" cy="450" r="4" fill="#00d084"/>
+  <text x="120" y="455" font-family="'Courier New',monospace" font-size="14" fill="#94a3b8">AI Systems · Edge · PostgreSQL</text>
+  <text x="380" y="455" font-family="'Courier New',monospace" font-size="14" fill="#00d084" text-anchor="end">ONLINE</text>
+  <!-- Right side: Main title -->
+  <text x="600" y="200" font-family="system-ui,sans-serif" font-size="52" font-weight="900" fill="url(#textGrad)" letter-spacing="-2">NikkoDev</text>
+  <text x="600" y="270" font-family="system-ui,sans-serif" font-size="64" font-weight="900" fill="#f8fafc" letter-spacing="-3">Web + IA +</text>
+  <text x="600" y="345" font-family="system-ui,sans-serif" font-size="64" font-weight="900" fill="#f8fafc" letter-spacing="-3">Optimización</text>
+  <!-- Subtitle -->
+  <text x="600" y="400" font-family="system-ui,sans-serif" font-size="20" fill="#94a3b8">Full-Stack Developer · AI · Edge Computing</text>
+  <!-- Orb -->
+  <circle cx="950" cy="150" r="70" fill="#00d084" opacity="0.15"/>
+  <circle cx="950" cy="150" r="45" fill="#58d8ff" opacity="0.15"/>
+  <circle cx="950" cy="150" r="25" fill="#00d084" opacity="0.25"/>
+  <text x="950" y="162" font-family="system-ui,sans-serif" font-size="36" font-weight="1000" fill="#f8fafc" text-anchor="middle" opacity="0.6">ND</text>
+  <!-- Footer -->
+  <text x="600" y="490" font-family="'Courier New',monospace" font-size="14" fill="#00d084" opacity="0.5">nikko.dev</text>
+</svg>

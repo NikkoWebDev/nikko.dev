@@ -1,0 +1,397 @@
+---
+import { getTranslation, type Lang } from "../data/translations";
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+---
+
+<section id="sobre-mi">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="eyebrow">{getTranslation("about.eyebrow", lang)}</div>
+        <h2>{getTranslation("about.title", lang)}</h2>
+        <p class="about-story">{getTranslation("about.story", lang)}</p>
+        <div class="about-quote">
+          "{getTranslation("about.quote", lang)}"
+        </div>
+      </div>
+
+      <div class="about-editor">
+        <div class="about-editor-header">
+          <span class="code-dot red"></span>
+          <span class="code-dot yellow"></span>
+          <span class="code-dot green"></span>
+          <span class="terminal-title">{getTranslation("about.terminal.title", lang)}</span>
+        </div>
+        <div class="about-editor-body">
+          <div class="editor-sidebar">
+            <div class="sidebar-title">{getTranslation("about.terminal.sidebar.title", lang)}</div>
+            <div class="sidebar-file active"><span>📄</span> {getTranslation("about.terminal.sidebar.active", lang)}</div>
+            <div class="sidebar-folder"><span>📁</span> {getTranslation("about.terminal.sidebar.folder", lang)}</div>
+            <div class="sidebar-file">&nbsp;&nbsp;FIBOG.tsx</div>
+            <div class="sidebar-file">&nbsp;&nbsp;SinPresupuesto.ts</div>
+            <div class="sidebar-file">&nbsp;&nbsp;Autorreparacion.astro</div>
+            <div class="sidebar-file">&nbsp;&nbsp;InduSEC.astro</div>
+            <div class="sidebar-file"><span>📄</span> {getTranslation("about.terminal.sidebar.skills", lang)}</div>
+            <div class="sidebar-file"><span>📄</span> {getTranslation("about.terminal.sidebar.contact", lang)}</div>
+          </div>
+          <div class="editor-codearea">
+            <div class="line">
+              <span class="line-number">1</span>
+              <span class="line-content"><span class="t-keyword">const</span> <span class="t-prop">dev</span> = {'{'}</span>
+            </div>
+            <div class="line">
+              <span class="line-number">2</span>
+              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.name", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.name", lang)}"</span>,</span>
+            </div>
+            <div class="line">
+              <span class="line-number">3</span>
+              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.alias", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.alias", lang)}"</span>,</span>
+            </div>
+            <div class="line">
+              <span class="line-number">4</span>
+              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.university", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.university", lang)}"</span>,</span>
+            </div>
+            <div class="line">
+              <span class="line-number">5</span>
+              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.year", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.year", lang)}"</span>,</span>
+            </div>
+            <div class="line">
+              <span class="line-number">6</span>
+              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.language", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.language", lang)}"</span>,</span>
+            </div>
+            <div class="line">
+              <span class="line-number">7</span>
+              <span class="line-content">{'}'};</span>
+            </div>
+            <div class="line">
+              <span class="line-number">8</span>
+              <span class="line-content"><span class="t-comment">{getTranslation("about.terminal.comment1", lang)}</span></span>
+            </div>
+            <div class="line">
+              <span class="line-number">9</span>
+              <span class="line-content"><span class="t-prop">dev.{getTranslation("about.terminal.prop.values", lang)}</span> = {getTranslation("about.terminal.val.values", lang)};</span>
+            </div>
+            <div class="line">
+              <span class="line-number">10</span>
+              <span class="line-content"><span class="t-comment">{getTranslation("about.terminal.comment2", lang)}</span></span>
+            </div>
+            <div class="line">
+              <span class="line-number">11</span>
+              <span class="line-content"><span class="t-prompt">$</span> ls ~/projects</span>
+            </div>
+            <div class="line">
+              <span class="line-number">12</span>
+              <span class="line-content"><span class="t-val">sinpresupuesto/  fibog/  autorreparacion/  indusec/</span></span>
+            </div>
+            <div class="line">
+              <span class="line-number">13</span>
+              <span class="line-content"><span class="t-prompt">$</span> <span class="t-status">echo "{getTranslation("about.terminal.echo", lang)}"</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="currently">
+      <div class="currently-header">{getTranslation("currently.title", lang)}</div>
+      <div class="currently-body">
+        <div class="log-line">
+          <span class="log-time">[10:42:01]</span>
+          <span class="log-level">INFO</span>
+          <span set:html={getTranslation("currently.log1", lang)}></span>
+        </div>
+        <div class="log-line">
+          <span class="log-time">[10:42:03]</span>
+          <span class="log-level">INFO</span>
+          <span set:html={getTranslation("currently.log2", lang)}></span>
+        </div>
+        <div class="log-line">
+          <span class="log-time">[10:42:05]</span>
+          <span class="log-level">INFO</span>
+          <span set:html={getTranslation("currently.log3", lang)}></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 96px 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .about-text .eyebrow {
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    opacity: 0.8;
+  }
+
+  .about-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .about-story {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 24px;
+  }
+
+  .about-quote {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    padding: 18px 22px;
+    background: var(--surface);
+    border-left: 3px solid var(--green);
+    border-radius: 0 10px 10px 0;
+    line-height: 1.5;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  /* VS Code editor */
+  .about-editor {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    max-width: 100%;
+  }
+
+  .about-editor-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .terminal-title {
+    margin-left: 8px;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  .about-editor-body {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+  }
+
+  .editor-sidebar {
+    background: var(--bg-2);
+    border-right: 1px solid var(--line);
+    padding: 16px 12px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 2;
+  }
+
+  .sidebar-title {
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-file {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+  }
+
+  .sidebar-file.active {
+    color: var(--white);
+    background: rgba(16,185,129, 0.08);
+    margin: 0 -12px;
+    padding: 2px 12px;
+  }
+
+  .sidebar-folder {
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .editor-codearea {
+    padding: 16px;
+    line-height: 2;
+    overflow-x: auto;
+  }
+
+  .line {
+    display: flex;
+    gap: 10px;
+  }
+
+  .line-number {
+    color: rgba(139, 139, 150, 0.4);
+    min-width: 1.5rem;
+    text-align: right;
+    user-select: none;
+  }
+
+  .line-content {
+    color: var(--muted);
+  }
+
+  .t-keyword { color: var(--cyan); }
+  .t-prop { color: var(--white); }
+  .t-string { color: var(--green); }
+  .t-comment { color: rgba(139, 139, 150, 0.4); font-style: italic; }
+  .t-prompt { color: var(--green); }
+  .t-val { color: var(--muted); }
+  .t-status { color: var(--green); font-weight: 600; }
+
+  .code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .code-dot.red { background: #ff5f57; }
+  .code-dot.yellow { background: #ffbd2e; }
+  .code-dot.green { background: #28c840; }
+
+  /* Currently / system log */
+  .currently {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+
+  .currently-header {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .currently-header::before {
+    content: "●";
+    color: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  .currently-body {
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.9;
+  }
+
+  .log-line {
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .log-time {
+    color: rgba(139, 139, 150, 0.5);
+    margin-right: 10px;
+  }
+
+  .log-level {
+    color: var(--green);
+    margin-right: 10px;
+  }
+
+  .log-line span:last-child strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @media (max-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .about-text {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .about-quote {
+      text-align: left;
+    }
+
+    .about-editor {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about-editor-body {
+      grid-template-columns: 1fr;
+    }
+
+    .editor-sidebar {
+      display: none;
+    }
+
+    .about-text h2 {
+      font-size: 1.6rem;
+    }
+
+    .about-editor {
+      font-size: 0.72rem;
+    }
+
+    .currently {
+      margin-top: 36px;
+    }
+
+    .currently-body {
+      font-size: 0.75rem;
+      padding: 14px 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .currently-header::before {
+      animation: none;
+    }
+  }
+</style>

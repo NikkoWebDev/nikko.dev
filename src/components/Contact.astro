@@ -1,0 +1,178 @@
+---
+import { getTranslation, type Lang } from "../data/translations";
+export interface Props { lang?: Lang; }
+const { lang = "es" } = Astro.props;
+
+const contactLinks = [
+  {
+    href: "https://wa.me/573136638097",
+    cmd: getTranslation("contact.cmd.whatsapp", lang),
+    label: getTranslation("contact.label.whatsapp", lang),
+    icon: "💬",
+    isWA: true,
+    external: true,
+  },
+  {
+    href: "mailto:nikolasgallo095@gmail.com",
+    cmd: getTranslation("contact.cmd.email", lang),
+    label: getTranslation("contact.label.email", lang),
+    isWA: false,
+    external: false,
+  },
+  {
+    href: "https://github.com/NikkoWebDev",
+    cmd: getTranslation("contact.cmd.github", lang),
+    label: getTranslation("contact.label.github", lang),
+    isWA: false,
+    external: true,
+  },
+  {
+    href: "https://www.linkedin.com/in/nikolas-gallo-25546b375/",
+    cmd: getTranslation("contact.cmd.linkedin", lang),
+    label: "LinkedIn",
+    isWA: false,
+    external: true,
+  },
+];
+---
+
+<section id="contacto" class="contact-section">
+  <div class="container">
+    <div class="section-label">{getTranslation("contact.eyebrow", lang)}</div>
+    <h2 class="section-title">{getTranslation("contact.title", lang)}</h2>
+    <p class="section-desc">{getTranslation("contact.desc", lang)}</p>
+
+    <div class="contact-shell">
+      <div class="contact-shell-header">
+        {getTranslation("contact.shell.header", lang)}
+      </div>
+      <div class="contact-list">
+        {contactLinks.map((link) => (
+          <a
+            href={link.href}
+            class={`contact-cmd ${link.isWA ? "wa-cmd" : ""}`}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+          >
+            {link.icon && <span class="wa-icon">{link.icon}</span>}
+            <span class="cmd-prompt">$</span>
+            <span class="cmd-name">contact</span>
+            <span class="cmd-args">--via {link.cmd}</span>
+            <span class="cmd-desc">{link.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding: 96px 0;
+  }
+
+  .contact-section .container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono, 'JetBrains Mono', monospace);
+    font-size: 0.75rem;
+    color: var(--green, #00D084);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    color: var(--white, #F8FAFC);
+  }
+
+  .section-desc {
+    color: var(--muted, #94A3B8);
+    max-width: 650px;
+    margin-bottom: 3rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .contact-shell {
+    background: var(--surface, #111827);
+    border: 1px solid var(--line, rgba(255,255,255,0.08));
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .contact-shell-header {
+    background: var(--bg-2, #0A1325);
+    border-bottom: 1px solid var(--line, rgba(255,255,255,0.08));
+    padding: 0.8rem 1.2rem;
+    font-family: var(--mono, 'JetBrains Mono', monospace);
+    font-size: 0.78rem;
+    color: var(--muted, #94A3B8);
+  }
+
+  .contact-list {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .contact-cmd {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--muted, #94A3B8);
+    transition: all 0.2s ease;
+    font-family: var(--mono, 'JetBrains Mono', monospace);
+    font-size: 0.95rem;
+  }
+
+  .contact-cmd:hover {
+    background: var(--bg-2, #0A1325);
+    color: var(--white, #F8FAFC);
+  }
+
+  .contact-cmd.wa-cmd {
+    background: rgba(37, 211, 102, 0.08);
+    border: 1px solid rgba(37, 211, 102, 0.18);
+  }
+
+  .contact-cmd.wa-cmd:hover {
+    background: rgba(37, 211, 102, 0.14);
+    border-color: #25D366;
+    box-shadow: 0 0 24px rgba(37, 211, 102, 0.15);
+  }
+
+  .wa-icon {
+    color: #25D366;
+    font-size: 1.1rem;
+  }
+
+  .cmd-prompt { color: var(--green, #00D084); }
+  .cmd-name { color: var(--white, #F8FAFC); font-weight: 600; }
+  .cmd-args { color: var(--cyan, #58D8FF); }
+  .cmd-desc {
+    color: var(--muted, #94A3B8);
+    margin-left: auto;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-section { padding: 72px 0; }
+    .section-title { font-size: 1.8rem; }
+    .contact-list { padding: 1rem; }
+    .contact-cmd { flex-wrap: wrap; gap: 0.5rem; font-size: 0.88rem; }
+    .cmd-desc { margin-left: 0; width: 100%; padding-left: 1.6rem; }
+  }
+</style>

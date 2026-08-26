@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NikkoDev — Propuesta Mint Glassmorphism</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--mint:#10B981;--mint2:#34D399;--ink:#022C22;--muted:#5A7468;--line:rgba(16,185,129,0.14);--glass:rgba(255,255,255,0.68)}
+body{font-family:Inter,system-ui;background:
+  radial-gradient(1200px 600px at 10% -10%, #D1FAE5 0%, transparent 60%),
+  radial-gradient(900px 500px at 90% 0%, #A7F3D0 0%, transparent 55%),
+  radial-gradient(800px 600px at 50% 120%, #E0FFF2 0%, transparent 50%),
+  #F0FDF6;color:var(--ink);line-height:1.6}
+body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(16,185,129,0.10) 1.2px, transparent 1.2px);background-size:32px 32px;opacity:.7;pointer-events:none;z-index:-1}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px, calc(100% - 32px));margin:0 auto}
+.topbar{position:sticky;top:14px;z-index:10;margin-top:14px}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 14px;background:rgba(255,255,255,0.78);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(16,185,129,0.14);border-radius:999px;box-shadow:0 8px 32px rgba(16,185,129,0.10)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.03em}
+.brand-mark{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#10B981,#34D399);color:#022C22;font-family:JetBrains Mono,monospace;box-shadow:0 4px 16px rgba(16,185,129,.28)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,0.72);border:1px solid rgba(16,185,129,0.18);color:#059669;font-family:JetBrains Mono,monospace;font-size:.78rem;font-weight:600;box-shadow:0 4px 16px rgba(16,185,129,.08)}
+.hero{padding:48px 0 32px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+h1{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.02;letter-spacing:-.04em;font-weight:900}
+h1 em{font-style:normal;background:linear-gradient(135deg,#10B981,#14B8A6);-webkit-background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:560px;margin-top:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{padding:14px 20px;border-radius:999px;font-weight:700;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:#10B981;color:#022C22;box-shadow:0 8px 24px rgba(16,185,129,.22)}
+.btn-ghost{background:rgba(255,255,255,0.72);backdrop-filter:blur(12px);border-color:rgba(16,185,129,.18);color:#022C22}
+.code{border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.68);backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(16,185,129,.14);box-shadow:0 8px 32px rgba(16,185,129,.12)}
+.code-head{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,255,255,.45);border-bottom:1px solid rgba(16,185,129,.12);font-family:JetBrains Mono,monospace;font-size:.78rem;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%}.dot.r{background:#FF5F57}.dot.y{background:#FFBD2E}.dot.g{background:#28C840}
+.code-body{padding:18px 20px;font-family:JetBrains Mono,monospace;font-size:.84rem;line-height:1.9;color:#344E41}
+.k{color:#0E9F6E;font-weight:600}.s{color:#059669}.p{color:#022C22;font-weight:600}.c{color:#8FA89B;font-style:italic}
+.section{padding:42px 0}
+.section h2{font-size:clamp(1.8rem,3.5vw,2.4rem);letter-spacing:-.04em;font-weight:800}
+.section p.sub{color:var(--muted);max-width:680px}
+.glass{padding:20px;border-radius:18px;background:rgba(255,255,255,0.64);backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(16,185,129,.14);box-shadow:0 8px 32px rgba(16,185,129,.08)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+@media(max-width:900px){.grid3{grid-template-columns:1fr}}
+/* Tabs agrupadas — no apiladas */
+.tabs{display:flex;flex-wrap:nowrap;gap:0;overflow-x:auto;overflow-y:hidden;background:rgba(255,255,255,.42);border:1px solid rgba(16,185,129,.12);border-radius:14px;padding:6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:10px 14px;border-radius:999px;font-family:JetBrains Mono,monospace;font-size:.78rem;color:var(--muted);white-space:nowrap;border:1px solid transparent;cursor:pointer}
+.tab.active{background:#022C22;color:#ECFDF5;border-color:#022C22;box-shadow:0 4px 16px rgba(2,44,34,.12)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{padding:6px 10px;border-radius:999px;background:rgba(16,185,129,.10);border:1px solid rgba(16,185,129,.14);color:#047857;font-family:JetBrains Mono,monospace;font-size:.72rem}
+.nota{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.72);border:1px dashed rgba(16,185,129,.22);color:var(--muted);font-size:.9rem}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+@media(max-width:860px){.proj-grid{grid-template-columns:1fr}}
+.proj{padding:16px;border-radius:16px;background:rgba(255,255,255,0.62);border:1px solid rgba(16,185,129,.12)}
+.proj h4{font-family:JetBrains Mono,monospace;font-size:.72rem;color:#0E9F6E;text-transform:uppercase;letter-spacing:.06em}
+.proj h4::before{content:"// ";color:#8FA89B}
+.proj p{color:var(--muted);font-size:.92rem;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="container"><div class="topbar-inner"><div class="brand"><div class="brand-mark">N</div> NikkoDev <span style="color:#10B981">mint</span></div><div style="display:flex;gap:10px;align-items:center"><span class="badge">● Maqueta propuesta</span><a href="/" class="btn btn-ghost" style="padding:8px 14px">Volver al sitio</a></div></div></div></div>
+
+<section class="hero container">
+  <div class="hero-grid">
+    <div>
+      <div class="badge">freelance remoto · disponible · menta glass</div>
+      <h1>Soy Brayan. Hago cosas web que <em>cargan rápido y no desperdician un solo byte.</em></h1>
+      <p class="lead">Propuesta Mint Glassmorphism: clara, aireada, con tabs <b>agrupadas</b> no apiladas. Fondo menta muy suave, cards con <code style="font-family:JetBrains Mono">backdrop-blur(16px)</code> y bordes de 1px. Todo visible, sin neón hacker.</p>
+      <div class="cta"><a class="btn btn-primary" href="https://wa.me/573136638097">WhatsApp</a><a class="btn btn-ghost" href="#tabs">Ver tabs agrupadas ↓</a></div>
+      <div class="nota"><b>Por qué menta y no hacker:</b> el verde menta transmite calma, profesionalismo y frescura (fintech/bio), mientras el neón sobre negro fatiga y esconde contenido. Glass claro mejora contraste y hace que todo se vea premium sin perder velocidad. Tabs agrupadas = descubrimiento instantáneo, no scroll vertical infinito.</div>
+    </div>
+    <div class="code">
+      <div class="code-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:8px">nikko.config.js</span></div>
+      <div class="code-body">
+        <div><span class="k">export default</span> {</div>
+        <div>&nbsp;&nbsp;<span class="p">alias</span>: <span class="s">"NikkoDev"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="p">style</span>: <span class="s">"mint · glass · claro"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="p">tabs</span>: <span class="s">"agrupadas · no apiladas"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="p">bg</span>: <span class="s">"#F0FDF6 + blur 16px"</span>,</div>
+        <div>}</div>
+        <div style="margin-top:8px"><span class="c">// construir lo que necesitas, nada más</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="tabs">
+  <h2>Tabs agrupadas, no apiladas</h2>
+  <p class="sub">El error anterior era apilar tabs verticalmente. Aquí van en una sola fila con scroll horizontal suave. Todas a la vista, sin saltos.</p>
+  <div class="glass" style="margin-top:16px">
+    <div class="tabs" role="tablist" aria-label="Proyectos">
+      <div class="tab active">◆ FIBOG.tsx</div>
+      <div class="tab">SinPresupuesto.ts</div>
+      <div class="tab">Autorreparacion.astro</div>
+      <div class="tab">InduSEC.astro</div>
+      <div class="tab">PawCare.tsx</div>
+      <div class="tab">Kala-Chat.astro</div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj"><h4>El problema</h4><p>Facultad sin directorio central de semilleros. Información dispersa, sin permisos.</p></div>
+      <div class="proj"><h4>Qué hice</h4><p>Plataforma Astro + Supabase RLS + RPC, con búsqueda IA y panel admin.</p></div>
+      <div class="proj"><h4>Resultado</h4><p>13 grupos gestionados, 11k líneas, workflow institucional.</p></div>
+      <div class="proj"><h4>Lo que aprendí</h4><p>RLS bien hecho evita un backend extra. Edge + SSG = costo casi cero.</p></div>
+    </div>
+    <div class="chips"><span class="chip">Astro</span><span class="chip">Supabase</span><span class="chip">RLS</span><span class="chip">PostgreSQL</span><span class="chip">Menta Glass</span></div>
+  </div>
+  <div class="nota" style="margin-top:14px">Visibilidad: tipografía oscura #022C22 sobre vidrio claro. Contraste AA. Nada se pierde en el fondo. Si algo no se ve, es bug, no estilo.</div>
+</section>
+
+<section class="section container">
+  <h2>Mejora que propongo</h2>
+  <p class="sub">Quemando tokens: iteración completa. Esto es lo que ya estoy aplicando al sitio real.</p>
+  <div class="grid3">
+    <div class="glass"><h3 style="font-size:1.05rem">Claridad máxima</h3><p style="color:var(--muted);margin-top:6px">Fondo con 3 radiales menta muy suaves. Dot grid 32px. Cards con blur 16px. Todo respira.</p></div>
+    <div class="glass"><h3 style="font-size:1.05rem">Glass real</h3><p style="color:var(--muted);margin-top:6px">No es un color sólido. Es <code style="font-family:JetBrains Mono">rgba(255,255,255,.64) + blur</code>. Se ve el fondo por debajo.</p></div>
+    <div class="glass"><h3 style="font-size:1.05rem">Tabs en fila</h3><p style="color:var(--muted);margin-top:6px">Flex nowrap + overflow-x auto. En desktop todo horizontal. En móvil swipe, no stack.</p></div>
+  </div>
+  <div class="glass" style="margin-top:16px">
+    <h3>Oportunidades detectadas (para el código real)</h3>
+    <ul style="margin-top:10px;padding-left:18px;color:var(--muted)">
+      <li>Reemplazar cualquier texto claro sobre fondo claro — ya corregido a #022C22</li>
+      <li>Estandarizar radios a 18px/24px y sombras a 0 8px 32px mint</li>
+      <li>Unificar chips/tags a pill menta 10% con borde 14%</li>
+      <li>Evitar transforms 3D pesados en hero-code en mobile</li>
+      <li>Asegurar que el statusbar inferior no tapa contenido (padding-bottom 28px)</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="container" style="padding:24px 0 40px;color:var(--muted);font-size:.85rem">
+  Maqueta <b>opcion.html</b> — propuesta mint glassmorphism para NikkoDev. Siguiente paso: aplicar 1:1 al sitio y auditar con visión. <a href="/" style="color:#059669;text-decoration:underline">Volver al sitio real</a>
+</footer>
+</body>
+</html>

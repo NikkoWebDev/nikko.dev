@@ -1,0 +1,4 @@
+# NikkoDev Portfolio
+User-agent: *
+Allow: /
+Sitemap: https://nikko.dev/sitemap.xml

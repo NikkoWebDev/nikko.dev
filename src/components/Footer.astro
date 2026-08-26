@@ -1,0 +1,134 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">N</div>
+        <div>
+          <strong>NikkoDev OS</strong>
+          <span class="footer-version">v2.0 · edge-first</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/NikkoWebDev" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/nikolas-gallo-25546b375/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://wa.me/573136638097" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-terminal">
+      <span class="term-line">
+        <span class="prompt">$</span>
+        <span class="cmd">echo $MANTRA</span>
+      </span>
+      <span class="footer-mantra">Técnica por dentro. Hermosa por fuera. Optimizada hasta el último byte.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/573136638097" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+</a>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    margin-top: 40px;
+  }
+
+  .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    color: var(--bg);
+    font-family: var(--mono);
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+
+  .footer-brand strong {
+    display: block;
+    font-size: 1rem;
+  }
+
+  .footer-version {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-family: var(--mono);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-terminal {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  .footer-terminal .prompt { color: var(--green); }
+  .footer-terminal .cmd { color: var(--muted); }
+
+  .footer-mantra {
+    color: var(--muted);
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 0.82rem;
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1000;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    color: var(--bg);
+    box-shadow: 0 0 30px rgba(0,208,132,0.35);
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .whatsapp-float:hover { transform: scale(1.08); }
+
+  @media (max-width: 640px) {
+    .site-footer { padding: 28px 0; }
+    .footer-content { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-links { justify-content: center; flex-wrap: wrap; }
+    .footer-mantra { font-size: 0.78rem; }
+  }
+</style>
