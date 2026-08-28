@@ -205,9 +205,11 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-tabs {
     display: flex;
     flex-wrap: nowrap;
-    gap: 0;
-    background: rgba(255,255,255,0.42);
-    border-bottom: 1px solid rgba(16,185,129,0.12);
+    gap: 6px;
+    background: rgba(255,255,255,0.48);
+    border: 1px solid rgba(16,185,129,0.12);
+    border-radius: 999px;
+    padding: 6px;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -216,24 +218,26 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-tabs::-webkit-scrollbar { display: none; }
 
   .editor-tab {
-    padding: 12px 18px;
+    padding: 8px 14px;
     font-family: var(--mono);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     color: var(--muted);
-    border-right: 1px solid rgba(16,185,129,0.10);
+    border: 1px solid transparent;
+    border-radius: 999px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     white-space: nowrap;
     flex: 0 0 auto;
-    transition: all 0.2s;
+    transition: all 0.2s var(--ease);
   }
 
   .editor-tab.active {
-    background: rgba(255,255,255,0.92);
-    color: #022C22;
-    border-top: 2px solid #10B981;
+    background: #022C22;
+    color: #ECFDF5;
+    border-color: #022C22;
     font-weight: 600;
+    box-shadow: 0 4px 14px rgba(2,44,34,0.12);
   }
 
   .editor-tab-icon {
