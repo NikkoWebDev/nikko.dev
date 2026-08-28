@@ -432,28 +432,59 @@ h2.display-sm {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  color: var(--bg);
+  background: linear-gradient(135deg, #10B981 0%, #0E9F6E 100%);
+  color: #FFFFFF;
   font-weight: 800;
-  box-shadow: 0 0 30px rgba(16,185,129, 0.25);
+  border: 1px solid rgba(255,255,255,0.6);
+  /* neumorfismo suave sobre fondo menta */
+  box-shadow:
+    6px 6px 14px rgba(16,185,129,0.18),
+    -6px -6px 14px rgba(255,255,255,0.92),
+    inset 1px 1px 1px rgba(255,255,255,0.7),
+    inset -1px -1px 1px rgba(0,0,0,0.04);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(16,185,129,0.24);
+  transform: translateY(-1px);
+  box-shadow:
+    8px 8px 18px rgba(16,185,129,0.22),
+    -8px -8px 18px rgba(255,255,255,0.95),
+    inset 1px 1px 1px rgba(255,255,255,0.8);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 4px 4px 8px rgba(16,185,129,0.22),
+    inset -4px -4px 8px rgba(255,255,255,0.9);
 }
 
 .btn-ghost {
-  border-color: var(--line);
-  color: var(--white);
-  background: var(--glass-light);
-  backdrop-filter: blur(8px);
+  border-color: rgba(16,185,129,0.14);
+  color: #022C22;
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  /* neumorfismo claro */
+  box-shadow:
+    5px 5px 12px rgba(16,185,129,0.10),
+    -5px -5px 12px rgba(255,255,255,0.92),
+    inset 1px 1px 1px rgba(255,255,255,0.85);
 }
 
 .btn-ghost:hover {
-  background: var(--glass-card-hover);
-  border-color: var(--line-green);
-  box-shadow: var(--glow-green);
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(16,185,129,0.22);
+  box-shadow:
+    7px 7px 16px rgba(16,185,129,0.14),
+    -7px -7px 16px rgba(255,255,255,0.95),
+    inset 1px 1px 1px rgba(255,255,255,0.9);
+}
+
+.btn-ghost:active {
+  box-shadow:
+    inset 4px 4px 8px rgba(16,185,129,0.14),
+    inset -4px -4px 8px rgba(255,255,255,0.95);
 }
 
 /* ── Tags ── */

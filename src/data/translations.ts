@@ -18,7 +18,7 @@ export const t: TranslationMap = {
   "hero.prompt": { es: "$ nikko run intro", en: "$ nikko run intro" },
   "hero.title.line1": { es: "Soy Brayan. Hago cosas web que", en: "I'm Brayan. I build web things that" },
   "hero.title.line2": { es: "cargan rápido y no desperdician un solo byte.", en: "load fast and don't waste a single byte." },
-  "hero.desc": { es: "Si necesitas transporte, agarras moto. No un carro con techo, vidrios eléctricos y aire acondicionado pa' ir a la tienda de la esquina. Con el software es igual: construyo lo que necesitas, nada más. Sin librerías de 400 kb que nadie usa, sin frameworks inflados porque están de moda.", en: "If you need to get somewhere, you grab a motorcycle. Not a car with a roof, electric windows and air conditioning just to go to the corner store. Software works the same: I build what you need, nothing more. No 400 KB libraries nobody uses, no bloated frameworks just because they're trending." },
+  "hero.desc": { es: "Elegancia que convierte, rendimiento que enamora. Construyo experiencias digitales que respiran: ligeras como el aire, sólidas como la confianza que generan. Sin peso muerto, sin distracciones. Solo lo esencial, ejecutado con precisión quirúrgica.", en: "Elegance that converts, performance that captivates. I craft digital experiences that breathe: light as air, solid as the trust they build. No dead weight, no distractions. Just the essential, executed with surgical precision." },
   "hero.loc": { es: "Estudio Ingeniería de Sistemas en la UNAL · Trabajo remoto · Estoy disponible", en: "Systems Engineering student at UNAL · Remote work · Available" },
   "hero.cta.whatsapp": { es: "WhatsApp", en: "WhatsApp" },
   "hero.cta.projects": { es: "Ver qué hice", en: "See what I built" },
@@ -45,7 +45,7 @@ export const t: TranslationMap = {
   // Services
   "services.eyebrow": { es: "/ servicios", en: "/ services" },
   "services.title": { es: "Soluciones digitales para negocios que necesitan resultados.", en: "Digital solutions for businesses that need results." },
-  "services.sub": { es: "No solo páginas bonitas. Presencia digital que vende, automatización que ahorra tiempo e IA que resuelve problemas reales.", en: "Not just pretty pages. Digital presence that sells, automation that saves time and AI that solves real problems." },
+  "services.sub": { es: "Diseño que seduce, tecnología que respalda. Cada píxel tiene propósito, cada interacción genera valor. No es magia, es obsessión por el detalle.", en: "Design that seduces, technology that backs it up. Every pixel has purpose, every interaction creates value. Not magic — obsession with detail." },
   "services.card1.title": { es: "Landing pages premium", en: "Premium Landing Pages" },
   "services.card1.desc": { es: "Sitios rápidos y visuales diseñados para convertir visitantes en clientes por WhatsApp, formularios o email. SEO, responsive, animaciones suaves y deploy incluido.", en: "Fast, visual sites designed to turn visitors into customers via WhatsApp, forms or email. SEO, responsive, smooth animations and deployment included." },
   "services.card2.title": { es: "Apps web con IA", en: "Web Apps with AI" },
@@ -102,8 +102,8 @@ export const t: TranslationMap = {
   // About
   "about.eyebrow": { es: "// quién soy", en: "// who I am" },
   "about.title": { es: "Si nos tomamos un café y me preguntas qué hago:", en: "If we grab coffee and you ask what I do:" },
-  "about.quote": { es: "No construyo cosas bonitas por hobby. Construyo cosas que funcionan porque alguien las necesita.", en: "I don't build pretty things as a hobby. I build things that work because someone needs them." },
-  "about.story": { es: "Soy un obsesionado con la velocidad: si tengo 2 GB de RAM, exprimo cada byte. No por deporte, sino porque crecí sabiendo que los recursos no alcanzan y toca hacer más con menos. No me pongo la etiqueta 'full stack' porque queda bonita en LinkedIn: soy backend con frontend sólido e IA aplicada. Si el proyecto necesita animaciones fluidas, uso GSAP y Astro pa' que pese poco y posicione bien; si necesita un chatbot empresarial, meto modelos locales o DeepSeek V3 Flash pa' no quemar presupuesto en tokens. Estoy en segundo año de ingeniería, no tengo 10 años de experiencia, pero sí proyectos reales que usa gente real y la costumbre de no quedarme en lo básico.", en: "I'm obsessed with speed: if I have 2 GB of RAM, I squeeze every byte. Not for sport, but because I grew up knowing resources don't stretch far and you have to do more with less. I don't call myself 'full stack' because it looks good on LinkedIn: I'm backend with solid frontend and applied AI. If a project needs smooth animations, I use GSAP and Astro so it stays light and ranks well; if it needs a business chatbot, I use local models or DeepSeek V3 Flash so I don't burn the budget on tokens. I'm in my second year of engineering, I don't have 10 years of experience, but I do have real projects used by real people and a habit of not staying at the basics." },
+  "about.quote": { es: "La verdadera sofisticación no se ve. Se siente.", en: "True sophistication isn't seen. It's felt." },
+  "about.story": { es: "Creo en la belleza de lo esencial. Cada línea de código es una decisión consciente, cada animación una caricia visual, cada milisegundo ahorrado un regalo para quien nos elige. No acumulo títulos, acumulo confianza: la de la UNAL que me formó, la de empresas que vieron su idea cobrar vida, la de cada usuario que encuentra lo que busca sin esfuerzo. Segundo año de ingeniería, sí. Pero con la madurez de quien entiende que la tecnología más elegante es aquella que se hace invisible.", en: "I believe in the beauty of the essential. Every line of code is a conscious decision, every animation a visual caress, every millisecond saved a gift to those who choose us. I don't collect titles, I collect trust: from UNAL that shaped me, from companies that saw their idea come alive, from every user who finds what they seek effortlessly. Second year of engineering, yes. But with the maturity of someone who understands that the most elegant technology is that which becomes invisible." },
   "about.badge.unal": { es: "UNAL · Ingeniería de Sistemas · 2do año", en: "UNAL · Systems Engineering · 2nd year" },
   "about.highlight1": { es: "Optimización extrema · más con menos", en: "Extreme optimization · more with less" },
   "about.highlight2": { es: "IA aplicada sin quemar presupuesto", en: "Applied AI without burning budget" },
@@ -204,7 +204,7 @@ export const t: TranslationMap = {
   // Contact
   "contact.eyebrow": { es: "// contacto", en: "// contact" },
   "contact.title": { es: "¿Tienes un proyecto o una idea?", en: "Got a project or an idea?" },
-  "contact.desc": { es: "Escribime al WhatsApp. Sin formularios de cinco campos ni correos que se pierden. Un mensaje y hablamos.", en: "Write me on WhatsApp. No five-field forms or emails that get lost. One message and we talk." },
+  "contact.desc": { es: "¿Listo para crear algo extraordinario? Un mensaje. Una conversación. Un proyecto que hable por ti. La elegancia está en la simplicidad del primer paso.", en: "Ready to create something extraordinary? One message. One conversation. One project that speaks for you. Elegance lies in the simplicity of the first step." },
   "contact.cv": { es: "Descargar CV", en: "Download CV" },
   "contact.shell.header": { es: "nikko@dev:~$ contact --list", en: "nikko@dev:~$ contact --list" },
   "contact.cmd.whatsapp": { es: "whatsapp", en: "whatsapp" },

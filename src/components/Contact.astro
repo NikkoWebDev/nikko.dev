@@ -103,19 +103,24 @@ const contactLinks = [
   }
 
   .contact-shell {
-    background: var(--surface, #111827);
-    border: 1px solid var(--line, rgba(255,255,255,0.08));
-    border-radius: 16px;
+    background: rgba(255,255,255,0.66);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(16,185,129,0.14);
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow:
+      8px 8px 24px rgba(16,185,129,0.10),
+      -8px -8px 24px rgba(255,255,255,0.92);
   }
 
   .contact-shell-header {
-    background: var(--bg-2, #0A1325);
-    border-bottom: 1px solid var(--line, rgba(255,255,255,0.08));
+    background: rgba(255,255,255,0.45);
+    border-bottom: 1px solid rgba(16,185,129,0.12);
     padding: 0.8rem 1.2rem;
     font-family: var(--mono, 'JetBrains Mono', monospace);
     font-size: 0.78rem;
-    color: var(--muted, #94A3B8);
+    color: var(--muted, #5A7468);
   }
 
   .contact-list {

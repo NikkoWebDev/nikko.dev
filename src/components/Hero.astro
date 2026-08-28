@@ -174,25 +174,43 @@ const { lang = "es" } = Astro.props;
     align-items: center;
     gap: 10px;
     padding: 16px 28px;
-    background: var(--green-wa);
-    color: #000;
-    border: none;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #10B981, #0E9F6E);
+    color: #FFFFFF;
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 999px;
     font-size: 1rem;
     font-weight: 800;
     text-decoration: none;
-    transition: all 0.2s var(--ease-out);
-    animation: wa-glow 2.5s ease-in-out infinite;
+    transition: all 0.22s var(--ease-out);
+    /* neumorfismo sobre menta + glass */
+    box-shadow:
+      6px 6px 14px rgba(16,185,129,0.20),
+      -6px -6px 14px rgba(255,255,255,0.92),
+      inset 1px 1px 1px rgba(255,255,255,0.75);
   }
 
   .btn-wa:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+    transform: translateY(-1px) scale(1.01);
+    box-shadow:
+      8px 8px 18px rgba(16,185,129,0.24),
+      -8px -8px 18px rgba(255,255,255,0.96),
+      inset 1px 1px 1px rgba(255,255,255,0.85);
+  }
+
+  .btn-wa:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow:
+      inset 5px 5px 10px rgba(16,185,129,0.20),
+      inset -5px -5px 10px rgba(255,255,255,0.95);
   }
 
   @keyframes wa-glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    50% { box-shadow: 0 0 24px 6px rgba(37, 211, 102, 0.18); }
+    0%, 100% { box-shadow:
+      6px 6px 14px rgba(16,185,129,0.20),
+      -6px -6px 14px rgba(255,255,255,0.92); }
+    50% { box-shadow:
+      8px 8px 20px rgba(16,185,129,0.26),
+      -8px -8px 20px rgba(255,255,255,0.96); }
   }
 
   .btn-secondary {
@@ -200,19 +218,26 @@ const { lang = "es" } = Astro.props;
     align-items: center;
     gap: 8px;
     padding: 16px 28px;
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 10px;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    color: #022C22;
+    border: 1px solid rgba(16,185,129,0.14);
+    border-radius: 999px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.2s var(--ease-out);
+    transition: all 0.22s var(--ease-out);
+    box-shadow:
+      5px 5px 12px rgba(16,185,129,0.10),
+      -5px -5px 12px rgba(255,255,255,0.92),
+      inset 1px 1px 1px rgba(255,255,255,0.85);
   }
 
   .btn-secondary:hover {
-    border-color: var(--green);
-    color: var(--green);
+    background: rgba(255,255,255,0.88);
+    border-color: rgba(16,185,129,0.22);
+    color: #047857;
     box-shadow: 0 0 16px rgba(16,185,129, 0.1);
   }
 
