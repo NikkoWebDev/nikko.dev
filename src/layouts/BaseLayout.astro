@@ -363,16 +363,30 @@ const jsonLd = {
   <div class="cursor-glow" id="cursorGlow"></div>
 
   <script>
-    // ── Page Progress Bar ──
+    import { track } from '../lib/analytics';
+
+    // ── Page Progress Bar + scroll depth ──
     (() => {
       const bar = document.getElementById('pageProgress');
       if (!bar) return;
       let ticking = false;
+      // Dispara scroll_25/50/75/100 una sola vez cada uno, reusando el
+      // mismo listener de scroll del progress bar (sin duplicar lógica).
+      const depthFired = new Set();
+      const checkDepth = (progress) => {
+        [25, 50, 75, 100].forEach((mark) => {
+          if (progress >= mark && !depthFired.has(mark)) {
+            depthFired.add(mark);
+            track(`scroll_${mark}`);
+          }
+        });
+      };
       const update = () => {
         const scroll = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = docHeight > 0 ? (scroll / docHeight) * 100 : 0;
         bar.style.width = Math.min(progress, 100) + '%';
+        checkDepth(progress);
         ticking = false;
       };
       window.addEventListener('scroll', () => {
@@ -423,6 +437,27 @@ const jsonLd = {
         lastEvent = e;
         if (rafId === null) rafId = requestAnimationFrame(render);
       }, { passive: true });
+    })();
+
+    // ── Analítica: clicks delegados con [data-track] ──
+    // Un solo listener para toda la página; los elementos marcan el evento
+    // con data-track="nombre" y props opcionales data-track-prop-<clave>.
+    (() => {
+      document.addEventListener('click', (e) => {
+        const el = e.target && typeof e.target.closest === 'function'
+          ? e.target.closest('[data-track]')
+          : null;
+        if (!el) return;
+        const name = el.getAttribute('data-track');
+        if (!name) return;
+        const props = Object.create(null);
+        for (const attr of el.attributes) {
+          if (attr.name.startsWith('data-track-prop-')) {
+            props[attr.name.slice('data-track-prop-'.length)] = attr.value;
+          }
+        }
+        track(name, props);
+      });
     })();
   </script>
 </body>

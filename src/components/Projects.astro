@@ -103,7 +103,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
 
     {projects.map((project) => (
       <article class="editor-window" id={`proyecto-${project.id}`}>
-        <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer">
+        <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
           <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
           <span>{getTranslation("projects.btn.demo", lang)} ↗</span>
         </a>
@@ -114,11 +114,11 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
               <div class="editor-tagline">{getTranslation(`projects.${project.id}.tagline` as any, lang)}</div>
             </div>
             <div class="editor-links">
-              <a href={project.demo} target="_blank" rel="noopener noreferrer">
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
                 {getTranslation("projects.btn.demo", lang)} ↗
               </a>
               {project.code && (
-                <a href={project.code} target="_blank" rel="noopener noreferrer">
+                <a href={project.code} target="_blank" rel="noopener noreferrer" data-track="code_click">
                   {getTranslation("projects.btn.code", lang)} ↗
                 </a>
               )}

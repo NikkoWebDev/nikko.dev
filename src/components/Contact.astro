@@ -53,6 +53,7 @@ const contactLinks = [
             class={`contact-cmd ${link.isWA ? "wa-cmd" : ""}`}
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noopener noreferrer" : undefined}
+            data-track={link.isWA ? "whatsapp_click" : undefined}
           >
             {link.icon && <span class="wa-icon">{link.icon}</span>}
             <span class="cmd-prompt">$</span>

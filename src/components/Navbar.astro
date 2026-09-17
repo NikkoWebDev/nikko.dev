@@ -36,7 +36,7 @@ const { lang = "es" } = Astro.props;
         <span class="lang-divider">/</span>
         <span class={`lang-text ${lang === "es" ? "inactive" : ""}`}>EN</span>
       </button>
-      <a class="btn btn-primary btn-sm" href="https://wa.me/573136638097" target="_blank" rel="noopener">
+      <a class="btn btn-primary btn-sm" href="https://wa.me/573136638097" target="_blank" rel="noopener" data-track="whatsapp_click">
         {getTranslation("nav.hablemos", lang)}
       </a>
     </div>
@@ -308,15 +308,19 @@ const { lang = "es" } = Astro.props;
   <a href="#sobre-mi" data-mobile-close>{getTranslation("nav.sobre-mi", lang)}</a>
   <a href="#experiencia" data-mobile-close>{getTranslation("nav.experiencia", lang)}</a>
   <a href="#contacto" data-mobile-close>{getTranslation("nav.contacto", lang)}</a>
-  <a class="btn btn-primary" href="https://wa.me/573136638097" target="_blank" rel="noopener noreferrer" data-mobile-close>
+  <a class="btn btn-primary" href="https://wa.me/573136638097" target="_blank" rel="noopener noreferrer" data-mobile-close data-track="whatsapp_click">
     {getTranslation("nav.hablemos", lang)}
   </a>
 </div>
 
 <script>
+  import { track } from '../lib/analytics';
+
   // Language toggle — navigate between ES/EN versions
   document.getElementById('langToggle')?.addEventListener('click', () => {
     const currentLang = window.location.pathname.startsWith('/en') ? 'en' : 'es';
+    const target = currentLang === 'es' ? 'en' : 'es';
+    track('lang_toggle', { target });
     const texts = document.querySelectorAll('.lang-text');
     const [es, en] = texts;
     if (currentLang === 'es') {

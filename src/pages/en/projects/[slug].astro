@@ -95,21 +95,26 @@ const whatsapp = "https://wa.me/573136638097";
       </div>
 
       <div class="case-actions">
-        <a class="btn btn-primary" href={project.demo} target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-primary" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
           View demo ↗
         </a>
         {project.repo && (
-          <a class="btn" href={project.repo} target="_blank" rel="noopener noreferrer">
+          <a class="btn" href={project.repo} target="_blank" rel="noopener noreferrer" data-track="code_click">
             View repository ↗
           </a>
         )}
-        <a class="btn" href={whatsapp} target="_blank" rel="noopener noreferrer">
+        <a class="btn" href={whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">
           Let's talk on WhatsApp ↗
         </a>
       </div>
     </div>
   </main>
   <Footer />
+  <script>
+    import { track } from "../../../lib/analytics";
+    // Case study view on mount
+    track("case_view", { slug: "{project.slug}", lang: "{lang}" });
+  </script>
 </BaseLayout>
 
 <style>
