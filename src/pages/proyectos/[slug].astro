@@ -1,0 +1,177 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const lang = "es" as const;
+const title = `${project.title} — Caso de estudio`;
+const description = project.description;
+const whatsapp = "https://wa.me/573136638097";
+---
+
+<BaseLayout title={title} description={description} ogImage={project.image} lang={lang} canonicalPath={`/proyectos/${project.slug}`}>
+  <Navbar lang={lang} />
+  <main>
+    <div class="container case">
+      <a class="case-back" href="/#proyectos">← Volver a proyectos</a>
+
+      <header class="case-head">
+        <div class="eyebrow">// caso de estudio</div>
+        <h1>{project.title}</h1>
+        <p class="section-sub">{project.description}</p>
+      </header>
+
+      <figure class="case-cover">
+        <img
+          src={project.image}
+          alt={`Captura de ${project.title}`}
+          width="1280"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="case-grid">
+        <article class="card">
+          <p class="case-label">01 · El problema</p>
+          <h2>Contexto</h2>
+          <p>{project.problem}</p>
+        </article>
+        <article class="card">
+          <p class="case-label">02 · Qué hice</p>
+          <h2>Implementación</h2>
+          <p>{project.work}</p>
+        </article>
+        <article class="card">
+          <p class="case-label">03 · Resultado</p>
+          <h2>Estado</h2>
+          <p>{project.result}</p>
+        </article>
+        <article class="card">
+          <p class="case-label">04 · Stack</p>
+          <h2>Herramientas</h2>
+          <div class="case-tags">
+            {project.stack.map((item) => <span class="tag">{item}</span>)}
+          </div>
+        </article>
+      </div>
+
+      <div class="case-actions">
+        <a class="btn btn-primary" href={project.demo} target="_blank" rel="noopener noreferrer">
+          Ver demo ↗
+        </a>
+        {project.repo && (
+          <a class="btn" href={project.repo} target="_blank" rel="noopener noreferrer">
+            Ver repositorio ↗
+          </a>
+        )}
+        <a class="btn" href={whatsapp} target="_blank" rel="noopener noreferrer">
+          Hablemos por WhatsApp ↗
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .case {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .case-back {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent-text);
+    text-decoration: none;
+    margin-bottom: 28px;
+  }
+
+  .case-back:hover { text-decoration: underline; }
+
+  .case-head {
+    max-width: 760px;
+    margin-bottom: 32px;
+  }
+
+  .case-head h1 {
+    font-size: clamp(1.8rem, 4.4vw, 3rem);
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+    margin: 10px 0 14px;
+  }
+
+  .case-cover {
+    margin: 0 0 44px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  /* Las capturas son full-page (hasta 12946px de alto): se muestran recortadas
+     arriba, nunca a tamaño completo. */
+  .case-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .case-grid h2 {
+    font-size: 1.15rem;
+    margin: 8px 0 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .case-grid p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .case-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-2-text) !important;
+  }
+
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .case-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  @media (max-width: 720px) {
+    .case { padding-top: 100px; }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-actions { flex-direction: column; }
+    .case-actions .btn { text-align: center; }
+  }
+</style>

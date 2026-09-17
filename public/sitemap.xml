@@ -5,8 +5,90 @@
     <loc>https://nikko.dev/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en" />
-    <lastmod>2026-07-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/" />
+    <lastmod>2026-09-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/fibog</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/fibog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/fibog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/fibog" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/fibog</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/fibog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/fibog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/fibog" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/sinpresupuesto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/sinpresupuesto" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/sinpresupuesto" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/sinpresupuesto" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/sinpresupuesto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/sinpresupuesto" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/sinpresupuesto" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/sinpresupuesto" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/autorreparacion</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/autorreparacion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/autorreparacion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/autorreparacion" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/autorreparacion</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/autorreparacion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/autorreparacion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/autorreparacion" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/indusec</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/indusec" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/indusec" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/indusec" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/indusec</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/indusec" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/indusec" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/indusec" />
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

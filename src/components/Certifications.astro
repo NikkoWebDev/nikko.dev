@@ -31,7 +31,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--cyan);">PC</div>
+        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--accent-2-text);">PC</div>
         <div>
           <small>{getTranslation("certs.card3.small", lang)}</small>
           <h3>{getTranslation("certs.card3.title", lang)}</h3>
@@ -39,7 +39,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(212,168,83,0.08);border-color:rgba(212,168,83,0.15);color:var(--amber);">CA</div>
+        <div class="cert-icon sm" style="background:rgba(212,168,83,0.08);border-color:rgba(212,168,83,0.15);color:var(--amber-text);">CA</div>
         <div>
           <small>{getTranslation("certs.card4.small", lang)}</small>
           <h3>{getTranslation("certs.card4.title", lang)}</h3>
@@ -47,7 +47,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--green);">EX</div>
+        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--accent-text);">EX</div>
         <div>
           <small>{getTranslation("certs.card5.small", lang)}</small>
           <h3>{getTranslation("certs.card5.title", lang)}</h3>
@@ -55,7 +55,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.15);color:var(--violet);">SL</div>
+        <div class="cert-icon sm" style="background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.15);color:var(--violet-text);">SL</div>
         <div>
           <small>{getTranslation("certs.card6.small", lang)}</small>
           <h3>{getTranslation("certs.card6.title", lang)}</h3>
@@ -63,7 +63,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--cyan);">LL</div>
+        <div class="cert-icon sm" style="background:rgba(88,216,255,0.08);border-color:rgba(88,216,255,0.15);color:var(--accent-2-text);">LL</div>
         <div>
           <small>{getTranslation("certs.card7.small", lang)}</small>
           <h3>{getTranslation("certs.card7.title", lang)}</h3>
@@ -71,7 +71,7 @@ const { lang = "es" } = Astro.props;
       </div>
 
       <div class="cert-card">
-        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--green);">ND</div>
+        <div class="cert-icon sm" style="background:rgba(0,208,132,0.08);border-color:var(--line-green);color:var(--accent-text);">ND</div>
         <div>
           <small>{getTranslation("certs.card8.small", lang)}</small>
           <h3>{getTranslation("certs.card8.title", lang)}</h3>
@@ -116,7 +116,7 @@ const { lang = "es" } = Astro.props;
     place-items: center;
     border: 1px solid var(--line-green);
     background: rgba(0, 208, 132, 0.08);
-    color: var(--green);
+    color: var(--accent-text);
     font-family: var(--mono);
     font-weight: 700;
     font-size: 0.8rem;
@@ -130,7 +130,7 @@ const { lang = "es" } = Astro.props;
   }
 
   .cert-card small {
-    color: var(--green);
+    color: var(--accent-text);
     font-family: var(--mono);
     font-size: 0.7rem;
     display: block;

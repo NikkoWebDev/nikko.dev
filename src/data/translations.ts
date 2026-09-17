@@ -14,11 +14,11 @@ export const t: TranslationMap = {
   "nav.hablemos": { es: "Hablemos", en: "Let's talk" },
 
   // Hero
-  "hero.badge": { es: "freelance remoto · disponible", en: "remote freelance · available" },
+  "hero.badge": { es: "freelance · disponible", en: "freelance · available" },
   "hero.prompt": { es: "$ nikko run intro", en: "$ nikko run intro" },
-  "hero.title.line1": { es: "Soy Brayan. Hago cosas web que", en: "I'm Brayan. I build web things that" },
-  "hero.title.line2": { es: "cargan rápido y no desperdician un solo byte.", en: "load fast and don't waste a single byte." },
-  "hero.desc": { es: "Elegancia que convierte, rendimiento que enamora. Construyo experiencias digitales que respiran: ligeras como el aire, sólidas como la confianza que generan. Sin peso muerto, sin distracciones. Solo lo esencial, ejecutado con precisión quirúrgica.", en: "Elegance that converts, performance that captivates. I craft digital experiences that breathe: light as air, solid as the trust they build. No dead weight, no distractions. Just the essential, executed with surgical precision." },
+  "hero.title.line1": { es: "Construyo plataformas web con IA aplicada y", en: "I build web platforms with applied AI and" },
+  "hero.title.line2": { es: "Edge Computing. En producción, no en demos.", en: "Edge Computing. In production, not in demos." },
+  "hero.desc": { es: "Hago webs que cargan rápido y no desperdician un byte. Landings, apps con IA y automatización. Casos reales: una plataforma educativa que pasó de 3s a 0.2s de carga y un sistema que hoy maneja 13 grupos de investigación de la UNAL.", en: "I build sites that load fast and don't waste a byte. Landing pages, AI apps and automation. Real cases: an education platform that went from 3s to 0.2s, and a system running 13 research groups at UNAL." },
   "hero.loc": { es: "Estudio Ingeniería de Sistemas en la UNAL · Trabajo remoto · Estoy disponible", en: "Systems Engineering student at UNAL · Remote work · Available" },
   "hero.cta.whatsapp": { es: "WhatsApp", en: "WhatsApp" },
   "hero.cta.projects": { es: "Ver qué hice", en: "See what I built" },
@@ -45,15 +45,15 @@ export const t: TranslationMap = {
   // Services
   "services.eyebrow": { es: "/ servicios", en: "/ services" },
   "services.title": { es: "Soluciones digitales para negocios que necesitan resultados.", en: "Digital solutions for businesses that need results." },
-  "services.sub": { es: "Diseño que seduce, tecnología que respalda. Cada píxel tiene propósito, cada interacción genera valor. No es magia, es obsessión por el detalle.", en: "Design that seduces, technology that backs it up. Every pixel has purpose, every interaction creates value. Not magic — obsession with detail." },
+  "services.sub": { es: "Diseño que seduce, tecnología que respalda. Cada píxel tiene propósito, cada interacción genera valor. No es magia, es obsesión por el detalle.", en: "Design that seduces, technology that backs it up. Every pixel has purpose, every interaction creates value. Not magic — obsession with detail." },
   "services.card1.title": { es: "Landing pages premium", en: "Premium Landing Pages" },
   "services.card1.desc": { es: "Sitios rápidos y visuales diseñados para convertir visitantes en clientes por WhatsApp, formularios o email. SEO, responsive, animaciones suaves y deploy incluido.", en: "Fast, visual sites designed to turn visitors into customers via WhatsApp, forms or email. SEO, responsive, smooth animations and deployment included." },
   "services.card2.title": { es: "Apps web con IA", en: "Web Apps with AI" },
-  "services.card2.desc": { es: "Plataformas con login, chatbots inteligentes, APIs de IA y paneles de administración. Ideales para startups que quieren lanzar rapido sin gastar de mas.", en: "Platforms with login, smart chatbots, AI APIs and admin dashboards. Ideal for startups that want to launch fast without overspending." },
+  "services.card2.desc": { es: "Plataformas con login, chatbots inteligentes, APIs de IA y paneles de administración. Ideales para startups que quieren lanzar rápido sin gastar de más.", en: "Platforms with login, smart chatbots, AI APIs and admin dashboards. Ideal for startups that want to launch fast without overspending." },
   "services.card3.title": { es: "Optimización y automatización", en: "Optimization & Automation" },
-  "services.card3.desc": { es: "Paginas lentas? Procesos repetitivos? Mejoro velocidad de carga, conecto herramientas, creo bots y automatizo tareas para que tu negocio ahorre tiempo y dinero.", en: "Slow pages? Repetitive processes? I improve load speed, connect tools, build bots and automate tasks so your business saves time and money." },
+  "services.card3.desc": { es: "¿Páginas lentas? ¿Procesos repetitivos? Mejoro velocidad de carga, conecto herramientas, creo bots y automatizo tareas para que tu negocio ahorre tiempo y dinero.", en: "Slow pages? Repetitive processes? I improve load speed, connect tools, build bots and automate tasks so your business saves time and money." },
   "services.card4.title": { es: "Educación en IA", en: "AI Education" },
-  "services.card4.desc": { es: "Talleres para colegios e instituciones sobre inteligencia artificial, prompting, agentes y usos practicos. Sin hype, solo herramientas que funcionan.", en: "Workshops for schools and institutions on artificial intelligence, prompting, agents and practical uses. No hype, just tools that work." },
+  "services.card4.desc": { es: "Talleres para colegios e instituciones sobre inteligencia artificial, prompting, agentes y usos prácticos. Sin hype, solo herramientas que funcionan.", en: "Workshops for schools and institutions on artificial intelligence, prompting, agents and practical uses. No hype, just tools that work." },
 
   // Projects
   "projects.eyebrow": { es: "// lo que construí", en: "// what I built" },
@@ -83,10 +83,10 @@ export const t: TranslationMap = {
 
   // Project: Autorreparación
   "projects.autorep.title": { es: "Autorreparación", en: "Autorreparación" },
-  "projects.autorep.tagline": { es: "Landing para empresa real. SEO, GSAP, conversiones por WhatsApp.", en: "Landing for a real business. SEO, GSAP, WhatsApp conversions." },
+  "projects.autorep.tagline": { es: "Landing para empresa real. SEO, GSAP, contacto directo por WhatsApp.", en: "Landing for a real business. SEO, GSAP, direct WhatsApp contact." },
   "projects.autorep.problem": { es: "Un negocio de reparación vehicular necesitaba <strong>presencia digital real</strong>. No una tarjeta de presentación, sino algo que apareciera en Google y generara contactos.", en: "A vehicle repair business needed <strong>real digital presence</strong>. Not a business card, but something that showed up on Google and generated contacts." },
   "projects.autorep.do": { es: "Landing en <strong>Astro con GSAP</strong>. SEO técnico, animaciones fluidas, responsive, CTA directo a WhatsApp. Todo optimizado para que cargue rápido en celular — donde la mayoría de clientes buscan.", en: "Landing in <strong>Astro with GSAP</strong>. Technical SEO, smooth animations, responsive, direct CTA to WhatsApp. All optimized to load fast on mobile — where most customers search." },
-  "projects.autorep.result": { es: "<strong>Presencia digital funcional</strong> para un negocio que no tenía nada. Carga rápida, SEO básico implementado, conversiones por WhatsApp.", en: "<strong>Functional digital presence</strong> for a business that had nothing. Fast load, basic SEO implemented, WhatsApp conversions." },
+  "projects.autorep.result": { es: "<strong>Presencia digital funcional</strong> para un negocio que no tenía nada. Carga rápida, SEO básico implementado y contacto directo por WhatsApp.", en: "<strong>Functional digital presence</strong> for a business that had nothing. Fast load, basic SEO implemented and direct WhatsApp contact." },
   "projects.autorep.learn": { es: "Implementaría <strong>analytics desde el día 1</strong> para medir conversiones reales, no solo suponer.", en: "I'd implement <strong>analytics from day 1</strong> to measure real conversions, not just assume." },
   "projects.autorep.terminal": { es: "✓ Cliente real · ✓ SEO implementado · ✓ CTA WhatsApp", en: "✓ Real client · ✓ SEO implemented · ✓ WhatsApp CTA" },
 
@@ -150,7 +150,7 @@ export const t: TranslationMap = {
   "exp.item2.desc": { es: "Semilleros FIBOG para la UNAL (13 grupos de investigación, roles con permisos, búsqueda con IA), landings para empresas reales (Autorreparación, InduSEC) y apps con IA (PawCare, KalaChat). Proyectos variados, resultados concretos.", en: "FIBOG for UNAL (13 research groups, permission roles, AI search), real company landings (Autorreparación, InduSEC) and AI apps (PawCare, KalaChat). Varied projects, concrete results." },
   "exp.item3.date": { es: "Logro clave", en: "Key achievement" },
   "exp.item3.title": { es: "Optimización 3s→0.2s · Edge Computing", en: "3s→0.2s Optimization · Edge Computing" },
-  "exp.item3.desc": { es: "Reduje el tiempo de carga un 93% con arquitectura Edge y Workers independientes. La infraestructura cuesta prácticamente cero. Asi es como deberian funcionar las aplicaciones modernas.", en: "Reduced load time by 93% with Edge architecture and independent Workers. Infrastructure costs practically zero. This is how modern apps should work." },
+  "exp.item3.desc": { es: "Reduje el tiempo de carga un 93% con arquitectura Edge y Workers independientes. La infraestructura cuesta prácticamente cero. Así es como deberían funcionar las aplicaciones modernas.", en: "Reduced load time by 93% with Edge architecture and independent Workers. Infrastructure costs practically zero. This is how modern apps should work." },
 
   // Metrics
   "metrics.eyebrow": { es: "/ resultados", en: "/ results" },
@@ -163,6 +163,22 @@ export const t: TranslationMap = {
   "metrics.cost": { es: "costo operativo mensual", en: "monthly operating cost" },
   "metrics.exp": { es: "de experiencia acumulada", en: "of accumulated experience" },
   "metrics.english": { es: "inglés escrito/leído", en: "written/read English" },
+
+  // Etiquetas de las métricas (antes hardcodeadas en español dentro de Metrics.astro)
+  "metrics.label.projects": { es: "PROYECTOS", en: "PROJECTS" },
+  "metrics.label.groups": { es: "GRUPOS", en: "GROUPS" },
+  "metrics.label.optimization": { es: "OPTIMIZACIÓN", en: "OPTIMIZATION" },
+  "metrics.label.code": { es: "CÓDIGO", en: "CODE" },
+  "metrics.label.production": { es: "PRODUCCIÓN", en: "PRODUCTION" },
+  "metrics.label.cost": { es: "COSTO", en: "COST" },
+  "metrics.label.experience": { es: "EXPERIENCIA", en: "EXPERIENCE" },
+  "metrics.label.english": { es: "INGLÉS", en: "ENGLISH" },
+  "metrics.gauge": { es: "93% más rápido", en: "93% faster" },
+
+  // Estados de la línea de tiempo (antes hardcodeados en español dentro de Experience.astro)
+  "exp.status.active": { es: "● Activo", en: "● Active" },
+  "exp.status.ongoing": { es: "● En curso", en: "● Ongoing" },
+  "exp.status.featured": { es: "★ Destacado", en: "★ Featured" },
 
   // Certifications
   "certs.eyebrow": { es: "/ educación y certificaciones", en: "/ education & certifications" },
@@ -191,7 +207,7 @@ export const t: TranslationMap = {
   "faq.q1": { es: "¿Qué tipo de clientes buscas?", en: "What kind of clients are you looking for?" },
   "faq.a1": { es: "Empresas pequeñas, startups, instituciones educativas y negocios que quieran vender más en internet, crear presencia digital o integrar IA en sus procesos. Si tienes un proyecto y no sabes por dónde empezar, podemos hablarlo.", en: "Small businesses, startups, educational institutions and anyone who wants to sell more online, build digital presence or integrate AI. If you have a project and don't know where to start, let's talk." },
   "faq.q2": { es: "¿Trabajas remoto?", en: "Do you work remotely?" },
-  "faq.a2": { es: "Sí, completamente remoto. Por proyecto, por sprint o medio tiempo. Tambien puedo colaborar con equipos existentes.", en: "Yes, fully remote. Per project, per sprint or part-time. I can also join existing teams." },
+  "faq.a2": { es: "Sí, completamente remoto. Por proyecto, por sprint o medio tiempo. También puedo colaborar con equipos existentes.", en: "Yes, fully remote. Per project, per sprint or part-time. I can also join existing teams." },
   "faq.q3": { es: "¿Puedes hacer una landing desde cero?", en: "Can you build a landing page from scratch?" },
   "faq.a3": { es: "Sí. Copy, diseño, desarrollo, SEO, despliegue e integración con WhatsApp. Todo incluido. Solo necesito saber qué vendes y a quién.", en: "Yes. Copy, design, development, SEO, deployment and WhatsApp integration. All included. I just need to know what you sell and who to." },
   "faq.q4": { es: "¿También haces IA?", en: "Do you also do AI?" },
@@ -199,7 +215,7 @@ export const t: TranslationMap = {
   "faq.q5": { es: "¿Puedes trabajar con empresas pequeñas?", en: "Can you work with small businesses?" },
   "faq.a5": { es: "Sí, de hecho ese es mi foco principal. Ayudo a negocios pequeños a tener presencia digital de alta calidad sin presupuestos de agencia.", en: "Yes, that's my main focus actually. I help small businesses get high-quality digital presence without agency budgets." },
   "faq.q6": { es: "¿Puedes enseñar IA?", en: "Can you teach AI?" },
-  "faq.a6": { es: "Sí. Talleres para colegios e instituciones sobre prompting, fundamentos de IA, agentes y usos prácticos. Nada teorico, todo aplicable desde el día uno.", en: "Yes. Workshops for schools on prompting, AI fundamentals, agents and practical uses. Nothing theoretical, all applicable from day one." },
+  "faq.a6": { es: "Sí. Talleres para colegios e instituciones sobre prompting, fundamentos de IA, agentes y usos prácticos. Nada teórico, todo aplicable desde el día uno.", en: "Yes. Workshops for schools on prompting, AI fundamentals, agents and practical uses. Nothing theoretical, all applicable from day one." },
 
   // Contact
   "contact.eyebrow": { es: "// contacto", en: "// contact" },

@@ -9,7 +9,7 @@ const { lang = "es" } = Astro.props;
 ---
 <nav class="navbar" role="navigation" aria-label="Navegación principal">
   <div class="nav-inner">
-    <a href="#" class="brand" aria-label="NikkoDev inicio">
+      <a href={lang === "en" ? "/en" : "/"} class="brand" aria-label={lang === "en" ? "NikkoDev, home" : "NikkoDev, inicio"}>
       <div class="brand-mark">N</div>
       <span class="brand-name">Nikko<span class="green">Dev</span></span>
     </a>
@@ -23,7 +23,7 @@ const { lang = "es" } = Astro.props;
     </div>
 
     <div class="nav-actions">
-      <button class="theme-btn" type="button" id="themeToggle" aria-label="Cambiar tema">
+      <button class="theme-btn" type="button" id="themeToggle" aria-label="Cambiar tema" aria-pressed="false">
         <span class="theme-icon-dark" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </span>
@@ -41,7 +41,7 @@ const { lang = "es" } = Astro.props;
       </a>
     </div>
 
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Menú" type="button" aria-expanded="false">
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-controls="mobileOverlay" type="button" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -94,7 +94,7 @@ const { lang = "es" } = Astro.props;
   }
 
   .brand-name { color: var(--white); }
-  .brand-name .green { color: var(--green); }
+  .brand-name .green { color: var(--accent-text); }
 
   .nav-links {
     display: flex;
@@ -106,6 +106,9 @@ const { lang = "es" } = Astro.props;
 
   .nav-links a {
     position: relative;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     padding: 4px 0;
   }
 
@@ -128,6 +131,15 @@ const { lang = "es" } = Astro.props;
     width: 100%;
   }
 
+  .nav-links a:focus-visible,
+  .brand:focus-visible,
+  .nav-actions button:focus-visible,
+  .mobile-toggle:focus-visible,
+  .mobile-overlay a:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+  }
+
   .nav-actions {
     display: flex;
     align-items: center;
@@ -141,6 +153,7 @@ const { lang = "es" } = Astro.props;
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.04);
     color: var(--white);
+    min-height: 44px;
     padding: 8px 12px;
     border-radius: var(--radius-full);
     font-family: var(--mono);
@@ -159,8 +172,8 @@ const { lang = "es" } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--line);
     background: var(--glass-card);
     color: var(--white);
@@ -199,6 +212,10 @@ const { lang = "es" } = Astro.props;
     background: none;
     border: none;
     cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
     padding: 6px;
   }
 
@@ -241,7 +258,7 @@ const { lang = "es" } = Astro.props;
   }
 
   .mobile-overlay a:hover {
-    color: var(--green);
+    color: var(--accent-text);
   }
 
   .mobile-overlay .btn {
@@ -285,7 +302,7 @@ const { lang = "es" } = Astro.props;
   }
 </style>
 
-<div class="mobile-overlay" id="mobileOverlay">
+<div class="mobile-overlay" id="mobileOverlay" aria-label="Menú móvil" aria-hidden="true">
   <a href="#servicios" data-mobile-close>{getTranslation("nav.servicios", lang)}</a>
   <a href="#proyectos" data-mobile-close>{getTranslation("nav.proyectos", lang)}</a>
   <a href="#sobre-mi" data-mobile-close>{getTranslation("nav.sobre-mi", lang)}</a>
@@ -322,13 +339,17 @@ const { lang = "es" } = Astro.props;
 
     const open = () => {
       overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Cerrar menú');
       document.body.style.overflow = 'hidden';
     };
 
     const close = () => {
       overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menú');
       document.body.style.overflow = '';
     };
 
@@ -346,10 +367,46 @@ const { lang = "es" } = Astro.props;
     });
   })();
 
-  // Theme toggle
-  document.getElementById('themeToggle')?.addEventListener('click', () => {
+  // Theme toggle — alterna claro/oscuro, persiste y mantiene el estado accesible
+  (() => {
+    const btn = document.getElementById('themeToggle');
     const html = document.documentElement;
-    const isLight = html.classList.toggle('light');
-    localStorage.setItem('nikkodev-theme', isLight ? 'light' : 'dark');
-  });
+    if (!btn) return;
+
+    const current = () => (html.classList.contains('dark') ? 'dark' : 'light');
+
+    const sync = () => {
+      const isDark = current() === 'dark';
+      btn.setAttribute('aria-pressed', String(isDark));
+      btn.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      btn.setAttribute('title', isDark ? 'Tema claro' : 'Tema oscuro');
+      const meta = document.getElementById('themeColor');
+      if (meta) meta.setAttribute('content', isDark ? '#040816' : '#F0FDF6');
+    };
+
+    const apply = (theme) => {
+      html.classList.toggle('dark', theme === 'dark');
+      html.classList.toggle('light', theme === 'light');
+      html.dataset.theme = theme;
+      sync();
+    };
+
+    sync();
+
+    btn.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      apply(next);
+      try { localStorage.setItem('nikkodev-theme', next); } catch (e) {}
+    });
+
+    // Mientras el usuario no elija manualmente, seguimos la preferencia del sistema
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const onSystemChange = (e) => {
+      let stored = null;
+      try { stored = localStorage.getItem('nikkodev-theme'); } catch (err) {}
+      if (!stored) apply(e.matches ? 'dark' : 'light');
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
+    else if (mq.addListener) mq.addListener(onSystemChange);
+  })();
 </script>

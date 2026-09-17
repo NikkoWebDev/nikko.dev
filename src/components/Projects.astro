@@ -9,29 +9,37 @@ const { lang = "es" } = Astro.props;
 
 const projects = [
   {
-    id: "fibog",
-    tab: "FIBOG.tsx",
-    demo: "https://semilleros-fibog.vercel.app",
-    code: "https://github.com/NikkoWebDev/FIBOG",
-    tags: ["Astro", "Supabase", "PostgreSQL", "RLS", "Accesibilidad", "UNAL"]
-  },
-  {
     id: "sinpre",
+    slug: "sinpresupuesto",
     tab: "SinPresupuesto.ts",
+    image: "/projects/sinpresupuesto.jpg",
     demo: "https://sinpresupuesto.com",
     code: "https://github.com/SinPresupuesto/SinPre",
     tags: ["Next.js", "Cloudflare Workers", "Supabase", "Llama 3.1", "OAuth", "PWA"]
   },
   {
+    id: "fibog",
+    slug: "fibog",
+    tab: "FIBOG.tsx",
+    image: "/projects/fibog.jpg",
+    demo: "https://semilleros-fibog.vercel.app",
+    code: "https://github.com/NikkoWebDev/FIBOG",
+    tags: ["Astro", "Supabase", "PostgreSQL", "RLS", "Accesibilidad", "UNAL"]
+  },
+  {
     id: "autorep",
+    slug: "autorreparacion",
     tab: "Autorreparacion.astro",
+    image: "/projects/autorreparacion.jpg",
     demo: "https://www.autorreparacion.com",
     code: null,
     tags: ["Astro", "GSAP", "SEO", "Responsive", "Cliente real"]
   },
   {
     id: "indusec",
+    slug: "indusec",
     tab: "InduSEC.astro",
+    image: "/projects/indusec.jpg",
     demo: "https://puertasindusec.com",
     code: "https://github.com/NikkoWebDev/induSEC-WEB",
     tags: ["Astro", "SEO", "Responsive", "Cliente real"]
@@ -84,17 +92,21 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
       <p class="section-sub">{getTranslation("projects.sub", lang)}</p>
     </div>
 
-    {projects.map((project) => (
-      <article class="editor-window">
-        <div class="editor-tabs">
-          {projects.map((p) => (
-            <div class={`editor-tab ${p.id === project.id ? "active" : ""}`}>
-              {p.id === project.id && <span class="editor-tab-icon">◆</span>}
-              {p.tab}
-            </div>
-          ))}
-        </div>
+    <nav class="editor-tabs" aria-label={lang === "en" ? "Project index" : "Índice de proyectos"}>
+      {projects.map((p) => (
+        <a class="editor-tab" href={lang === "en" ? `/en/projects/${p.slug}/` : `/proyectos/${p.slug}/`}>
+          <span class="editor-tab-icon" aria-hidden="true">◆</span>
+          {p.tab}
+        </a>
+      ))}
+    </nav>
 
+    {projects.map((project) => (
+      <article class="editor-window" id={`proyecto-${project.id}`}>
+        <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer">
+          <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
+          <span>{getTranslation("projects.btn.demo", lang)} ↗</span>
+        </a>
         <div class="editor-body">
           <div class="editor-meta">
             <div>
@@ -158,7 +170,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   }
 
   .eyebrow {
-    color: var(--green);
+    color: var(--accent-text);
     font-family: var(--mono);
     font-size: 0.82rem;
     letter-spacing: 0.06em;
@@ -195,6 +207,42 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     box-shadow: 0 8px 32px rgba(16,185,129,0.08), 0 1px 3px rgba(0,0,0,0.04);
   }
 
+  .project-preview {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: var(--glass-light);
+  }
+
+  .project-preview img {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
+  }
+
+  .project-preview span {
+    position: absolute;
+    right: 18px;
+    bottom: 14px;
+    padding: 8px 12px;
+    border: 1px solid var(--line-green);
+    border-radius: var(--radius-full);
+    background: var(--glass-bg-heavy);
+    color: var(--accent-text);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .project-preview:hover img,
+  .project-preview:focus-visible img {
+    transform: scale(1.025);
+    filter: saturate(1.08);
+  }
+
   .editor-window:hover {
     border-color: rgba(16,185,129,0.22);
     box-shadow: 0 12px 40px rgba(16,185,129,0.14), 0 4px 12px rgba(0,0,0,0.06);
@@ -217,7 +265,10 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   }
   .editor-tabs::-webkit-scrollbar { display: none; }
 
+  .editor-window { scroll-margin-top: 96px; }
+
   .editor-tab {
+    text-decoration: none;
     padding: 8px 14px;
     font-family: var(--mono);
     font-size: 0.74rem;
@@ -232,16 +283,15 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     transition: all 0.2s var(--ease);
   }
 
-  .editor-tab.active {
-    background: #022C22;
-    color: #ECFDF5;
-    border-color: #022C22;
-    font-weight: 600;
-    box-shadow: 0 4px 14px rgba(2,44,34,0.12);
+  .editor-tab:hover,
+  .editor-tab:focus-visible {
+    background: var(--glass-card-hover);
+    color: var(--accent-text);
+    border-color: var(--line-green);
   }
 
   .editor-tab-icon {
-    color: var(--cyan);
+    color: var(--accent-2-text);
     font-size: 0.7rem;
   }
 
@@ -269,7 +319,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-tagline {
     font-family: var(--mono);
     font-size: 0.78rem;
-    color: var(--green);
+    color: var(--accent-text);
   }
 
   .editor-links {
@@ -280,7 +330,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-links a {
     font-family: var(--mono);
     font-size: 0.78rem;
-    color: var(--cyan);
+    color: var(--accent-2-text);
     text-decoration: none;
     font-weight: 500;
     transition: opacity 0.2s;
@@ -300,7 +350,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-block h4 {
     font-family: var(--mono);
     font-size: 0.72rem;
-    color: var(--cyan);
+    color: var(--accent-2-text);
     margin-bottom: 8px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -337,7 +387,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     background: rgba(16,185,129, 0.06);
     border: 1px solid rgba(16,185,129, 0.12);
     border-radius: var(--radius-full);
-    color: var(--green);
+    color: var(--accent-text);
     transition: all 0.2s;
   }
 
@@ -360,8 +410,8 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     flex-wrap: wrap;
   }
 
-  .editor-terminal .t-prompt { color: var(--green); }
-  .editor-terminal .t-val { color: var(--cyan); }
+  .editor-terminal .t-prompt { color: var(--accent-text); }
+  .editor-terminal .t-val { color: var(--accent-2-text); }
 
   @media (max-width: 860px) {
     .editor-body {

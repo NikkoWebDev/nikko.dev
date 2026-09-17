@@ -25,7 +25,7 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
     <Hero lang={lang} />
     <SkillsMarquee />
     <Services lang={lang} />
-    <Projects />
+    <Projects lang={lang} />
     <About lang={lang} />
     <Experience lang={lang} />
     <Metrics lang={lang} />
@@ -39,12 +39,27 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // ── GSAP Animated Counters ──
     const animateCounter = (el, target, suffix = "") => {
       const num = parseFloat(String(target).replace(/[^0-9.]/g, ""));
       const isK = String(target).includes("k");
       const finalNum = isK ? num * 1000 : num;
+      const setFinalValue = () => {
+        if (isK) {
+          el.textContent = (finalNum / 1000).toFixed(0) + "k+";
+        } else if (finalNum >= 1000) {
+          el.textContent = Math.round(finalNum).toLocaleString() + suffix;
+        } else {
+          el.textContent = Math.round(finalNum) + suffix;
+        }
+      };
+
+      if (prefersReducedMotion) {
+        setFinalValue();
+        return;
+      }
 
       ScrollTrigger.create({
         trigger: el,
@@ -75,12 +90,12 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
       const text = el.textContent.trim();
       if (!text || text === "Edge" || text === "B2" || text === "~$0" || text === "13" || text === "2") return;
       const parsed = parseFloat(text);
-      if (isNaN(parsed)) return;
+      if (isNaN(parsed) || el.dataset.count) return;
       animateCounter(el, text);
     });
 
     // ── GSAP Staggered card entrance ──
-    gsap.utils.toArray<HTMLElement>([
+    if (!prefersReducedMotion) gsap.utils.toArray<HTMLElement>([
       ".serv-card", ".project-card", ".dash-card", ".cert-card",
       ".about-hl"
     ]).forEach((el) => {
@@ -103,9 +118,11 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
 
     // ── Scroll Reveal (IntersectionObserver fallback) ──
     (() => {
+      if (prefersReducedMotion) return;
+
       const selectors = [
         ".exp-body", ".faq-item", ".hm-item",
-        ".skill-pill", ".contact-box", ".about-terminal",
+        ".contact-box", ".about-terminal",
         ".exam-card", ".hero-section", ".section-head",
         ".term-log", ".dash-gauge", ".about-quote",
         ".about-footer",
@@ -138,7 +155,7 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
 
       // ── Hero Parallax ──
       const panel = document.querySelector(".tv-panel .os-window");
-      if (panel && window.innerWidth > 900) {
+      if (panel && window.innerWidth > 900 && !prefersReducedMotion) {
         let rafId = null;
         const handleMove = (e) => {
           if (rafId) return;
@@ -164,6 +181,10 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
       const dashNum = document.querySelector('.dash-featured .dash-num');
       if (dashNum && dashNum.dataset.count) {
         const target = parseInt(dashNum.dataset.count);
+        if (prefersReducedMotion) {
+          dashNum.textContent = String(target);
+          return;
+        }
         ScrollTrigger.create({
           trigger: dashNum.closest('.dash-card'),
           start: "top 85%",
@@ -236,6 +257,7 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
 
     // ── Scrollytelling: section background parallax ──
     (() => {
+      if (prefersReducedMotion) return;
       const sections = document.querySelectorAll('section[id]');
       sections.forEach((section) => {
         const bg = section.querySelector('.section-bg-mesh, .section-bg-alt, .section-bg-grid');
@@ -260,14 +282,14 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
   </script>
 
   <style is:global>
-    .reveal {
+    html.js .reveal {
       opacity: 0 !important;
       transform: translateY(24px) !important;
       transition: opacity 0.7s cubic-bezier(0.22, 0.7, 0.2, 1),
                   transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
       transition-delay: var(--reveal-delay, 0s) !important;
     }
-    .reveal.visible {
+    html.js .reveal.visible {
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
@@ -291,10 +313,9 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
     .serv-card, .project-card, .dash-card, .cert-card,
     .about-hl, .about-terminal, .exp-body, .faq-item,
     .contact-box {
-      will-change: transform, opacity;
     }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      html.js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
       .typo-line { opacity: 1; animation: none; }
     }
   </style>

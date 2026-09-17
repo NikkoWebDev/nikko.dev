@@ -3,6 +3,10 @@
    Mega-Dev IDE Aesthetic
    ═══════════════════════════════════════════ */
 
+/* ── Self-hosted fonts (@fontsource) ── */
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+
 /* ── Tokens Mint Glassmorphism ── */
 :root {
   /* Base menta claro - no hacker */
@@ -27,9 +31,9 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
   --max: 1120px;
-  --font: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -54,20 +58,68 @@
   --glass-project: rgba(255,255,255,0.68);
 
   --bg-dot: rgba(16,185,129,0.10);
+
+  /* ── Texto de acento con contraste AA garantizado (≥4.5:1 sobre --bg y --bg-2) ── */
+  /* Los tokens crudos (--green #10B981 = 2.43:1, --cyan #14B8A6 = 2.38:1) se quedan
+     para rellenos, bordes y degradados; para TEXTO se usan estos. */
+  --accent-text: #047857;
+  --accent-2-text: #0F766E;
+  --amber-text: #B45309;
+  --violet-text: #6D28D9;
+
+  /* ── Resplandores de sección (usados por Metrics y Certifications) ── */
+  --bg-glow-1: radial-gradient(circle, rgba(16,185,129,0.18), transparent 70%);
+  --bg-glow-2: radial-gradient(circle, rgba(20,184,166,0.16), transparent 70%);
 }
 
-/* ── Dark fallback — forzado a menta claro (no hacker nunca) ── */
+/* ── Tema oscuro real — "NikkoDev OS" (design.md: #040816 + verde) ── */
 :root.dark, html.dark {
-  --bg: #F0FDF6;
-  --bg-2: #E6F7EE;
-  --surface: rgba(255,255,255,0.68);
-  --surface-2: rgba(255,255,255,0.5);
-  --green: #10B981;
-  --white: #022C22;
-  --muted: #5A7468;
-  --line: rgba(16,185,129,0.14);
-  --glass-bg: rgba(255,255,255,0.72);
-  --glass-card: rgba(255,255,255,0.62);
+  color-scheme: dark;
+
+  --bg: #040816;
+  --bg-2: #0A1325;
+  --surface: rgba(255,255,255,0.05);
+  --surface-2: rgba(255,255,255,0.03);
+
+  --green: #34D399;
+  --green-dark: #064E3B;
+  --cyan: #22D3EE;
+  --amber: #FBBF24;
+  --violet: #A78BFA;
+
+  /* --white es el color de TEXTO principal en este sistema */
+  --white: #E6F1EC;
+  --muted: #9FB8AC;
+
+  --line: rgba(52,211,153,0.18);
+  --line-green: rgba(52,211,153,0.28);
+  --line-amber: rgba(251,191,36,0.22);
+  --glow-green: 0 8px 32px rgba(52,211,153,0.14);
+  --glow-cyan: 0 8px 32px rgba(34,211,238,0.12);
+  --glow-amber: 0 8px 32px rgba(251,191,36,0.10);
+
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-bg-strong: rgba(255,255,255,0.09);
+  --glass-bg-heavy: rgba(255,255,255,0.12);
+  --glass-nav: rgba(4,8,22,0.74);
+  --glass-dock: rgba(4,8,22,0.60);
+  --glass-overlay: rgba(2,6,18,0.72);
+  --glass-card: rgba(255,255,255,0.05);
+  --glass-card-hover: rgba(255,255,255,0.08);
+  --glass-card-strong: rgba(255,255,255,0.07);
+  --glass-light: rgba(52,211,153,0.07);
+  --glass-term-log: rgba(6,20,18,0.75);
+  --glass-project: rgba(255,255,255,0.055);
+  --bg-dot: rgba(52,211,153,0.12);
+
+  /* Texto de acento sobre fondo oscuro (contraste verificado) */
+  --accent-text: #34D399;
+  --accent-2-text: #22D3EE;
+  --amber-text: #FBBF24;
+  --violet-text: #A78BFA;
+
+  --bg-glow-1: radial-gradient(circle, rgba(52,211,153,0.16), transparent 70%);
+  --bg-glow-2: radial-gradient(circle, rgba(34,211,238,0.13), transparent 70%);
 }
 
 /* ── Reset ── */
@@ -80,9 +132,14 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  color-scheme: light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* El scroll suave solo si el usuario no pidió menos movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 
 body {
@@ -181,15 +238,22 @@ body::before {
 /* ── Custom Cursor Glow — menta suave ── */
 .cursor-glow {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 420px;
   height: 420px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(16,185,129,0.10), rgba(167,243,208,0.06) 40%, transparent 70%);
   pointer-events: none;
   z-index: 9997;
-  transform: translate(-50%, -50%);
+  /* Posición por transform (solo compositor) — el JS escribe --cx/--cy una vez por frame */
+  transform: translate3d(var(--cx, -9999px), var(--cy, -9999px), 0) translate(-50%, -50%);
   transition: opacity 0.3s ease;
   opacity: 0;
+}
+
+html.dark .cursor-glow {
+  background: radial-gradient(circle, rgba(52,211,153,0.12), rgba(34,211,238,0.05) 40%, transparent 70%);
 }
 
 .cursor-glow.active {
@@ -276,7 +340,7 @@ section {
 }
 
 .eyebrow {
-  color: var(--green);
+  color: var(--accent-text);
   font-family: var(--mono);
   font-size: 0.82rem;
   letter-spacing: 0.06em;
@@ -286,7 +350,7 @@ section {
 }
 
 .eyebrow-amber {
-  color: var(--amber);
+  color: var(--amber-text);
 }
 
 h2 {
@@ -369,7 +433,7 @@ h2.display-sm {
 .os-ctrl.maximize { background: #28c840; }
 
 .os-path {
-  color: var(--green);
+  color: var(--accent-text);
   flex: 1;
 }
 
@@ -432,7 +496,7 @@ h2.display-sm {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #10B981 0%, #0E9F6E 100%);
+  background: linear-gradient(135deg, #047857 0%, #0B7A5A 100%);
   color: #FFFFFF;
   font-weight: 800;
   border: 1px solid rgba(255,255,255,0.6);
@@ -507,7 +571,7 @@ h2.display-sm {
 }
 
 .tag-amber {
-  color: var(--amber);
+  color: var(--amber-text);
   border-color: var(--line-amber);
   background: rgba(245, 158, 11, 0.05);
 }
@@ -585,7 +649,7 @@ h2.display-sm {
   border-radius: 14px;
   background: rgba(16,185,129, 0.08);
   border: 1px solid var(--line-green);
-  color: var(--green);
+  color: var(--accent-text);
   font-family: var(--mono);
   font-weight: 700;
   font-size: 1.05rem;
@@ -627,7 +691,7 @@ h2.display-sm {
 }
 
 .term-line .prompt {
-  color: var(--green);
+  color: var(--accent-text);
   flex-shrink: 0;
 }
 
@@ -636,7 +700,7 @@ h2.display-sm {
 }
 
 .term-line .output {
-  color: var(--cyan);
+  color: var(--accent-2-text);
   opacity: 0.7;
 }
 
@@ -664,13 +728,13 @@ h2.display-sm {
 }
 
 /* ── Scroll Reveal ── */
-.reveal {
+html.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease-out);
 }
 
-.reveal.visible {
+html.js .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -735,7 +799,7 @@ h2.display-sm {
 }
 
 .term-log .log-time {
-  color: var(--cyan);
+  color: var(--accent-2-text);
   opacity: 0.5;
 }
 
@@ -756,7 +820,7 @@ h2.display-sm {
 
 .skill-pill {
   border: 1px solid var(--line);
-  color: var(--white);
+  color: var(--accent-text);
   background: var(--glass-card-strong);
   padding: 12px 18px;
   border-radius: var(--radius-full);
@@ -819,7 +883,7 @@ h2.display-sm {
     transition-duration: 0.01ms !important;
   }
 
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
   }
@@ -827,4 +891,11 @@ h2.display-sm {
   .page-progress {
     display: none;
   }
+}
+
+@media (max-width: 768px) {
+  body { padding-bottom: 36px; }
+  .os-statusbar { height: 36px; }
+  .marquee-wrap { padding-block: 14px; }
+  .skill-pill { padding: 10px 14px; font-size: 0.78rem; }
 }

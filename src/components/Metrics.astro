@@ -15,9 +15,9 @@ const { lang = "es" } = Astro.props;
     <div class="dash-grid">
       <!-- Featured metric: 8+ projects (larger, green accent) -->
       <div class="dash-card dash-featured">
-        <div class="dash-label">PROYECTOS</div>
+        <div class="dash-label">{getTranslation("metrics.label.projects", lang)}</div>
         <div class="dash-value">
-          <span class="dash-num" data-count="8">0</span>
+          <span class="dash-num" data-count="8">8</span>
           <span class="dash-plus">+</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.projects", lang)}</div>
@@ -28,16 +28,16 @@ const { lang = "es" } = Astro.props;
 
       <!-- Metric: 13 groups -->
       <div class="dash-card">
-        <div class="dash-label">GRUPOS</div>
+        <div class="dash-label">{getTranslation("metrics.label.groups", lang)}</div>
         <div class="dash-value sm">
-          <span class="dash-num">13</span>
+          <span class="dash-num" data-count="13">13</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.groups", lang)}</div>
       </div>
 
       <!-- Metric: 3s→0.2s (featured) -->
       <div class="dash-card dash-accent">
-        <div class="dash-label">OPTIMIZACIÓN</div>
+        <div class="dash-label">{getTranslation("metrics.label.optimization", lang)}</div>
         <div class="dash-value md">
           <span class="dash-num-accent">3s</span>
           <span class="dash-arrow">→</span>
@@ -46,51 +46,51 @@ const { lang = "es" } = Astro.props;
         <div class="dash-unit">{getTranslation("metrics.optimization", lang)}</div>
         <div class="dash-gauge">
           <span class="dash-gauge-fill" style="width:93%"></span>
-          <span class="dash-gauge-label">93% faster</span>
+          <span class="dash-gauge-label">{getTranslation("metrics.gauge", lang)}</span>
         </div>
       </div>
 
       <!-- Metric: 11k+ lines -->
       <div class="dash-card">
-        <div class="dash-label">CÓDIGO</div>
+        <div class="dash-label">{getTranslation("metrics.label.code", lang)}</div>
         <div class="dash-value sm">
-          <span class="dash-num">11k+</span>
+          <span class="dash-num" data-count="11k+">11k+</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.lines", lang)}</div>
       </div>
 
       <!-- Metric: 2 platforms (small) -->
       <div class="dash-card dash-sm">
-        <div class="dash-label">PRODUCCIÓN</div>
+        <div class="dash-label">{getTranslation("metrics.label.production", lang)}</div>
         <div class="dash-value xs">
-          <span class="dash-num">2</span>
+          <span class="dash-num" data-count="2">2</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.platforms", lang)}</div>
       </div>
 
       <!-- Metric: ~$0 cost -->
       <div class="dash-card dash-sm">
-        <div class="dash-label">COSTO</div>
+        <div class="dash-label">{getTranslation("metrics.label.cost", lang)}</div>
         <div class="dash-value xs">
-          <span class="dash-num" style="color:var(--cyan);">~$0</span>
+          <span class="dash-num" style="color:var(--accent-2-text);">~$0</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.cost", lang)}</div>
       </div>
 
       <!-- Metric: 2 years -->
       <div class="dash-card dash-sm">
-        <div class="dash-label">EXPERIENCIA</div>
+        <div class="dash-label">{getTranslation("metrics.label.experience", lang)}</div>
         <div class="dash-value xs">
-          <span class="dash-num">2</span>
+          <span class="dash-num" data-count="2">2</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.exp", lang)}</div>
       </div>
 
       <!-- Metric: B2 English -->
       <div class="dash-card dash-sm">
-        <div class="dash-label">INGLÉS</div>
+        <div class="dash-label">{getTranslation("metrics.label.english", lang)}</div>
         <div class="dash-value xs">
-          <span class="dash-num" style="color:var(--amber);">B2</span>
+          <span class="dash-num" style="color:var(--amber-text);">B2</span>
         </div>
         <div class="dash-unit">{getTranslation("metrics.english", lang)}</div>
       </div>
@@ -146,6 +146,19 @@ const { lang = "es" } = Astro.props;
     background: var(--glass-card-hover);
   }
 
+  .dash-num[data-count] {
+    animation: metric-in 0.7s var(--ease) both;
+  }
+
+  @keyframes metric-in {
+    from { opacity: 0.35; transform: translateY(0.25em); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dash-num[data-count] { animation: none; }
+  }
+
   .dash-featured {
     background: linear-gradient(160deg, var(--bg-glow-1), var(--glass-card));
     border-color: var(--line-green);
@@ -173,7 +186,7 @@ const { lang = "es" } = Astro.props;
     font-family: var(--font-display);
     font-size: 2.8rem;
     font-weight: 900;
-    color: var(--green);
+    color: var(--accent-text);
     letter-spacing: -0.06em;
     line-height: 1;
   }
@@ -188,7 +201,7 @@ const { lang = "es" } = Astro.props;
   }
 
   .dash-num-accent.highlight {
-    color: var(--cyan);
+    color: var(--accent-2-text);
     font-size: 2.4rem;
   }
 
@@ -196,7 +209,7 @@ const { lang = "es" } = Astro.props;
     font-family: var(--font-display);
     font-size: 2rem;
     font-weight: 700;
-    color: var(--green);
+    color: var(--accent-text);
     opacity: 0.5;
     margin-left: 2px;
   }
@@ -260,7 +273,7 @@ const { lang = "es" } = Astro.props;
     top: -16px;
     font-family: var(--mono);
     font-size: 0.65rem;
-    color: var(--green);
+    color: var(--accent-text);
   }
 
   @media (max-width: 1024px) {

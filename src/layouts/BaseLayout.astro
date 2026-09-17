@@ -6,10 +6,11 @@ export interface Props {
   description?: string;
   ogImage?: string;
   lang?: "es" | "en";
+  canonicalPath?: string;
 }
 
 const SITE = "https://nikko.dev";
-const CURRENT_DATE = "2026-08-08";
+const CURRENT_DATE = "2026-09-16";
 
 const defaultTitle = {
   es: "NikkoDev | Desarrollo Web, IA y Automatización",
@@ -24,12 +25,32 @@ const defaultDescription = {
 const {
   title: propTitle,
   description: propDescription,
-  ogImage = `${SITE}/og-image.svg`,
+  ogImage = `${SITE}/og-image.png`,
   lang = "es",
+  canonicalPath,
 } = Astro.props;
 
 const title = propTitle ?? defaultTitle[lang];
 const description = propDescription ?? defaultDescription[lang];
+const pagePath = canonicalPath ?? (lang === "en" ? "/en" : "/");
+const canonicalUrl = `${SITE}${pagePath === "/" ? "" : pagePath}`;
+
+// Hreflang: global en home, por página en casos de estudio
+let hreflangEs = SITE;
+let hreflangEn = `${SITE}/en`;
+if (canonicalPath) {
+  const slug = canonicalPath.split("/").pop();
+  if (canonicalPath.startsWith("/proyectos/")) {
+    hreflangEs = canonicalUrl;
+    hreflangEn = `${SITE}/en/projects/${slug}`;
+  } else if (canonicalPath.startsWith("/en/projects/")) {
+    hreflangEs = `${SITE}/proyectos/${slug}`;
+    hreflangEn = canonicalUrl;
+  }
+}
+const ogImageUrl = ogImage.startsWith("http")
+  ? ogImage
+  : `${SITE}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
 
 const ogTitle = lang === "en"
   ? "NikkoDev | Web Development, AI and Automation"
@@ -97,7 +118,7 @@ const jsonLd = {
         "@type": "CollegeOrUniversity",
         "name": "Universidad Nacional de Colombia"
       },
-      "image": `${SITE}/og-image.svg`
+      "image": `${SITE}/og-image.png`
     },
     {
       "@type": "Organization",
@@ -134,20 +155,12 @@ const jsonLd = {
         ? "AI-powered web development: fast, beautiful and optimized."
         : "Desarrollo web con IA: rápido, hermoso y optimizado.",
       "inLanguage": ["es", "en"],
-      "publisher": { "@id": `${SITE}/#organization` },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": `${SITE}/?q={search_term_string}`
-        },
-        "query-input": "required name=search_term_string"
-      }
+      "publisher": { "@id": `${SITE}/#organization` }
     },
     {
       "@type": "WebPage",
-      "@id": `${SITE}/#webpage`,
-      "url": SITE,
+      "@id": `${canonicalUrl}/#webpage`,
+      "url": canonicalUrl,
       "name": title,
       "description": description,
       "inLanguage": lang,
@@ -245,8 +258,7 @@ const jsonLd = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="author" content="Brayan Nikolas Gallo León" />
-  <meta name="keywords" content="desarrollo web Colombia, landing pages, IA, automatización, Astro, Next.js, Supabase, Cloudflare, freelance desarrollo web, NikkoDev, Brayan Nikolas Gallo León" />
-  <meta name="theme-color" content="#F0FDF6" />
+  <meta name="theme-color" id="themeColor" content="#F0FDF6" />
   <meta name="robots" content="index, follow" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="generator" content="Astro" />
@@ -256,14 +268,24 @@ const jsonLd = {
   <meta name="geo.region" content="CO" />
   <meta name="geo.placename" content="Bogotá, Colombia" />
 
-  <!-- Theme initialization — mint por defecto (claro) -->
-  <script>
-    (function() {
-      var t = localStorage.getItem('nikkodev-theme');
-      if (!t) t = 'light';
-      if (t === 'light') document.documentElement.classList.add('light');
-      // forzamos mint claro siempre al inicio, usuario puede cambiar a dark si quiere
-      document.documentElement.classList.add('light');
+  <!-- Theme initialization — resuelve localStorage y, si no hay elección, el sistema.
+       Corre antes de pintar para que no haya flash ni salto de tema. -->
+  <script is:inline>
+    (function () {
+      try {
+        var stored = localStorage.getItem('nikkodev-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+        var root = document.documentElement;
+        root.classList.add('js');
+        root.classList.toggle('dark', theme === 'dark');
+        root.classList.toggle('light', theme === 'light');
+        root.dataset.theme = theme;
+        var meta = document.getElementById('themeColor');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#040816' : '#F0FDF6');
+      } catch (e) {
+        document.documentElement.classList.add('light');
+      }
     })();
   </script>
 
@@ -271,12 +293,11 @@ const jsonLd = {
   <meta property="og:title" content={ogTitle} />
   <meta property="og:description" content={ogDescription} />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content={ogImage} />
-  <meta property="og:image:type" content="image/svg+xml" />
+   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content={lang === "en" ? "NikkoDev — AI-powered web development: fast, beautiful and optimized" : "NikkoDev — Desarrollo web con IA: rápido, hermoso y optimizado"} />
-  <meta property="og:url" content={SITE} />
+   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:site_name" content="NikkoDev" />
   <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
 
@@ -284,14 +305,15 @@ const jsonLd = {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={ogTitle} />
   <meta name="twitter:description" content={ogDescription} />
-  <meta name="twitter:image" content={ogImage} />
+   <meta name="twitter:image" content={ogImageUrl} />
+   <meta name="twitter:image:alt" content={lang === "en" ? "NikkoDev — Web development, AI and automation" : "NikkoDev — Desarrollo web, IA y automatización"} />
   <meta name="twitter:site" content={twitterHandle} />
   <meta name="twitter:creator" content={twitterHandle} />
 
   <!-- Canonical + Hreflang -->
-  <link rel="canonical" href={SITE} />
-  <link rel="alternate" hreflang="es" href={SITE} />
-  <link rel="alternate" hreflang="en" href={`${SITE}/en`} />
+   <link rel="canonical" href={canonicalUrl} />
+   <link rel="alternate" hreflang="es" href={hreflangEs} />
+  <link rel="alternate" hreflang="en" href={hreflangEn} />
   <link rel="alternate" hreflang="x-default" href={SITE} />
 
   <!-- Icons -->
@@ -299,16 +321,9 @@ const jsonLd = {
   <link rel="apple-touch-icon" href="/favicon.svg" />
 
   <!-- Preconnects for performance -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://wa.me" />
   <link rel="dns-prefetch" href="https://github.com" />
   <link rel="dns-prefetch" href="https://www.linkedin.com" />
-
-  <!-- Google Fonts - Inter for body, JetBrains Mono for code -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- JSON-LD -->
   <script type="application/ld+json" data-schema="nikkodev" set:html={JSON.stringify(jsonLd)}></script>
@@ -317,6 +332,7 @@ const jsonLd = {
     /* Critical inline CSS — mint fallback claro */
     :root { --bg-fallback: #F0FDF6; --white-fallback: #022C22; --font-fallback: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif; }
     :root.light { --bg-fallback: #F0FDF6; --white-fallback: #022C22; }
+    :root.dark { --bg-fallback: #040816; --white-fallback: #E6F1EC; }
     body { background-color: var(--bg-fallback); color: var(--white-fallback); font-family: var(--font-fallback); }
   </style>
 </head>
@@ -378,21 +394,35 @@ const jsonLd = {
       setInterval(tick, 30000);
     })();
 
-    // ── Cursor Glow ──
+    // ── Cursor Glow ── (una escritura por frame, y apagado en táctil o reduced-motion)
     (() => {
       const glow = document.getElementById('cursorGlow');
       if (!glow) return;
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!finePointer || reduceMotion) {
+        glow.style.display = 'none';
+        return;
+      }
       let timer;
+      let rafId = null;
+      let lastEvent = null;
       const show = () => {
         glow.classList.add('active');
         clearTimeout(timer);
         timer = setTimeout(() => glow.classList.remove('active'), 2000);
       };
-      document.addEventListener('mousemove', (e) => {
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
+      const render = () => {
+        rafId = null;
+        if (!lastEvent) return;
+        glow.style.setProperty('--cx', lastEvent.clientX + 'px');
+        glow.style.setProperty('--cy', lastEvent.clientY + 'px');
         show();
-      });
+      };
+      document.addEventListener('mousemove', (e) => {
+        lastEvent = e;
+        if (rafId === null) rafId = requestAnimationFrame(render);
+      }, { passive: true });
     })();
   </script>
 </body>
