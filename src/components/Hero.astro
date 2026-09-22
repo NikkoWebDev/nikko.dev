@@ -8,9 +8,9 @@ export interface Props {
 const { lang = "es" } = Astro.props;
 
 const statusRows = [
+  { name: "Reprebot · UNAL", state: lang === "en" ? "ONLINE" : "EN LÍNEA" },
   { name: "SinPresupuesto", state: lang === "en" ? "ONLINE" : "EN LÍNEA" },
   { name: "FIBOG · UNAL", state: lang === "en" ? "ONLINE" : "EN LÍNEA" },
-  { name: "AI Systems", state: "ACTIVE" },
   { name: "Cloudflare Edge", state: "EDGE" },
   { name: "PostgreSQL", state: "SYNCED" },
 ];
@@ -140,9 +140,9 @@ const statusRows = [
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(640px 420px at 12% 18%, rgba(16, 185, 129, 0.16), transparent 65%),
-      radial-gradient(560px 420px at 88% 30%, rgba(56, 189, 248, 0.13), transparent 65%),
-      radial-gradient(700px 500px at 55% 100%, rgba(139, 92, 246, 0.1), transparent 65%);
+      radial-gradient(680px 440px at 12% 16%, rgba(16, 185, 129, 0.2), transparent 65%),
+      radial-gradient(560px 420px at 88% 28%, rgba(52, 211, 153, 0.14), transparent 65%),
+      radial-gradient(720px 520px at 55% 100%, rgba(5, 150, 105, 0.12), transparent 65%);
   }
 
   .hero-ghost {
@@ -250,11 +250,11 @@ const statusRows = [
   }
 
   .gradient-text {
-    background: linear-gradient(100deg, var(--green) 10%, var(--cyan) 60%, var(--violet) 110%);
+    background: linear-gradient(100deg, #047857 0%, #059669 30%, #10B981 60%, #34D399 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 28px rgba(52, 211, 153, 0.35));
+    filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.4));
   }
 
   .hero-desc {
@@ -466,7 +466,7 @@ const statusRows = [
 
   .c-key { color: var(--accent-text); font-weight: 600; }
   .c-id { color: var(--white); }
-  .c-str { color: #38BDF8; }
+  .c-str { color: #6EE7B7; }
 
   .term-footer {
     display: flex;

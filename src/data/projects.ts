@@ -37,14 +37,14 @@ export const projects: Project[] = [
   },
   {
     slug: "reprebot",
-    title: "Reprebot — Agente de IA Aplicada & RAG para Representación Estudiantil",
+    title: "Reprebot — IA finetuneada para la UNAL",
     image: "/projects/reprebot.jpg",
-    demo: "https://api.nikko.dev/docs",
-    description: "Microservicio de IA con arquitectura RAG sobre normativas universitarias y canales automatizados.",
-    problem: "Cientos de estudiantes realizaban consultas repetitivas sobre estatutos académicos, trámites de matrícula y normativas en canales dispersos. Los representantes no daban abasto para responder manualmente cada duda.",
-    work: "Diseño e implementación de un microservicio en FastAPI y Python con motor RAG (búsqueda semántica vectorial de chunks normativos), respuestas con streaming ultra-rápido, integración de Database Webhooks con Supabase para responder foros automáticamente y conector de WhatsApp.",
-    result: "API en producción activa con endpoints de chat streaming, búsqueda vectorial y automatización multi-canal con trazabilidad de fuentes oficiales.",
-    stack: ["FastAPI", "Python", "RAG", "Vector Search", "Supabase Webhooks", "WhatsApp Bot"]
+    demo: "https://repre.nikko.dev/",
+    description: "Finetune de Qwen 3.5 (4B) para la UNAL, con API propia y despliegue en WhatsApp, chat y foro del CEIS.",
+    problem: "Decenas de dudas repetitivas sobre estatutos académicos, trámites y acuerdos llegaban a diario por WhatsApp y foros sin capacidad humana de responder en tiempo real.",
+    work: "Fine-tune de Qwen 3.5 (4B) sobre normativa UNAL con motor RAG de fuentes oficiales, API propia con streaming y despliegue multicanal: WhatsApp, chat del CEIS y foro, con respuestas que citan sus fuentes.",
+    result: "Chat en vivo en repre.nikko.dev y API en producción, respondiendo normativa con fuentes citadas en los tres canales del CEIS.",
+    stack: ["Qwen 3.5 4B", "Fine-tune UNAL", "FastAPI", "RAG", "WhatsApp", "API"]
   },
   {
     slug: "sinpresupuesto",

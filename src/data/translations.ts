@@ -63,6 +63,21 @@ export const t: TranslationMap = {
   "projects.btn.demo": { es: "Ver demo", en: "View demo" },
   "projects.btn.code": { es: "Código", en: "Code" },
 
+  // Impact section (CEIS)
+  "impact.eyebrow": { es: "// impacto real", en: "// real impact" },
+  "impact.title": { es: "Del campus a producción.", en: "From campus to production." },
+  "impact.sub": { es: "El CEIS —Consejo Estudiantil de Ingeniería de Sistemas de la UNAL— corre sobre lo que construyo: plataforma oficial, malla curricular interactiva y un asistente de IA que responde normativa en tres canales.", en: "The CEIS —UNAL's Systems Engineering Student Council— runs on what I build: an official platform, an interactive curriculum explorer, and an AI assistant answering regulations across three channels." },
+  "impact.m1.val": { es: "ceis-unal.com", en: "ceis-unal.com" },
+  "impact.m1.lbl": { es: "dominio oficial en producción", en: "official domain in production" },
+  "impact.m2.val": { es: "3 canales", en: "3 channels" },
+  "impact.m2.lbl": { es: "WhatsApp · chat · foro con IA", en: "WhatsApp · chat · forum with AI" },
+  "impact.m3.val": { es: "Qwen 3.5 4B", en: "Qwen 3.5 4B" },
+  "impact.m3.lbl": { es: "finetune propio para la UNAL", en: "own fine-tune for UNAL" },
+  "impact.m4.val": { es: "100%", en: "100%" },
+  "impact.m4.lbl": { es: "respuestas con fuentes citadas", en: "answers with cited sources" },
+  "impact.cta.ceis": { es: "Ver CEIS", en: "Visit CEIS" },
+  "impact.cta.repre": { es: "Probar Reprebot", en: "Try Reprebot" },
+
   // Project: FIBOG
   "projects.fibog.title": { es: "Semilleros FIBOG — Universidad Nacional de Colombia", en: "Semilleros FIBOG — Universidad Nacional de Colombia" },
   "projects.fibog.tagline": { es: "La facultad no tenía dónde centralizar sus grupos de investigación y semilleros.", en: "The faculty had no place to centralize its research groups and seedbeds." },
@@ -81,14 +96,14 @@ export const t: TranslationMap = {
   "projects.ceis.learn": { es: "Desarrollar plataformas para comunidades activas exige priorizar la <strong>accesibilidad, consistencia en diseño y velocidad de carga</strong> desde el primer release.", en: "Building platforms for active student communities requires prioritizing <strong>accessibility, design consistency, and instant loading</strong> from the first release." },
   "projects.ceis.terminal": { es: "✓ ceis-unal.com · ✓ React + Supabase · ✓ En producción", en: "✓ ceis-unal.com · ✓ React + Supabase · ✓ In production" },
 
-  // Project: Reprebot
-  "projects.reprebot.title": { es: "Reprebot — Agente de IA Aplicada & RAG", en: "Reprebot — Applied AI & RAG Agent" },
-  "projects.reprebot.tagline": { es: "Motor RAG con FastAPI, búsqueda vectorial y automatización multicanal para representación estudiantil.", en: "RAG engine with FastAPI, vector search and multi-channel automation for student representation." },
+  // Project: Reprebot (flagship)
+  "projects.reprebot.title": { es: "Reprebot — IA finetuneada para la UNAL", en: "Reprebot — Fine-tuned AI for UNAL" },
+  "projects.reprebot.tagline": { es: "Finetune de Qwen 3.5 (4B) para la UNAL, con API propia. Responde normativa en WhatsApp, el chat del CEIS y el foro.", en: "A Qwen 3.5 (4B) fine-tune for UNAL, with its own API. Answers regulations on WhatsApp, the CEIS chat and the forum." },
   "projects.reprebot.problem": { es: "Decenas de dudas repetitivas sobre estatutos académicos, trámites y acuerdos llegaban a diario por WhatsApp y foros sin capacidad humana de responder en tiempo real.", en: "Dozens of repetitive queries about academic statutes, procedures, and bylaws arrived daily via WhatsApp and forums without the capacity to answer in real time." },
-  "projects.reprebot.do": { es: "Desarrollé un microservicio en <strong>FastAPI y Python</strong> con motor <strong>RAG</strong> (búsqueda vectorial con scoring semántico de fuentes oficiales), streaming de respuestas (`/api/chat/stream`), conector para WhatsApp y <strong>Database Webhooks de Supabase</strong> para responder foros automáticamente.", en: "Engineered a microservice in <strong>FastAPI & Python</strong> with a <strong>RAG</strong> pipeline (vector search with semantic scoring over official statutes), response streaming (`/api/chat/stream`), WhatsApp connector, and <strong>Supabase Database Webhooks</strong> for automated forum answering." },
-  "projects.reprebot.result": { es: "<strong>API en producción en <code>api.nikko.dev</code></strong> con documentación interactiva Swagger, entregando respuestas precisas y fundamentadas en fuentes normativas en <400 ms.", en: "<strong>Production API live at <code>api.nikko.dev</code></strong> with interactive Swagger docs, delivering precise answers grounded in statutory sources in <400 ms." },
+  "projects.reprebot.do": { es: "Fine-tune de <strong>Qwen 3.5 (4B) para la normativa UNAL</strong> con motor <strong>RAG</strong> sobre fuentes oficiales, <strong>API propia</strong> con streaming y despliegue multicanal: <strong>WhatsApp, chat del CEIS y foro</strong>. Cada respuesta cita sus fuentes.", en: "A <strong>Qwen 3.5 (4B) fine-tune on UNAL regulations</strong> with a <strong>RAG</strong> engine over official sources, a <strong>dedicated API</strong> with streaming, and multi-channel deployment: <strong>WhatsApp, CEIS chat and forum</strong>. Every answer cites its sources." },
+  "projects.reprebot.result": { es: "<strong>Chat en vivo en <code>repre.nikko.dev</code></strong> y API en producción, respondiendo normativa con fuentes citadas en los tres canales del CEIS.", en: "<strong>Live chat at <code>repre.nikko.dev</code></strong> and a production API, answering regulations with cited sources across all three CEIS channels." },
   "projects.reprebot.learn": { es: "En sistemas RAG en producción, el <strong>chunking semántico y la trazabilidad de fuentes</strong> son más determinantes para la precisión que el tamaño del modelo.", en: "In production RAG systems, <strong>semantic chunking and source provenance</strong> matter far more for precision than raw model parameters." },
-  "projects.reprebot.terminal": { es: "✓ api.nikko.dev · ✓ FastAPI RAG · ✓ Webhooks Supabase", en: "✓ api.nikko.dev · ✓ FastAPI RAG · ✓ Supabase Webhooks" },
+  "projects.reprebot.terminal": { es: "✓ repre.nikko.dev · ✓ Qwen 3.5 4B FT · ✓ API + 3 canales", en: "✓ repre.nikko.dev · ✓ Qwen 3.5 4B FT · ✓ API + 3 channels" },
 
   // Project: SinPresupuesto
   "projects.sinpre.title": { es: "SinPresupuesto", en: "SinPresupuesto" },

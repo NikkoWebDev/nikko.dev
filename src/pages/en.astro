@@ -5,6 +5,7 @@ import Hero from "../components/Hero.astro";
 import SkillsMarquee from "../components/SkillsMarquee.astro";
 import Services from "../components/Services.astro";
 import Projects from "../components/Projects.astro";
+import Impacto from "../components/Impacto.astro";
 import About from "../components/About.astro";
 import Experience from "../components/Experience.astro";
 import Metrics from "../components/Metrics.astro";
@@ -25,6 +26,7 @@ const description = "Full-Stack Developer specialized in Applied AI, Edge Comput
     <Metrics lang={lang} />
     <SkillsMarquee />
     <Projects lang={lang} />
+    <Impacto lang={lang} />
     <Services lang={lang} />
     <About lang={lang} />
     <Experience lang={lang} />
@@ -110,6 +112,7 @@ const description = "Full-Stack Developer specialized in Applied AI, Edge Comput
         ".about-footer",
         // Cards formerly tweened with GSAP; same reveal system, no stagger
         ".serv-card", ".project-card", ".dash-card", ".cert-card", ".about-hl",
+        ".impact-panel", ".impact-metric",
       ];
       const isCard = (el) => el.matches(".serv-card, .project-card, .dash-card, .cert-card, .about-hl");
 

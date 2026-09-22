@@ -1,0 +1,257 @@
+---
+import { getTranslation, type Lang } from "../data/translations";
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+---
+
+<section class="impact-section" id="impacto">
+  <div class="container">
+    <div class="impact-panel">
+      <div class="impact-glow" aria-hidden="true"></div>
+
+      <div class="impact-head">
+        <div class="impact-eyebrow">{getTranslation("impact.eyebrow", lang)}</div>
+        <h2>{getTranslation("impact.title", lang)}</h2>
+        <p class="impact-sub">{getTranslation("impact.sub", lang)}</p>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="impact-val">{getTranslation("impact.m1.val", lang)}</span>
+          <span class="impact-lbl">{getTranslation("impact.m1.lbl", lang)}</span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-val">{getTranslation("impact.m2.val", lang)}</span>
+          <span class="impact-lbl">{getTranslation("impact.m2.lbl", lang)}</span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-val">{getTranslation("impact.m3.val", lang)}</span>
+          <span class="impact-lbl">{getTranslation("impact.m3.lbl", lang)}</span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-val">{getTranslation("impact.m4.val", lang)}</span>
+          <span class="impact-lbl">{getTranslation("impact.m4.lbl", lang)}</span>
+        </div>
+      </div>
+
+      <div class="impact-actions">
+        <a class="impact-btn-primary" href="https://ceis-unal.com" target="_blank" rel="noopener noreferrer" data-track="demo_click">
+          {getTranslation("impact.cta.ceis", lang)} ↗
+        </a>
+        <a class="impact-btn-ghost" href="https://repre.nikko.dev/" target="_blank" rel="noopener noreferrer" data-track="demo_click">
+          {getTranslation("impact.cta.repre", lang)} ↗
+        </a>
+      </div>
+
+      <div class="impact-terminal" aria-hidden="true">
+        <span class="t-prompt">$</span>
+        <span>nikko deploy --target=ceis --channels=whatsapp,chat,foro --status=live</span>
+        <span class="t-ok">✓ 200 OK</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact-section {
+    padding: 48px 0;
+    position: relative;
+  }
+
+  .impact-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    background:
+      radial-gradient(700px 380px at 12% 0%, rgba(16, 185, 129, 0.28), transparent 60%),
+      radial-gradient(560px 380px at 95% 100%, rgba(52, 211, 153, 0.16), transparent 60%),
+      #022C22;
+    border: 1px solid rgba(110, 231, 183, 0.22);
+    padding: clamp(36px, 6vw, 72px);
+    color: #ECFDF5;
+    box-shadow: 0 30px 80px rgba(2, 44, 34, 0.35), 0 0 90px rgba(16, 185, 129, 0.12);
+  }
+
+  .impact-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(110, 231, 183, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110, 231, 183, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 30% 20%, black, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 20%, black, transparent 75%);
+    pointer-events: none;
+  }
+
+  .impact-glow {
+    position: absolute;
+    top: -120px;
+    left: 8%;
+    width: 420px;
+    height: 280px;
+    background: radial-gradient(closest-side, rgba(52, 211, 153, 0.35), transparent);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .impact-head {
+    position: relative;
+    max-width: 720px;
+    margin-bottom: 40px;
+  }
+
+  .impact-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: #6EE7B7;
+    margin-bottom: 16px;
+  }
+
+  .impact-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    color: #F0FDF6;
+    margin-bottom: 18px;
+  }
+
+  .impact-sub {
+    color: #A7F3D0;
+    opacity: 0.85;
+    font-size: 1.04rem;
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .impact-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .impact-metric {
+    border: 1px solid rgba(110, 231, 183, 0.18);
+    background: rgba(236, 253, 245, 0.04);
+    border-radius: 18px;
+    padding: 22px 18px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .impact-metric:hover {
+    border-color: rgba(110, 231, 183, 0.45);
+    background: rgba(236, 253, 245, 0.07);
+    transform: translateY(-3px);
+  }
+
+  .impact-val {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    letter-spacing: -0.02em;
+    color: #F0FDF6;
+    margin-bottom: 6px;
+  }
+
+  .impact-lbl {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    color: #6EE7B7;
+    opacity: 0.85;
+  }
+
+  .impact-actions {
+    position: relative;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .impact-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-full);
+    background: #34D399;
+    color: #022C22;
+    font-weight: 700;
+    font-size: 0.93rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 32px rgba(52, 211, 153, 0.4);
+    transition: transform 0.2s var(--ease), filter 0.2s, box-shadow 0.2s;
+  }
+
+  .impact-btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: 0 0 48px rgba(52, 211, 153, 0.55);
+  }
+
+  .impact-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(110, 231, 183, 0.35);
+    color: #ECFDF5;
+    font-weight: 600;
+    font-size: 0.93rem;
+    transition: all 0.2s var(--ease);
+  }
+
+  .impact-btn-ghost:hover {
+    border-color: rgba(110, 231, 183, 0.7);
+    background: rgba(236, 253, 245, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .impact-terminal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: #6EE7B7;
+    opacity: 0.75;
+    border-top: 1px solid rgba(110, 231, 183, 0.15);
+    padding-top: 22px;
+  }
+
+  .impact-terminal .t-prompt { color: #34D399; }
+  .impact-terminal .t-ok {
+    color: #022C22;
+    background: #34D399;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 999px;
+  }
+
+  @media (max-width: 900px) {
+    .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .impact-grid { grid-template-columns: 1fr; }
+    .impact-actions .impact-btn-primary,
+    .impact-actions .impact-btn-ghost { width: 100%; justify-content: center; }
+  }
+</style>
