@@ -16,13 +16,35 @@ export const projects: Project[] = [
     slug: "fibog",
     title: "Semilleros FIBOG — Universidad Nacional de Colombia",
     image: "/projects/fibog.jpg",
-    demo: "https://semilleros-fibog.vercel.app",
+    demo: "https://semilleros.nikko.dev",
     repo: "https://github.com/NikkoWebDev/FIBOG",
     description: "Plataforma para centralizar grupos de investigación y semilleros.",
     problem: "La facultad no tenía dónde centralizar sus grupos de investigación y semilleros. La información estaba repartida entre correos, PDFs y grupos de WhatsApp.",
     work: "Construimos una plataforma con Astro, Supabase y PostgreSQL: catálogo de grupos, gestión de roles y formularios de postulación.",
     result: "Plataforma en producción con 13 grupos gestionados.",
     stack: ["Astro", "Supabase", "PostgreSQL", "RLS", "Accesibilidad", "UNAL"]
+  },
+  {
+    slug: "ceis",
+    title: "CEIS — Consejo Estudiantil de Ingeniería de Sistemas | UNAL",
+    image: "/projects/ceis.jpg",
+    demo: "https://ceis-unal.com",
+    description: "Plataforma institucional del Consejo Estudiantil de Ingeniería de Sistemas y Computación.",
+    problem: "La comunidad de Ingeniería de Sistemas carecía de un hub digital centralizado para acceder a la malla curricular interactiva, la gestión de comisiones de trabajo, convocatorias y transparencia de representación estudiantil.",
+    work: "Desarrollo de una Single Page Application de alto rendimiento con React, Vite y Tailwind CSS, integrando Supabase para persistencia y backend serverless, sistema de temas claro/oscuro sin parpadeo y navegación fluida.",
+    result: "Plataforma institucional oficial en producción en https://ceis-unal.com, conectando a la comunidad estudiantil de la Universidad Nacional de Colombia.",
+    stack: ["React", "Vite", "Supabase", "Tailwind CSS", "Malla Curricular", "UNAL"]
+  },
+  {
+    slug: "reprebot",
+    title: "Reprebot — Agente de IA Aplicada & RAG para Representación Estudiantil",
+    image: "/projects/reprebot.jpg",
+    demo: "https://api.nikko.dev/docs",
+    description: "Microservicio de IA con arquitectura RAG sobre normativas universitarias y canales automatizados.",
+    problem: "Cientos de estudiantes realizaban consultas repetitivas sobre estatutos académicos, trámites de matrícula y normativas en canales dispersos. Los representantes no daban abasto para responder manualmente cada duda.",
+    work: "Diseño e implementación de un microservicio en FastAPI y Python con motor RAG (búsqueda semántica vectorial de chunks normativos), respuestas con streaming ultra-rápido, integración de Database Webhooks con Supabase para responder foros automáticamente y conector de WhatsApp.",
+    result: "API en producción activa con endpoints de chat streaming, búsqueda vectorial y automatización multi-canal con trazabilidad de fuentes oficiales.",
+    stack: ["FastAPI", "Python", "RAG", "Vector Search", "Supabase Webhooks", "WhatsApp Bot"]
   },
   {
     slug: "sinpresupuesto",

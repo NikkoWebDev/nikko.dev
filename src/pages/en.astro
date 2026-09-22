@@ -16,26 +16,25 @@ import Footer from "../components/Footer.astro";
 const lang = "en";
 const title = "NikkoDev | Web, AI and Automation · Edge-First Full-Stack";
 const description = "Full-Stack Developer specialized in Applied AI, Edge Computing and modern web platforms. Landing pages, AI apps and automation for businesses that want to sell more.";
-const ogDescription = "AI-powered web development: fast, beautiful and optimized. Full-Stack Developer specialized in Edge Computing and modern web platforms.";
 ---
 
 <BaseLayout title={title} description={description} lang="en">
   <Navbar lang={lang} />
   <main>
     <Hero lang={lang} />
+    <Metrics lang={lang} />
     <SkillsMarquee />
-    <Services lang={lang} />
     <Projects lang={lang} />
+    <Services lang={lang} />
     <About lang={lang} />
     <Experience lang={lang} />
-    <Metrics lang={lang} />
     <Certifications lang={lang} />
     <FAQ lang={lang} />
     <Contact lang={lang} />
   </main>
   <Footer />
 
-  <script>
+  <script is:inline>
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // ── Tiny tween helper (power3.out — same curve as the GSAP it replaces) ──
@@ -106,7 +105,7 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
       const selectors = [
         ".exp-body", ".faq-item", ".hm-item",
         ".contact-box", ".about-terminal",
-        ".exam-card", ".hero-section", ".section-head",
+        ".exam-card", ".section-head",
         ".term-log", ".dash-gauge", ".about-quote",
         ".about-footer",
         // Cards formerly tweened with GSAP; same reveal system, no stagger
@@ -140,28 +139,6 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
       }, { threshold: 0.06, rootMargin: "0px 0px -30px 0px" });
 
       elements.forEach((el) => observer.observe(el));
-
-      // ── Hero Parallax ──
-      const panel = document.querySelector(".tv-panel .os-window");
-      if (panel && window.innerWidth > 900 && !prefersReducedMotion) {
-        let rafId = null;
-        const handleMove = (e) => {
-          if (rafId) return;
-          rafId = requestAnimationFrame(() => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 4;
-            const y = (e.clientY / window.innerHeight - 0.5) * -2;
-            panel.style.transform = `perspective(1200px) rotateY(${x}deg) rotateX(${y}deg)`;
-            rafId = null;
-          });
-        };
-        window.addEventListener("mousemove", handleMove, { passive: true });
-      }
-
-      // ── Hero typing effect ──
-      document.querySelectorAll(".terminal-lines div").forEach((line, idx) => {
-        line.style.setProperty("--typo-delay", `${(idx * 0.1).toFixed(2)}s`);
-        line.classList.add("typo-line");
-      });
     })();
 
     // ── Dynamic dash-card value animation (IO + rAF) ──
@@ -179,57 +156,6 @@ const ogDescription = "AI-powered web development: fast, beautiful and optimized
           dashNum.textContent = String(Math.round(val));
         });
       });
-    })();
-
-    // ── Scrollytelling: section chapter indicator ──
-    (() => {
-      const sections = [
-        { id: 'servicios', label: 'Services' },
-        { id: 'proyectos', label: 'Projects' },
-        { id: 'sobre-mi', label: 'About' },
-        { id: 'experiencia', label: 'Exp.' },
-        { id: 'metricas', label: 'Metrics' },
-        { id: 'certificaciones', label: 'Certs.' },
-        { id: 'faq', label: 'FAQ' },
-        { id: 'contacto', label: 'Contact' },
-      ];
-
-      let chapterEl = document.querySelector('.sb-chapter');
-      if (!chapterEl) {
-        const sbRight = document.querySelector('.sb-right');
-        if (!sbRight) return;
-        chapterEl = document.createElement('span');
-        chapterEl.className = 'sb-chapter';
-        const sep = document.createElement('span');
-        sep.className = 'sb-sep';
-        sep.textContent = '|';
-        sbRight.prepend(sep);
-        sbRight.prepend(chapterEl);
-      }
-
-      let currentIdx = -1;
-      const updateChapter = () => {
-        const scrollY = window.scrollY;
-        let found = -1;
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const el = document.getElementById(sections[i].id);
-          if (el && el.offsetTop <= scrollY + 200) {
-            found = i;
-            break;
-          }
-        }
-        if (found !== currentIdx) {
-          currentIdx = found;
-          if (found >= 0) {
-            chapterEl.textContent = `${String(found + 1).padStart(2, '0')} · ${sections[found].label}`;
-          } else {
-            chapterEl.textContent = '00 · Home';
-          }
-        }
-      };
-
-      updateChapter();
-      window.addEventListener('scroll', updateChapter, { passive: true });
     })();
   </script>
 

@@ -4,7 +4,7 @@ export interface Props { lang?: Lang; }
 const { lang = "es" } = Astro.props;
 ---
 
-<section id="metricas" class="section-bg-grid">
+<section id="metricas" class="metrics-section">
   <div class="container">
     <!-- Compact head — different from other sections -->
     <div class="section-head-compact">
@@ -105,6 +105,11 @@ const { lang = "es" } = Astro.props;
 </section>
 
 <style>
+  .metrics-section {
+    padding: 20px 0 80px;
+    position: relative;
+  }
+
   .dash-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -128,22 +133,40 @@ const { lang = "es" } = Astro.props;
     /* stays in flow */
   }
 
-  /* ── Card base ── */
+  /* ── Quantum Glass Bento Cards (Option 1 Style) ── */
   .dash-card {
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    padding: 24px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 26px;
     background: var(--glass-card);
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s var(--ease);
     display: flex;
     flex-direction: column;
     gap: 10px;
     min-width: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dash-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    pointer-events: none;
   }
 
   .dash-card:hover {
     border-color: var(--line-green);
     background: var(--glass-card-hover);
+    box-shadow: var(--glass-shadow-hover);
+    transform: translateY(-4px);
   }
 
   .dash-num[data-count] {
@@ -160,12 +183,15 @@ const { lang = "es" } = Astro.props;
   }
 
   .dash-featured {
-    background: linear-gradient(160deg, var(--bg-glow-1), var(--glass-card));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), var(--glass-card));
     border-color: var(--line-green);
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   }
 
   .dash-accent {
-    background: linear-gradient(160deg, var(--bg-glow-2), var(--glass-card));
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), var(--glass-card));
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   }
 
   /* ── Label ── */

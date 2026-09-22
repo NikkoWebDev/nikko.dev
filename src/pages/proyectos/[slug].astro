@@ -17,7 +17,7 @@ const whatsapp = "https://wa.me/573136638097";
 
 <BaseLayout title={title} description={description} ogImage={project.image} lang={lang} canonicalPath={`/proyectos/${project.slug}`}>
   <Navbar lang={lang} />
-  <main>
+  <main data-project-slug={project.slug}>
     <div class="container case">
       <a class="case-back" href="/#proyectos">← Volver a proyectos</a>
 
@@ -81,8 +81,8 @@ const whatsapp = "https://wa.me/573136638097";
   <Footer />
   <script>
     import { track } from "../../lib/analytics";
-    // Vista de caso de estudio al montar
-    track("case_view", { slug: "{project.slug}", lang: "{lang}" });
+    const slug = document.querySelector("main")?.dataset.projectSlug || "";
+    track("case_view", { slug });
   </script>
 </BaseLayout>
 

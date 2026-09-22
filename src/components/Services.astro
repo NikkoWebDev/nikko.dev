@@ -14,254 +14,179 @@ const { lang = "es" } = Astro.props;
       </p>
     </div>
 
-    <div class="serv-layout">
-      <!-- Featured card: Landing Pages (spans wider) -->
-      <article class="serv-card serv-featured">
-        <div class="serv-badge">FLAGSHIP</div>
-        <div class="serv-icon-wrap">
-          <span class="serv-icon">01</span>
-          <span class="serv-icon-bg"></span>
+    <div class="serv-grid">
+      <article class="serv-card">
+        <div class="serv-header">
+          <span class="serv-number">01</span>
+          <span class="serv-tag">Architecture</span>
         </div>
         <h3>{getTranslation("services.card1.title", lang)}</h3>
         <p>{getTranslation("services.card1.desc", lang)}</p>
-        <div class="tags">
-          <span class="tag">Astro</span>
-          <span class="tag">SEO</span>
-          <span class="tag">GSAP</span>
-          <span class="tag">Responsive</span>
-        </div>
-        <div class="serv-corner-glow"></div>
-        <!-- Decorative terminal line -->
-        <div class="serv-term">
-          <span class="term-line"><span class="prompt">$</span> npx nikkodev landing --premium --seo --fast</span>
+        <div class="serv-tags">
+          <span class="tag">Next.js / Astro</span>
+          <span class="tag">Cloudflare Edge</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">PostgreSQL RLS</span>
         </div>
       </article>
 
-      <!-- Secondary cards row -->
-      <div class="serv-secondary">
-        <article class="serv-card card-accent-left">
-          <div class="serv-icon-wrap sm">
-            <span class="serv-icon">02</span>
-          </div>
-          <h3>{getTranslation("services.card2.title", lang)}</h3>
-          <p>{getTranslation("services.card2.desc", lang)}</p>
-          <div class="tags">
-            <span class="tag">OpenRouter</span>
-            <span class="tag">OAuth</span>
-            <span class="tag">SQL</span>
-            <span class="tag">Cloudflare</span>
-          </div>
-        </article>
+      <article class="serv-card">
+        <div class="serv-header">
+          <span class="serv-number">02</span>
+          <span class="serv-tag">Applied AI</span>
+        </div>
+        <h3>{getTranslation("services.card2.title", lang)}</h3>
+        <p>{getTranslation("services.card2.desc", lang)}</p>
+        <div class="serv-tags">
+          <span class="tag">FastAPI</span>
+          <span class="tag">Python RAG</span>
+          <span class="tag">Vector Search</span>
+          <span class="tag">Webhooks</span>
+        </div>
+      </article>
 
-        <article class="serv-card card-accent-left amber">
-          <div class="serv-icon-wrap sm">
-            <span class="serv-icon">03</span>
-          </div>
-          <h3>{getTranslation("services.card3.title", lang)}</h3>
-          <p>{getTranslation("services.card3.desc", lang)}</p>
-          <div class="tags">
-            <span class="tag tag-amber">Performance</span>
-            <span class="tag tag-amber">Linux</span>
-            <span class="tag">Bots</span>
-            <span class="tag">Procesos</span>
-          </div>
-        </article>
+      <article class="serv-card">
+        <div class="serv-header">
+          <span class="serv-number">03</span>
+          <span class="serv-tag">Performance</span>
+        </div>
+        <h3>{getTranslation("services.card3.title", lang)}</h3>
+        <p>{getTranslation("services.card3.desc", lang)}</p>
+        <div class="serv-tags">
+          <span class="tag tag-amber">Core Web Vitals</span>
+          <span class="tag tag-amber">Latencia 0.2s</span>
+          <span class="tag">Zero Infra Cost</span>
+          <span class="tag">Astro SSG</span>
+        </div>
+      </article>
 
-        <article class="serv-card card-accent-left violet">
-          <div class="serv-icon-wrap sm">
-            <span class="serv-icon">04</span>
-          </div>
-          <h3>{getTranslation("services.card4.title", lang)}</h3>
-          <p>{getTranslation("services.card4.desc", lang)}</p>
-          <div class="tags">
-            <span class="tag">IA</span>
-            <span class="tag">Educación</span>
-            <span class="tag">Prompting</span>
-            <span class="tag">Agentes</span>
-          </div>
-        </article>
-      </div>
+      <article class="serv-card">
+        <div class="serv-header">
+          <span class="serv-number">04</span>
+          <span class="serv-tag">Product Engineering</span>
+        </div>
+        <h3>{getTranslation("services.card4.title", lang)}</h3>
+        <p>{getTranslation("services.card4.desc", lang)}</p>
+        <div class="serv-tags">
+          <span class="tag">PWA Offline</span>
+          <span class="tag">SEO Técnico</span>
+          <span class="tag">Interactive UI</span>
+          <span class="tag">Alta Conversión</span>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
 <style>
-  /* ── Layout: featured + secondary row ── */
-  .serv-layout {
+  .serv-grid {
     display: grid;
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    align-items: start;
   }
 
-  .serv-secondary {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  /* ── Featured card — mint glass ── */
-  .serv-featured {
-    border: 1px solid rgba(16,185,129,0.14);
+  .serv-card {
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
-    padding: 36px;
-    background: rgba(255,255,255,0.68);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    position: relative;
-    overflow: hidden;
+    padding: 34px;
     display: flex;
     flex-direction: column;
     gap: 18px;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
     transition: all 0.3s var(--ease);
-    box-shadow: 0 8px 32px rgba(16,185,129,0.08);
   }
 
-  .serv-featured:hover {
-    border-color: rgba(16,185,129,0.22);
-    background: rgba(255,255,255,0.78);
-    box-shadow: 0 12px 40px rgba(16,185,129,0.12);
-  }
-
-  .serv-badge {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--amber-text);
-    border: 1px solid var(--line-amber);
-    background: rgba(212,168,83,0.08);
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    width: fit-content;
-  }
-
-  .serv-corner-glow {
+  .serv-card::before {
+    content: "";
     position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,208,132,0.12), transparent 60%);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
     pointer-events: none;
   }
 
-  .serv-term {
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px solid var(--line);
+  .serv-card:hover {
+    border-color: var(--line-green);
+    background: var(--glass-card-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--glass-shadow-hover);
   }
 
-  .serv-term .term-line {
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
-  .serv-term .prompt { color: var(--accent-text); }
-
-  /* ── Icon ── */
-  .serv-icon-wrap {
-    position: relative;
-    width: 48px;
-    height: 48px;
-  }
-
-  .serv-icon-wrap.sm {
-    width: 38px;
-    height: 38px;
-  }
-
-  .serv-icon {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-    border-radius: 14px;
-    background: rgba(0, 208, 132, 0.08);
-    border: 1px solid var(--line-green);
-    color: var(--accent-text);
-    font-family: var(--mono);
-    font-weight: 700;
-    font-size: 1rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .serv-icon-wrap.sm .serv-icon {
-    font-size: 0.85rem;
-    border-radius: 10px;
-  }
-
-  .serv-icon-bg {
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,208,132,0.1), transparent 60%);
-    z-index: 1;
-  }
-
-  /* ── Secondary cards — mint glass ── */
-  .serv-secondary .serv-card {
-    border: 1px solid rgba(16,185,129,0.14);
-    border-radius: var(--radius);
-    padding: 24px;
-    background: rgba(255,255,255,0.62);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
+  .serv-header {
     display: flex;
-    flex-direction: column;
-    transition: all 0.3s var(--ease);
-    box-shadow: 0 8px 24px rgba(16,185,129,0.06);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .serv-secondary .serv-card:hover {
-    border-color: rgba(16,185,129,0.22);
-    background: rgba(255,255,255,0.76);
+  .serv-number {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-text);
   }
 
-  /* ── Card typography ── */
-  .serv-featured h3 {
+  .serv-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .serv-card h3 {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-  }
-
-  .serv-featured p {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
-  }
-
-  .serv-secondary h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 8px 0;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
 
   .serv-card p {
     color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    flex-grow: 1;
   }
 
-  .serv-card .tags {
+  .serv-tags {
     margin-top: auto;
-    padding-top: 16px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
 
-  /* ── Responsive ── */
-  @media (max-width: 1024px) {
-    .serv-layout { grid-template-columns: 1fr; }
-    .serv-secondary { grid-template-columns: 1fr; }
-    .serv-featured { order: -1; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+    transition: all 0.2s var(--ease);
   }
 
-  @media (max-width: 640px) {
-    .serv-featured { padding: 28px; }
-    .serv-secondary .serv-card { padding: 22px; }
+  .tag:hover {
+    border-color: var(--line-green);
+    color: var(--accent-text);
+  }
+
+  .tag-amber {
+    color: var(--amber-text);
+    border-color: var(--line-amber);
+  }
+
+  @media (max-width: 860px) {
+    .serv-grid { grid-template-columns: 1fr; }
+    .serv-card { padding: 26px; }
   }
 </style>

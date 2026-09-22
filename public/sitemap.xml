@@ -91,4 +91,40 @@
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/ceis</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/ceis" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/ceis" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/ceis" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/ceis</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/ceis" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/ceis" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/ceis" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/proyectos/reprebot</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/reprebot" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/reprebot" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/reprebot" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikko.dev/en/projects/reprebot</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nikko.dev/proyectos/reprebot" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikko.dev/en/projects/reprebot" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikko.dev/proyectos/reprebot" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

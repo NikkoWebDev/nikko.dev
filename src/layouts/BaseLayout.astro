@@ -329,11 +329,12 @@ const jsonLd = {
   <script type="application/ld+json" data-schema="nikkodev" set:html={JSON.stringify(jsonLd)}></script>
 
   <style is:global>
-    /* Critical inline CSS — mint fallback claro */
-    :root { --bg-fallback: #F0FDF6; --white-fallback: #022C22; --font-fallback: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif; }
-    :root.light { --bg-fallback: #F0FDF6; --white-fallback: #022C22; }
-    :root.dark { --bg-fallback: #040816; --white-fallback: #E6F1EC; }
+    /* Critical inline CSS — Obsidian & Zinc */
+    :root { --bg-fallback: #F8FAFC; --white-fallback: #0F172A; --font-fallback: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; }
+    :root.light, html.light { --bg-fallback: #F8FAFC; --white-fallback: #0F172A; }
+    :root.dark, html.dark { --bg-fallback: #09090B; --white-fallback: #F4F4F5; }
     body { background-color: var(--bg-fallback); color: var(--white-fallback); font-family: var(--font-fallback); }
+    html.dark body { background-color: #09090B !important; color: #F4F4F5 !important; }
   </style>
 </head>
 <body>
@@ -341,26 +342,6 @@ const jsonLd = {
   <div class="page-progress" id="pageProgress"></div>
   
   <slot />
-
-  <!-- OS Status Bar -->
-  <div class="os-statusbar" role="status" aria-label="System status">
-    <div class="sb-left">
-      <span class="sb-dot green"></span>
-      <span>NikkoDev OS</span>
-      <span class="sb-sep">|</span>
-      <span class="sb-hide-mobile">vim · edge-first</span>
-      <span class="sb-sep sb-hide-mobile">|</span>
-      <span class="sb-hide-mobile">● all systems online</span>
-    </div>
-    <div class="sb-right">
-      <span class="sb-hide-mobile">NORM: 0.2s</span>
-      <span class="sb-sep sb-hide-mobile">|</span>
-      <span id="sbTime">--:--</span>
-    </div>
-  </div>
-
-  <!-- Cursor glow -->
-  <div class="cursor-glow" id="cursorGlow"></div>
 
   <script>
     import { track } from '../lib/analytics';
@@ -418,9 +399,9 @@ const jsonLd = {
         glow.style.display = 'none';
         return;
       }
-      let timer;
-      let rafId = null;
-      let lastEvent = null;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      let rafId: number | null = null;
+      let lastEvent: MouseEvent | null = null;
       const show = () => {
         glow.classList.add('active');
         clearTimeout(timer);
@@ -444,9 +425,8 @@ const jsonLd = {
     // con data-track="nombre" y props opcionales data-track-prop-<clave>.
     (() => {
       document.addEventListener('click', (e) => {
-        const el = e.target && typeof e.target.closest === 'function'
-          ? e.target.closest('[data-track]')
-          : null;
+        const target = e.target as HTMLElement | null;
+        const el = target ? target.closest<HTMLElement>('[data-track]') : null;
         if (!el) return;
         const name = el.getAttribute('data-track');
         if (!name) return;

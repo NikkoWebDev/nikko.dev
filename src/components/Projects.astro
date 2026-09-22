@@ -22,9 +22,27 @@ const projects = [
     slug: "fibog",
     tab: "FIBOG.tsx",
     image: "/projects/fibog.jpg",
-    demo: "https://semilleros-fibog.vercel.app",
+    demo: "https://semilleros.nikko.dev",
     code: "https://github.com/NikkoWebDev/FIBOG",
     tags: ["Astro", "Supabase", "PostgreSQL", "RLS", "Accesibilidad", "UNAL"]
+  },
+  {
+    id: "ceis",
+    slug: "ceis",
+    tab: "CEIS.tsx",
+    image: "/projects/ceis.jpg",
+    demo: "https://ceis-unal.com",
+    code: null,
+    tags: ["React", "Vite", "Supabase", "Tailwind CSS", "Malla Curricular", "UNAL"]
+  },
+  {
+    id: "reprebot",
+    slug: "reprebot",
+    tab: "Reprebot.py",
+    image: "/projects/reprebot.jpg",
+    demo: "https://api.nikko.dev/docs",
+    code: null,
+    tags: ["FastAPI", "Python", "RAG", "Vector Search", "Supabase Webhooks", "WhatsApp Bot"]
   },
   {
     id: "autorep",
@@ -54,6 +72,8 @@ const labels = {
     result: "Resultado",
     learnFibog: "Lo que aprendí",
     learnSinpre: "Lo que haría diferente",
+    learnCeis: "Impacto institucional",
+    learnRepre: "Lo que aprendí",
     learnAuto: "Lo que aprendería",
     learnIndu: "Lo que aprendería"
   },
@@ -64,6 +84,8 @@ const labels = {
     result: "Result",
     learnFibog: "What I learned",
     learnSinpre: "What I'd do differently",
+    learnCeis: "Institutional impact",
+    learnRepre: "What I learned",
     learnAuto: "What I'd learn next",
     learnIndu: "What I'd learn next"
   }
@@ -79,6 +101,8 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   }
   if (id === "fibog") return l.learnFibog;
   if (id === "sinpre") return l.learnSinpre;
+  if (id === "ceis") return l.learnCeis;
+  if (id === "reprebot") return l.learnRepre;
   if (id === "autorep") return l.learnAuto;
   return l.learnIndu;
 }
@@ -101,8 +125,9 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
       ))}
     </nav>
 
-    {projects.map((project) => (
+    {projects.map((project, i) => (
       <article class="editor-window" id={`proyecto-${project.id}`}>
+        <span class="project-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
         <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
           <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
           <span>{getTranslation("projects.btn.demo", lang)} ↗</span>
@@ -130,6 +155,8 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
               const keys: Record<string, string[]> = {
                 fibog: ["problem", "do", "stack", "learn"],
                 sinpre: ["problem", "do", "result", "learn"],
+                ceis: ["problem", "do", "result", "learn"],
+                reprebot: ["problem", "do", "result", "learn"],
                 autorep: ["problem", "do", "result", "learn"],
                 indusec: ["problem", "do", "result", "learn"]
               };
@@ -196,15 +223,50 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   }
 
   .editor-window {
-    background: rgba(255,255,255,0.64);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(16,185,129,0.14);
-    border-radius: 18px;
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
     overflow: hidden;
-    margin-bottom: 28px;
+    margin-bottom: 36px;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
     transition: all 0.3s var(--ease);
-    box-shadow: 0 8px 32px rgba(16,185,129,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  .editor-window::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .project-index {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    z-index: 3;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3.4rem, 7vw, 5.2rem);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--line-strong);
+    opacity: 0.85;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .editor-window:hover .project-index {
+    -webkit-text-stroke-color: var(--line-green);
+    opacity: 1;
   }
 
   .project-preview {
@@ -212,7 +274,7 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     display: block;
     overflow: hidden;
     border-bottom: 1px solid var(--line);
-    background: var(--glass-light);
+    background: var(--surface-2);
   }
 
   .project-preview img {
@@ -220,48 +282,53 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     aspect-ratio: 16 / 7;
     object-fit: cover;
     object-position: top;
-    transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
+    transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
   }
 
   .project-preview span {
     position: absolute;
     right: 18px;
     bottom: 14px;
-    padding: 8px 12px;
-    border: 1px solid var(--line-green);
+    padding: 8px 16px;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-full);
-    background: var(--glass-bg-heavy);
-    color: var(--accent-text);
+    background: var(--glass-card-strong);
+    backdrop-filter: blur(12px);
+    color: var(--white);
     font-family: var(--mono);
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
   .project-preview:hover img,
   .project-preview:focus-visible img {
-    transform: scale(1.025);
-    filter: saturate(1.08);
+    transform: scale(1.045);
+    filter: saturate(1.1);
   }
 
   .editor-window:hover {
-    border-color: rgba(16,185,129,0.22);
-    box-shadow: 0 12px 40px rgba(16,185,129,0.14), 0 4px 12px rgba(0,0,0,0.06);
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.76);
+    border-color: var(--line-green);
+    box-shadow: var(--glass-shadow-hover), 0 0 50px rgba(16, 185, 129, 0.08);
+    transform: translateY(-5px);
   }
 
   .editor-tabs {
     display: flex;
     flex-wrap: nowrap;
     gap: 6px;
-    background: rgba(255,255,255,0.48);
-    border: 1px solid rgba(16,185,129,0.12);
-    border-radius: 999px;
-    padding: 6px;
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius-full);
+    padding: 8px;
+    margin-bottom: 36px;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   }
   .editor-tabs::-webkit-scrollbar { display: none; }
 
@@ -310,9 +377,9 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
 
   .editor-title {
     font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
     margin-bottom: 6px;
   }
 

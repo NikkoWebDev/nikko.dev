@@ -20,19 +20,19 @@ const lang = "es";
   <Navbar lang={lang} />
   <main>
     <Hero lang={lang} />
+    <Metrics lang={lang} />
     <SkillsMarquee />
-    <Services lang={lang} />
     <Projects lang={lang} />
+    <Services lang={lang} />
     <About lang={lang} />
     <Experience lang={lang} />
-    <Metrics lang={lang} />
     <Certifications lang={lang} />
     <FAQ lang={lang} />
     <Contact lang={lang} />
   </main>
   <Footer />
 
-  <script>
+  <script is:inline>
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // ── Tiny tween helper (power3.out — same curve as the GSAP it replaces) ──
@@ -103,7 +103,7 @@ const lang = "es";
       const selectors = [
         ".exp-body", ".faq-item", ".hm-item",
         ".contact-box", ".about-terminal",
-        ".exam-card", ".hero-section", ".section-head",
+        ".exam-card", ".section-head",
         ".term-log", ".dash-gauge", ".about-quote",
         ".about-footer",
         // Cards formerly tweened with GSAP; same reveal system, no stagger
@@ -140,28 +140,6 @@ const lang = "es";
       });
 
       elements.forEach((el) => observer.observe(el));
-
-      // ── Hero Parallax (debounced mousemove) ──
-      const panel = document.querySelector(".tv-panel .os-window");
-      if (panel && window.innerWidth > 900 && !prefersReducedMotion) {
-        let rafId = null;
-        const handleMove = (e) => {
-          if (rafId) return;
-          rafId = requestAnimationFrame(() => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 4;
-            const y = (e.clientY / window.innerHeight - 0.5) * -2;
-            panel.style.transform = `perspective(1200px) rotateY(${x}deg) rotateX(${y}deg)`;
-            rafId = null;
-          });
-        };
-        window.addEventListener("mousemove", handleMove, { passive: true });
-      }
-
-      // ── Hero typing effect on terminal lines ──
-      document.querySelectorAll(".terminal-lines div").forEach((line, idx) => {
-        line.style.setProperty("--typo-delay", `${(idx * 0.1).toFixed(2)}s`);
-        line.classList.add("typo-line");
-      });
     })();
 
     // ── Dynamic dash-card value animation for "8+" (IO + rAF) ──
@@ -179,58 +157,6 @@ const lang = "es";
           dashNum.textContent = String(Math.round(val));
         });
       });
-    })();
-
-    // ── Scrollytelling: section chapter indicator ──
-    (() => {
-      const sections = [
-        { id: 'servicios', label: 'Servicios' },
-        { id: 'proyectos', label: 'Proyectos' },
-        { id: 'sobre-mi', label: 'Sobre mí' },
-        { id: 'experiencia', label: 'Exp.' },
-        { id: 'metricas', label: 'Métricas' },
-        { id: 'certificaciones', label: 'Certs.' },
-        { id: 'faq', label: 'FAQ' },
-        { id: 'contacto', label: 'Contacto' },
-      ];
-
-      // Find or create chapter display in status bar
-      let chapterEl = document.querySelector('.sb-chapter');
-      if (!chapterEl) {
-        const sbRight = document.querySelector('.sb-right');
-        if (!sbRight) return;
-        chapterEl = document.createElement('span');
-        chapterEl.className = 'sb-chapter';
-        const sep = document.createElement('span');
-        sep.className = 'sb-sep';
-        sep.textContent = '|';
-        sbRight.prepend(sep);
-        sbRight.prepend(chapterEl);
-      }
-
-      let currentIdx = -1;
-      const updateChapter = () => {
-        const scrollY = window.scrollY;
-        let found = -1;
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const el = document.getElementById(sections[i].id);
-          if (el && el.offsetTop <= scrollY + 200) {
-            found = i;
-            break;
-          }
-        }
-        if (found !== currentIdx) {
-          currentIdx = found;
-          if (found >= 0) {
-            chapterEl.textContent = `${String(found + 1).padStart(2, '0')} · ${sections[found].label}`;
-          } else {
-            chapterEl.textContent = '00 · Inicio';
-          }
-        }
-      };
-
-      updateChapter();
-      window.addEventListener('scroll', updateChapter, { passive: true });
     })();
   </script>
 

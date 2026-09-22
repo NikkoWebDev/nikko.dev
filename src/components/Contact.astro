@@ -80,7 +80,7 @@ const contactLinks = [
   .section-label {
     font-family: var(--mono, 'JetBrains Mono', monospace);
     font-size: 0.75rem;
-    color: var(--green, #00D084);
+    color: var(--accent-text, #047857);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 1rem;
@@ -104,60 +104,73 @@ const contactLinks = [
   }
 
   .contact-shell {
-    background: rgba(255,255,255,0.66);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(16,185,129,0.14);
-    border-radius: 20px;
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
     overflow: hidden;
-    box-shadow:
-      8px 8px 24px rgba(16,185,129,0.10),
-      -8px -8px 24px rgba(255,255,255,0.92);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+  }
+
+  .contact-shell::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    pointer-events: none;
   }
 
   .contact-shell-header {
-    background: rgba(255,255,255,0.45);
-    border-bottom: 1px solid rgba(16,185,129,0.12);
-    padding: 0.8rem 1.2rem;
-    font-family: var(--mono, 'JetBrains Mono', monospace);
-    font-size: 0.78rem;
-    color: var(--muted, #5A7468);
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 22px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
   }
 
   .contact-list {
-    padding: 1.25rem;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 10px;
   }
 
   .contact-cmd {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    padding: 1.1rem 1.25rem;
-    border-radius: 10px;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius);
     text-decoration: none;
-    color: var(--muted, #94A3B8);
-    transition: all 0.2s ease;
-    font-family: var(--mono, 'JetBrains Mono', monospace);
-    font-size: 0.95rem;
+    color: var(--muted);
+    transition: all 0.2s var(--ease);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    border: 1px solid transparent;
   }
 
   .contact-cmd:hover {
-    background: var(--bg-2, #0A1325);
-    color: var(--white, #F8FAFC);
+    background: var(--surface-hover);
+    color: var(--white);
+    border-color: var(--line);
+    transform: translateX(4px);
   }
 
   .contact-cmd.wa-cmd {
-    background: rgba(37, 211, 102, 0.08);
-    border: 1px solid rgba(37, 211, 102, 0.18);
+    background: var(--surface-2);
+    border: 1px solid var(--line-green);
   }
 
   .contact-cmd.wa-cmd:hover {
-    background: rgba(37, 211, 102, 0.14);
-    border-color: #25D366;
-    box-shadow: 0 0 24px rgba(37, 211, 102, 0.15);
+    background: var(--surface-hover);
+    border-color: var(--green);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
   }
 
   .wa-icon {
@@ -165,9 +178,9 @@ const contactLinks = [
     font-size: 1.1rem;
   }
 
-  .cmd-prompt { color: var(--green, #00D084); }
+  .cmd-prompt { color: var(--accent-text, #047857); }
   .cmd-name { color: var(--white, #F8FAFC); font-weight: 600; }
-  .cmd-args { color: var(--cyan, #58D8FF); }
+  .cmd-args { color: var(--accent-2-text, #0f766e); }
   .cmd-desc {
     color: var(--muted, #94A3B8);
     margin-left: auto;

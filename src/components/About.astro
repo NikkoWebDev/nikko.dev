@@ -20,78 +20,31 @@ const { lang = "es" } = Astro.props;
         </div>
       </div>
 
-      <div class="about-editor">
-        <div class="about-editor-header">
-          <span class="code-dot red"></span>
-          <span class="code-dot yellow"></span>
-          <span class="code-dot green"></span>
-          <span class="terminal-title">{getTranslation("about.terminal.title", lang)}</span>
+      <div class="about-card">
+        <div class="card-header">
+          <span class="card-title">Ingeniería & Perfil</span>
+          <span class="badge-tag">UNAL Sistemas</span>
         </div>
-        <div class="about-editor-body">
-          <div class="editor-sidebar">
-            <div class="sidebar-title">{getTranslation("about.terminal.sidebar.title", lang)}</div>
-            <div class="sidebar-file active"><span>📄</span> {getTranslation("about.terminal.sidebar.active", lang)}</div>
-            <div class="sidebar-folder"><span>📁</span> {getTranslation("about.terminal.sidebar.folder", lang)}</div>
-            <div class="sidebar-file">&nbsp;&nbsp;FIBOG.tsx</div>
-            <div class="sidebar-file">&nbsp;&nbsp;SinPresupuesto.ts</div>
-            <div class="sidebar-file">&nbsp;&nbsp;Autorreparacion.astro</div>
-            <div class="sidebar-file">&nbsp;&nbsp;InduSEC.astro</div>
-            <div class="sidebar-file"><span>📄</span> {getTranslation("about.terminal.sidebar.skills", lang)}</div>
-            <div class="sidebar-file"><span>📄</span> {getTranslation("about.terminal.sidebar.contact", lang)}</div>
+        <div class="about-specs">
+          <div class="spec-row">
+            <span class="spec-label">Especialidad</span>
+            <span class="spec-val">Edge Runtimes & Applied AI</span>
           </div>
-          <div class="editor-codearea">
-            <div class="line">
-              <span class="line-number">1</span>
-              <span class="line-content"><span class="t-keyword">const</span> <span class="t-prop">dev</span> = {'{'}</span>
-            </div>
-            <div class="line">
-              <span class="line-number">2</span>
-              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.name", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.name", lang)}"</span>,</span>
-            </div>
-            <div class="line">
-              <span class="line-number">3</span>
-              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.alias", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.alias", lang)}"</span>,</span>
-            </div>
-            <div class="line">
-              <span class="line-number">4</span>
-              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.university", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.university", lang)}"</span>,</span>
-            </div>
-            <div class="line">
-              <span class="line-number">5</span>
-              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.year", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.year", lang)}"</span>,</span>
-            </div>
-            <div class="line">
-              <span class="line-number">6</span>
-              <span class="line-content">&nbsp;&nbsp;<span class="t-prop">{getTranslation("about.terminal.prop.language", lang)}</span>: <span class="t-string">"{getTranslation("about.terminal.val.language", lang)}"</span>,</span>
-            </div>
-            <div class="line">
-              <span class="line-number">7</span>
-              <span class="line-content">{'}'};</span>
-            </div>
-            <div class="line">
-              <span class="line-number">8</span>
-              <span class="line-content"><span class="t-comment">{getTranslation("about.terminal.comment1", lang)}</span></span>
-            </div>
-            <div class="line">
-              <span class="line-number">9</span>
-              <span class="line-content"><span class="t-prop">dev.{getTranslation("about.terminal.prop.values", lang)}</span> = {getTranslation("about.terminal.val.values", lang)};</span>
-            </div>
-            <div class="line">
-              <span class="line-number">10</span>
-              <span class="line-content"><span class="t-comment">{getTranslation("about.terminal.comment2", lang)}</span></span>
-            </div>
-            <div class="line">
-              <span class="line-number">11</span>
-              <span class="line-content"><span class="t-prompt">$</span> ls ~/projects</span>
-            </div>
-            <div class="line">
-              <span class="line-number">12</span>
-              <span class="line-content"><span class="t-val">sinpresupuesto/  fibog/  autorreparacion/  indusec/</span></span>
-            </div>
-            <div class="line">
-              <span class="line-number">13</span>
-              <span class="line-content"><span class="t-prompt">$</span> <span class="t-status">echo "{getTranslation("about.terminal.echo", lang)}"</span></span>
-            </div>
+          <div class="spec-row">
+            <span class="spec-label">Enfoque</span>
+            <span class="spec-val">RAG, Microservicios, Cloudflare Workers</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Stack Diario</span>
+            <span class="spec-val">TypeScript, Python, Astro, Next.js, Supabase</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Ubicación</span>
+            <span class="spec-val">Bogotá, Colombia (Remoto Global)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Idiomas</span>
+            <span class="spec-val">Español (Nativo) · Inglés (B2 Profesional)</span>
           </div>
         </div>
       </div>
@@ -101,18 +54,18 @@ const { lang = "es" } = Astro.props;
       <div class="currently-header">{getTranslation("currently.title", lang)}</div>
       <div class="currently-body">
         <div class="log-line">
-          <span class="log-time">[10:42:01]</span>
-          <span class="log-level">INFO</span>
+          <span class="log-time">[Prod]</span>
+          <span class="log-level">CEIS</span>
           <span set:html={getTranslation("currently.log1", lang)}></span>
         </div>
         <div class="log-line">
-          <span class="log-time">[10:42:03]</span>
-          <span class="log-level">INFO</span>
+          <span class="log-time">[Prod]</span>
+          <span class="log-level">Reprebot</span>
           <span set:html={getTranslation("currently.log2", lang)}></span>
         </div>
         <div class="log-line">
-          <span class="log-time">[10:42:05]</span>
-          <span class="log-level">INFO</span>
+          <span class="log-time">[Edge]</span>
+          <span class="log-level">FIBOG</span>
           <span set:html={getTranslation("currently.log3", lang)}></span>
         </div>
       </div>
@@ -158,128 +111,95 @@ const { lang = "es" } = Astro.props;
     margin-bottom: 24px;
   }
 
-  .about-quote {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--white);
-    padding: 18px 22px;
-    background: var(--surface);
-    border-left: 3px solid var(--green);
-    border-radius: 0 10px 10px 0;
-    line-height: 1.5;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  }
-
-  /* VS Code editor */
-  .about-editor {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
+  /* ── Quantum Glass About Card ── */
+  .about-card {
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
     overflow: hidden;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
-    max-width: 100%;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s var(--ease);
+    position: relative;
   }
 
-  .about-editor-header {
+  .about-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    pointer-events: none;
+  }
+
+  .about-card:hover {
+    border-color: var(--line-green);
+    box-shadow: var(--glass-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
+    justify-content: space-between;
+    padding: 18px 22px;
     background: var(--surface-2);
     border-bottom: 1px solid var(--line);
   }
 
-  .terminal-title {
-    margin-left: 8px;
-    color: var(--muted);
-    font-size: 0.72rem;
-  }
-
-  .about-editor-body {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-  }
-
-  .editor-sidebar {
-    background: var(--bg-2);
-    border-right: 1px solid var(--line);
-    padding: 16px 12px;
-    color: var(--muted);
-    font-size: 0.72rem;
-    line-height: 2;
-  }
-
-  .sidebar-title {
-    color: var(--white);
+  .card-title {
+    font-family: var(--mono);
+    font-size: 0.82rem;
     font-weight: 600;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-  }
-
-  .sidebar-file {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--muted);
-  }
-
-  .sidebar-file.active {
     color: var(--white);
-    background: rgba(16,185,129, 0.08);
-    margin: 0 -12px;
-    padding: 2px 12px;
   }
 
-  .sidebar-folder {
-    color: var(--accent-2-text);
+  .badge-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--accent-text);
+  }
+
+  .about-specs {
+    padding: 22px;
     display: flex;
-    align-items: center;
-    gap: 6px;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .editor-codearea {
-    padding: 16px;
-    line-height: 2;
-    overflow-x: auto;
-  }
-
-  .line {
+  .spec-row {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
   }
 
-  .line-number {
-    color: rgba(139, 139, 150, 0.4);
-    min-width: 1.5rem;
-    text-align: right;
-    user-select: none;
+  .spec-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
-  .line-content {
-    color: var(--muted);
+  .spec-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
-  .t-keyword { color: var(--accent-2-text); }
-  .t-prop { color: var(--white); }
-  .t-string { color: var(--accent-text); }
-  .t-comment { color: rgba(139, 139, 150, 0.4); font-style: italic; }
-  .t-prompt { color: var(--accent-text); }
-  .t-val { color: var(--muted); }
-  .t-status { color: var(--accent-text); font-weight: 600; }
-
-  .code-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+  .spec-val {
+    font-size: 0.92rem;
+    color: var(--white);
+    font-weight: 500;
   }
-
-  .code-dot.red { background: #ff5f57; }
-  .code-dot.yellow { background: #ffbd2e; }
-  .code-dot.green { background: #28c840; }
 
   /* Currently / system log */
   .currently {

@@ -19,6 +19,20 @@ const copy = {
     work: "We implemented Microsoft and Google OAuth, a PWA for offline use and a Llama 3.1 chatbot on Edge infrastructure.",
     result: "A functional platform with multi-layer authentication, a Llama 3.1 chatbot and Edge infrastructure.",
   },
+  ceis: {
+    title: "CEIS — Systems Engineering Student Council | UNAL",
+    description: "Official institutional platform for the Systems Engineering Student Council.",
+    problem: "Hundreds of Systems Engineering students lacked a centralized, transparent hub to explore their interactive curriculum, join commissions, and communicate with student representatives.",
+    work: "Engineered a high-performance Single Page Application with React, Vite, Tailwind CSS and Supabase for serverless backend persistence, with zero-flash dark/light theming.",
+    result: "Official institutional platform in production at https://ceis-unal.com, serving the student community of Universidad Nacional de Colombia.",
+  },
+  reprebot: {
+    title: "Reprebot — Applied AI & RAG Agent for Student Representation",
+    description: "FastAPI AI microservice with RAG architecture over university statutes and automated multi-channel integrations.",
+    problem: "Dozens of repetitive queries about academic regulations and procedures arrived daily via WhatsApp and forums without the human capacity to respond in real time.",
+    work: "Designed and implemented a microservice in FastAPI & Python with a RAG pipeline (semantic vector search over official regulations), response streaming, Supabase database webhooks for automated forum answering, and a WhatsApp connector.",
+    result: "Production API live at https://api.nikko.dev with interactive Swagger documentation, delivering precise answers grounded in statutory sources.",
+  },
   autorreparacion: {
     title: "Autorreparación",
     description: "A landing page for a real vehicle repair business.",
@@ -48,7 +62,7 @@ const whatsapp = "https://wa.me/573136638097";
 
 <BaseLayout title={title} description={text.description} ogImage={project.image} lang={lang} canonicalPath={`/en/projects/${project.slug}`}>
   <Navbar lang={lang} />
-  <main>
+  <main data-project-slug={project.slug}>
     <div class="container case">
       <a class="case-back" href="/en#proyectos">← Back to projects</a>
 
@@ -112,8 +126,8 @@ const whatsapp = "https://wa.me/573136638097";
   <Footer />
   <script>
     import { track } from "../../../lib/analytics";
-    // Case study view on mount
-    track("case_view", { slug: "{project.slug}", lang: "{lang}" });
+    const slug = document.querySelector("main")?.dataset.projectSlug || "";
+    track("case_view", { slug });
   </script>
 </BaseLayout>
 
