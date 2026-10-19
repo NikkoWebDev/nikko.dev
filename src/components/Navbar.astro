@@ -10,7 +10,7 @@ const { lang = "es" } = Astro.props;
 <nav class="navbar" role="navigation" aria-label="Navegación principal">
   <div class="nav-inner">
       <a href={lang === "en" ? "/en" : "/"} class="brand" aria-label={lang === "en" ? "NikkoDev, home" : "NikkoDev, inicio"}>
-      <div class="brand-mark">N</div>
+      <img src="/logo-nav.png" alt="" class="brand-mark" width="36" height="36" loading="eager" />
       <span class="brand-name">Nikko<span class="green">Dev</span></span>
     </a>
 
@@ -95,13 +95,7 @@ const { lang = "es" } = Astro.props;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, #10B981, #34D399);
-    color: #022C22;
-    font-family: var(--mono);
-    font-weight: 900;
-    font-size: 1rem;
+    object-fit: cover;
     box-shadow: 0 4px 16px rgba(16,185,129,0.28);
   }
 
