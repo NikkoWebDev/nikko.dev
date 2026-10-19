@@ -66,7 +66,7 @@ const projects = [
 
 const labels = {
   es: {
-    problem: "El problema",
+    problem: "El Desafío",
     do: "Qué hice",
     stack: "¿Por qué ese stack?",
     result: "Resultado",
@@ -78,7 +78,7 @@ const labels = {
     learnIndu: "Lo que aprendería"
   },
   en: {
-    problem: "The problem",
+    problem: "The Challenge",
     do: "What I did",
     stack: "Why that stack?",
     result: "Result",
@@ -410,8 +410,21 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
   .editor-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 16px;
     margin-top: 24px;
+  }
+
+  .editor-block {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    transition: all 0.2s var(--ease);
+  }
+
+  .editor-block:hover {
+    border-color: var(--line-strong);
+    background: var(--surface-hover);
   }
 
   .editor-block h4 {

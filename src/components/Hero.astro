@@ -71,8 +71,8 @@ const statusRows = [
         </ul>
 
         <div class="term-code" style="--d: 1.2s">
-          <div class="code-line"><span class="c-key">const</span> <span class="c-id">speed</span> = <span class="c-str">"3.0s → 0.2s"</span>;</div>
-          <div class="code-line"><span class="c-key">const</span> <span class="c-id">cost</span> = <span class="c-str">"~$0 infra"</span>;</div>
+          <div class="code-line"><span class="c-key">const</span> <span class="c-id">speed</span> = <span class="c-str">"3.0s → 0.2s (-93%)"</span>;</div>
+          <div class="code-line"><span class="c-key">const</span> <span class="c-id">cost</span> = <span class="c-str">"~$0 / mes (Serverless)"</span>;</div>
         </div>
       </div>
 
@@ -354,8 +354,21 @@ const statusRows = [
     -webkit-backdrop-filter: var(--glass-blur);
     box-shadow: var(--glass-shadow), 0 0 70px rgba(16, 185, 129, 0.1);
     overflow: hidden;
+    position: relative;
     transition: transform 0.25s var(--ease), border-color 0.3s, box-shadow 0.3s;
     will-change: transform;
+  }
+
+  .hero-terminal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    pointer-events: none;
+    z-index: 2;
   }
 
   .hero-terminal:hover { border-color: var(--line-green); }
