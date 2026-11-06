@@ -183,15 +183,15 @@ const { lang = "es" } = Astro.props;
   }
 
   .dash-featured {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), var(--glass-card));
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), var(--glass-card));
     border-color: var(--line-green);
-    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 50px rgba(var(--accent-rgb), 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   }
 
   .dash-accent {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), var(--glass-card));
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, rgba(var(--accent-2-rgb), 0.12), var(--glass-card));
+    border-color: rgba(var(--accent-2-rgb), 0.3);
+    box-shadow: 0 20px 50px rgba(var(--accent-2-rgb), 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   }
 
   /* ── Label ── */

@@ -69,6 +69,13 @@ const { lang = "es" } = Astro.props;
     padding: 10px 18px;
     box-shadow: var(--glass-shadow);
     position: relative;
+    transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .navbar.is-scrolled .nav-inner {
+    background: var(--glass-card-hover);
+    border-color: rgba(var(--accent-rgb), 0.3);
+    box-shadow: var(--glass-shadow-hover);
   }
 
   .nav-inner::before {
@@ -96,7 +103,7 @@ const { lang = "es" } = Astro.props;
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 16px rgba(16,185,129,0.28);
+    box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.28);
   }
 
   .brand-name { color: var(--white); }
@@ -142,7 +149,7 @@ const { lang = "es" } = Astro.props;
   .nav-actions button:focus-visible,
   .mobile-toggle:focus-visible,
   .mobile-overlay a:focus-visible {
-    outline: 2px solid var(--green);
+    outline: 2px solid var(--focus);
     outline-offset: 4px;
   }
 
@@ -171,7 +178,7 @@ const { lang = "es" } = Astro.props;
   .lang-btn:hover { border-color: var(--green); }
 
   .lang-text { transition: opacity 0.2s var(--ease); }
-  .lang-text.inactive { opacity: 0.35; }
+  .lang-text.inactive { opacity: 0.5; }
   .lang-divider { opacity: 0.2; }
 
   .theme-btn {
@@ -240,8 +247,8 @@ const { lang = "es" } = Astro.props;
     position: fixed;
     inset: 0;
     background: var(--glass-bg-heavy);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: var(--glass-blur-sm);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
     z-index: 999;
     flex-direction: column;
     align-items: center;
@@ -341,6 +348,21 @@ const { lang = "es" } = Astro.props;
     }, 150);
   });
 
+  // Navbar con vidrio más denso al hacer scroll (listener pasivo, un cambio por frame)
+  (() => {
+    const nav = document.querySelector('.navbar');
+    if (!nav) return;
+    let ticking = false;
+    const update = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 24);
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  })();
+
   // Mobile menu
   (() => {
     const toggle = document.getElementById('mobileToggle');
@@ -391,7 +413,7 @@ const { lang = "es" } = Astro.props;
       btn.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
       btn.setAttribute('title', isDark ? 'Tema claro' : 'Tema oscuro');
       const meta = document.getElementById('themeColor');
-      if (meta) meta.setAttribute('content', isDark ? '#040816' : '#F0FDF6');
+      if (meta) meta.setAttribute('content', isDark ? '#050B0A' : '#F1FAF6');
     };
 
     const apply = (theme) => {

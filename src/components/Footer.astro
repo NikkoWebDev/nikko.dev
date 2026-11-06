@@ -76,7 +76,7 @@
 
   .footer-links a:focus-visible,
   .whatsapp-float:focus-visible {
-    outline: 2px solid var(--green);
+    outline: 2px solid var(--focus);
     outline-offset: 4px;
   }
 
@@ -102,7 +102,7 @@
     border-radius: 50%;
     background: linear-gradient(135deg, var(--green), var(--cyan));
     color: var(--bg);
-    box-shadow: 0 0 30px rgba(0,208,132,0.35);
+    box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.35);
     transition: transform 0.3s var(--ease-out);
   }
 

@@ -140,9 +140,10 @@ const statusRows = [
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(680px 440px at 12% 16%, rgba(16, 185, 129, 0.2), transparent 65%),
-      radial-gradient(560px 420px at 88% 28%, rgba(52, 211, 153, 0.14), transparent 65%),
-      radial-gradient(720px 520px at 55% 100%, rgba(5, 150, 105, 0.12), transparent 65%);
+      radial-gradient(680px 440px at 12% 16%, rgba(var(--accent-rgb), 0.2), transparent 65%),
+      radial-gradient(560px 420px at 88% 28%, rgba(var(--accent-rgb), 0.14), transparent 65%),
+      radial-gradient(720px 520px at 55% 100%, rgba(var(--accent-rgb), 0.12), transparent 65%),
+      radial-gradient(600px 440px at 70% 70%, rgba(var(--accent-2-rgb), 0.14), transparent 65%);
   }
 
   .hero-ghost {
@@ -250,11 +251,11 @@ const statusRows = [
   }
 
   .gradient-text {
-    background: linear-gradient(100deg, #047857 0%, #059669 30%, #10B981 60%, #34D399 100%);
+    background: linear-gradient(100deg, var(--grad-1) 0%, var(--grad-2) 55%, var(--grad-3) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.4));
+    filter: drop-shadow(0 0 28px rgba(var(--accent-rgb), 0.4));
   }
 
   .hero-desc {
@@ -290,7 +291,7 @@ const statusRows = [
     gap: 9px;
     padding: 15px 30px;
     background: var(--green);
-    color: #040816;
+    color: var(--on-accent);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-full);
     font-size: 0.95rem;
@@ -315,7 +316,7 @@ const statusRows = [
   .btn-wa:hover {
     transform: translateY(-2px);
     filter: brightness(1.07);
-    box-shadow: 0 8px 28px rgba(16, 185, 129, 0.38);
+    box-shadow: 0 8px 28px rgba(var(--accent-rgb), 0.38);
   }
 
   .btn-wa:hover::after { left: 130%; }
@@ -352,7 +353,7 @@ const statusRows = [
     border-radius: var(--radius-xl);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
-    box-shadow: var(--glass-shadow), 0 0 70px rgba(16, 185, 129, 0.1);
+    box-shadow: var(--glass-shadow), 0 0 70px rgba(var(--accent-rgb), 0.1);
     overflow: hidden;
     position: relative;
     transition: transform 0.25s var(--ease), border-color 0.3s, box-shadow 0.3s;

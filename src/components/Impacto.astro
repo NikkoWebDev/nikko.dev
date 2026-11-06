@@ -66,14 +66,20 @@ const { lang = "es" } = Astro.props;
     position: relative;
     overflow: hidden;
     border-radius: 28px;
+    /* Vidrio menta profundo: tinte casi opaco para que el texto claro cumpla contraste
+       en ambos temas. El blur va en las tarjetas pequeñas, no en este panel grande. */
     background:
-      radial-gradient(700px 380px at 12% 0%, rgba(16, 185, 129, 0.28), transparent 60%),
-      radial-gradient(560px 380px at 95% 100%, rgba(52, 211, 153, 0.16), transparent 60%),
-      #022C22;
-    border: 1px solid rgba(110, 231, 183, 0.22);
+      radial-gradient(700px 380px at 12% 0%, rgba(var(--accent-rgb), 0.3), transparent 60%),
+      radial-gradient(560px 380px at 95% 100%, rgba(var(--accent-2-rgb), 0.16), transparent 60%),
+      rgba(3, 40, 31, 0.86);
+    border: 1px solid rgba(110, 231, 183, 0.25);
     padding: clamp(36px, 6vw, 72px);
     color: #ECFDF5;
-    box-shadow: 0 30px 80px rgba(2, 44, 34, 0.35), 0 0 90px rgba(16, 185, 129, 0.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 0 40px rgba(110, 231, 183, 0.04),
+      0 30px 80px rgba(3, 40, 31, 0.3),
+      0 0 90px rgba(var(--accent-rgb), 0.14);
   }
 
   .impact-panel::before {
@@ -126,7 +132,6 @@ const { lang = "es" } = Astro.props;
 
   .impact-sub {
     color: #A7F3D0;
-    opacity: 0.85;
     font-size: 1.04rem;
     line-height: 1.7;
     max-width: 640px;
@@ -141,11 +146,13 @@ const { lang = "es" } = Astro.props;
   }
 
   .impact-metric {
-    border: 1px solid rgba(110, 231, 183, 0.18);
-    background: rgba(236, 253, 245, 0.04);
+    border: 1px solid rgba(110, 231, 183, 0.2);
+    background: rgba(236, 253, 245, 0.05);
     border-radius: 18px;
     padding: 22px 18px;
-    backdrop-filter: blur(8px);
+    backdrop-filter: var(--glass-blur-sm);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
     transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
   }
 
@@ -171,7 +178,6 @@ const { lang = "es" } = Astro.props;
     letter-spacing: 0.04em;
     line-height: 1.5;
     color: #6EE7B7;
-    opacity: 0.85;
   }
 
   .impact-actions {
@@ -189,7 +195,7 @@ const { lang = "es" } = Astro.props;
     padding: 14px 28px;
     border-radius: var(--radius-full);
     background: #34D399;
-    color: #022C22;
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 0.93rem;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -209,7 +215,7 @@ const { lang = "es" } = Astro.props;
     gap: 8px;
     padding: 14px 28px;
     border-radius: var(--radius-full);
-    border: 1px solid rgba(110, 231, 183, 0.35);
+    border: 1px solid rgba(110, 231, 183, 0.4);
     color: #ECFDF5;
     font-weight: 600;
     font-size: 0.93rem;
@@ -217,8 +223,8 @@ const { lang = "es" } = Astro.props;
   }
 
   .impact-btn-ghost:hover {
-    border-color: rgba(110, 231, 183, 0.7);
-    background: rgba(236, 253, 245, 0.06);
+    border-color: rgba(110, 231, 183, 0.75);
+    background: rgba(236, 253, 245, 0.08);
     transform: translateY(-2px);
   }
 
@@ -231,14 +237,13 @@ const { lang = "es" } = Astro.props;
     font-family: var(--mono);
     font-size: 0.74rem;
     color: #6EE7B7;
-    opacity: 0.75;
     border-top: 1px solid rgba(110, 231, 183, 0.15);
     padding-top: 22px;
   }
 
   .impact-terminal .t-prompt { color: #34D399; }
   .impact-terminal .t-ok {
-    color: #022C22;
+    color: var(--on-accent);
     background: #34D399;
     font-weight: 700;
     padding: 2px 10px;
