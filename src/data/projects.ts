@@ -2,7 +2,7 @@ export type Project = {
   slug: string;
   title: string;
   image: string;
-  demo: string;
+  demo?: string;
   repo?: string;
   description: string;
   problem: string;
@@ -16,7 +16,6 @@ export const projects: Project[] = [
     slug: "fibog",
     title: "Semilleros FIBOG — Universidad Nacional de Colombia",
     image: "/projects/fibog.jpg",
-    demo: "https://semilleros.nikko.dev",
     repo: "https://github.com/NikkoWebDev/FIBOG",
     description: "Plataforma para centralizar grupos de investigación y semilleros.",
     problem: "La facultad no tenía dónde centralizar sus grupos de investigación y semilleros. La información estaba repartida entre correos, PDFs y grupos de WhatsApp.",

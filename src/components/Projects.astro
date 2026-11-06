@@ -31,7 +31,7 @@ const projects = [
     slug: "fibog",
     tab: "FIBOG.tsx",
     image: "/projects/fibog.jpg",
-    demo: "https://semilleros.nikko.dev",
+    demo: null,
     code: "https://github.com/NikkoWebDev/FIBOG",
     tags: ["Astro", "Supabase", "PostgreSQL", "RLS", "Accesibilidad", "UNAL"]
   },
@@ -128,10 +128,16 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
     {projects.map((project, i) => (
       <article class="editor-window" id={`proyecto-${project.id}`}>
         <span class="project-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-        <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
-          <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
-          <span>{getTranslation("projects.btn.demo", lang)} ↗</span>
-        </a>
+        {project.demo ? (
+          <a class="project-preview" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
+            <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
+            <span>{getTranslation("projects.btn.demo", lang)} ↗</span>
+          </a>
+        ) : (
+          <div class="project-preview">
+            <img src={project.image} alt={`Captura de ${getTranslation(`projects.${project.id}.title` as any, lang)}`} loading="lazy" decoding="async" />
+          </div>
+        )}
         <div class="editor-body">
           <div class="editor-meta">
             <div>
@@ -139,9 +145,11 @@ function getBlockLabel(id: string, index: number, lang: Lang): string {
               <div class="editor-tagline">{getTranslation(`projects.${project.id}.tagline` as any, lang)}</div>
             </div>
             <div class="editor-links">
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
-                {getTranslation("projects.btn.demo", lang)} ↗
-              </a>
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
+                  {getTranslation("projects.btn.demo", lang)} ↗
+                </a>
+              )}
               {project.code && (
                 <a href={project.code} target="_blank" rel="noopener noreferrer" data-track="code_click">
                   {getTranslation("projects.btn.code", lang)} ↗
