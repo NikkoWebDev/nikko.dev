@@ -1,0 +1,1738 @@
+{
+  "generated_at": "2026-11-06T17:45:16+00:00",
+  "source_commit": "1148fcd",
+  "nodes": [
+    {
+      "id": "page-index",
+      "type": "page",
+      "label": "index.astro (/, es)",
+      "path": "src/pages/index.astro",
+      "description": "Portada en español. Importa BaseLayout y los 13 componentes, y contiene un bloque <script is:inline> y un <style is:global> de animaciones que también existe en en.astro.",
+      "tags": [
+        "es",
+        "/"
+      ]
+    },
+    {
+      "id": "page-en",
+      "type": "page",
+      "label": "en.astro (/en, en)",
+      "path": "src/pages/en.astro",
+      "description": "Portada en inglés. Misma estructura de secciones que index.astro y el mismo bloque de script y style duplicado.",
+      "tags": [
+        "en",
+        "/en"
+      ]
+    },
+    {
+      "id": "page-proyectos-slug",
+      "type": "page",
+      "label": "proyectos/[slug].astro (/proyectos/:slug)",
+      "path": "src/pages/proyectos/[slug].astro",
+      "description": "Plantilla de caso de estudio en español. getStaticPaths genera 6 rutas desde src/data/projects.ts. Los encabezados ('Contexto', 'Implementación', 'Estado', 'Herramientas') están escritos a mano.",
+      "tags": [
+        "es",
+        "6 rutas estáticas"
+      ]
+    },
+    {
+      "id": "page-en-projects-slug",
+      "type": "page",
+      "label": "en/projects/[slug].astro (/en/projects/:slug)",
+      "path": "src/pages/en/projects/[slug].astro",
+      "description": "Plantilla de caso de estudio en inglés. Toma los textos de un objeto copy propio (no de translations.ts) y las rutas de projects.ts.",
+      "tags": [
+        "en",
+        "6 rutas estáticas"
+      ]
+    },
+    {
+      "id": "layout-base-layout",
+      "type": "layout",
+      "label": "BaseLayout.astro",
+      "path": "src/layouts/BaseLayout.astro",
+      "description": "Layout único. SEO (meta, Open Graph, Twitter Card, canonical, hreflang), JSON-LD con Person, Organization, WebSite, WebPage, BreadcrumbList y FAQPage, script inline de tema claro/oscuro, barra de progreso, reloj de la barra de estado, cursor glow y delegación de clics para analítica.",
+      "tags": [
+        "layout",
+        "seo"
+      ]
+    },
+    {
+      "id": "component-navbar",
+      "type": "component",
+      "label": "Navbar.astro",
+      "path": "src/components/Navbar.astro",
+      "description": "Barra de navegación: anclas a secciones, botón de idioma (lleva a / o a /en sin conservar la página), toggle de tema, botón de WhatsApp y menú móvil. 16 líneas con aria-.",
+      "tags": [
+        "navegación",
+        "i18n"
+      ]
+    },
+    {
+      "id": "section-hero",
+      "type": "section",
+      "label": "Hero",
+      "path": "src/components/Hero.astro",
+      "description": "Portada con terminal de líneas de código (code-line), indicador de estado y CTAs a WhatsApp y a #proyectos. Muestra 3s a 0.2s.",
+      "tags": [
+        "#hero"
+      ]
+    },
+    {
+      "id": "component-skills-marquee",
+      "type": "component",
+      "label": "SkillsMarquee",
+      "path": "src/components/SkillsMarquee.astro",
+      "description": "Marquesina de tecnologías. El grupo tiene aria-label fijo 'Tecnologías'. La segunda copia de las píldoras va con aria-hidden.",
+      "tags": [
+        "marquesina"
+      ]
+    },
+    {
+      "id": "section-metrics",
+      "type": "section",
+      "label": "Metrics",
+      "path": "src/components/Metrics.astro",
+      "description": "Tarjetas con contadores (data-count 8, 13, 11k+, 2) y valores fijos (3s, 0.2s, ~$0, B2). Sin atributos aria-.",
+      "tags": [
+        "#metricas"
+      ]
+    },
+    {
+      "id": "section-projects",
+      "type": "section",
+      "label": "Projects",
+      "path": "src/components/Projects.astro",
+      "description": "Sección de proyectos con pestañas editor-tabs y bloques project-preview. Usa un arreglo inline de 6 proyectos (id, tab, demo, code, tags) distinto de src/data/projects.ts.",
+      "tags": [
+        "#proyectos"
+      ]
+    },
+    {
+      "id": "section-impacto",
+      "type": "section",
+      "label": "Impacto",
+      "path": "src/components/Impacto.astro",
+      "description": "Panel con 4 métricas traducidas (ceis-unal.com, 3 canales, Qwen 3.5 4B, 100%) y dos enlaces a demos.",
+      "tags": [
+        "#impacto"
+      ]
+    },
+    {
+      "id": "section-services",
+      "type": "section",
+      "label": "Services",
+      "path": "src/components/Services.astro",
+      "description": "Tarjetas de servicios (serv-card). Sin atributos aria-.",
+      "tags": [
+        "#servicios"
+      ]
+    },
+    {
+      "id": "section-about",
+      "type": "section",
+      "label": "About",
+      "path": "src/components/About.astro",
+      "description": "Presentación con terminal decorativa (about-terminal) y destacados. Sin atributos aria-.",
+      "tags": [
+        "#sobre-mi"
+      ]
+    },
+    {
+      "id": "section-experience",
+      "type": "section",
+      "label": "Experience",
+      "path": "src/components/Experience.astro",
+      "description": "Línea de tiempo (exp-list) con 3 hitos. El tercero muestra 3s y 0.2s como texto fijo. Sin atributos aria-.",
+      "tags": [
+        "#experiencia"
+      ]
+    },
+    {
+      "id": "section-certifications",
+      "type": "section",
+      "label": "Certifications",
+      "path": "src/components/Certifications.astro",
+      "description": "Tarjetas de certificaciones (cert-card). Sin atributos aria-.",
+      "tags": [
+        "#certificaciones"
+      ]
+    },
+    {
+      "id": "section-faq",
+      "type": "section",
+      "label": "FAQ",
+      "path": "src/components/FAQ.astro",
+      "description": "Acordeón con 6 preguntas (details y summary) tomadas de faq.q1 a faq.q6. Sin atributos aria-.",
+      "tags": [
+        "#faq"
+      ]
+    },
+    {
+      "id": "section-contact",
+      "type": "section",
+      "label": "Contact",
+      "path": "src/components/Contact.astro",
+      "description": "Contacto con 4 enlaces (WhatsApp, mailto, GitHub, LinkedIn) en un arreglo. Sin atributos aria-.",
+      "tags": [
+        "#contacto"
+      ]
+    },
+    {
+      "id": "component-footer",
+      "type": "component",
+      "label": "Footer",
+      "path": "src/components/Footer.astro",
+      "description": "Pie con enlaces (GitHub, LinkedIn, WhatsApp), botón flotante de WhatsApp y textos en español fijos. No llama a getTranslation.",
+      "tags": [
+        "pie"
+      ]
+    },
+    {
+      "id": "data-projects-ts",
+      "type": "data",
+      "label": "src/data/projects.ts",
+      "path": "src/data/projects.ts",
+      "description": "Tipo Project y arreglo de 6 proyectos (fibog, ceis, reprebot, sinpresupuesto, autorreparacion, indusec) con title, image, demo, repo, description, problem, work, result y stack. Lo usan las dos plantillas de caso de estudio.",
+      "tags": [
+        "datos",
+        "proyectos"
+      ]
+    },
+    {
+      "id": "data-projects-inline",
+      "type": "data",
+      "label": "Arreglo projects en Projects.astro",
+      "path": "src/components/Projects.astro",
+      "description": "Arreglo inline de 6 proyectos con id (reprebot, sinpre, fibog, ceis, autorep, indusec), slug, tab, image, demo, code y tags. No comparte fuente con projects.ts.",
+      "tags": [
+        "datos",
+        "proyectos",
+        "duplicado"
+      ]
+    },
+    {
+      "id": "data-translations-ts",
+      "type": "data",
+      "label": "src/data/translations.ts",
+      "path": "src/data/translations.ts",
+      "description": "Mapa t con 214 claves 'seccion.clave' a {es, en}, y getTranslation (líneas 271-273) que devuelve la clave cruda si falta la traducción.",
+      "tags": [
+        "i18n"
+      ]
+    },
+    {
+      "id": "data-analytics-ts",
+      "type": "data",
+      "label": "src/lib/analytics.ts",
+      "path": "src/lib/analytics.ts",
+      "description": "Función track. Guarda eventos en window.__nikkoEvents y, si <html> tiene data-analytics-endpoint, envía POST con keepalive. Ningún HTML del proyecto define ese atributo.",
+      "tags": [
+        "analítica"
+      ]
+    },
+    {
+      "id": "data-sitemap",
+      "type": "data",
+      "label": "public/sitemap.xml",
+      "path": "public/sitemap.xml",
+      "description": "14 URLs con xhtml:link hreflang (es, en, x-default). Las URLs no llevan barra final.",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "data-robots",
+      "type": "data",
+      "label": "public/robots.txt",
+      "path": "public/robots.txt",
+      "description": "Allow: / y referencia a https://nikko.dev/sitemap.xml.",
+      "tags": [
+        "seo"
+      ]
+    },
+    {
+      "id": "data-vercel-json",
+      "type": "data",
+      "label": "vercel.json",
+      "path": "vercel.json",
+      "description": "Cabeceras para todas las rutas: CSP con 'unsafe-inline' en script-src y style-src, X-Frame-Options, Referrer-Policy y Cache-Control. Activa cleanUrls.",
+      "tags": [
+        "despliegue",
+        "seguridad"
+      ]
+    },
+    {
+      "id": "data-astro-config",
+      "type": "data",
+      "label": "astro.config.mjs",
+      "path": "astro.config.mjs",
+      "description": "site https://nikko.dev, compressHTML true, scopedStyleStrategy 'where' y build.assets '_astro'. No carga fuentes.",
+      "tags": [
+        "build"
+      ]
+    },
+    {
+      "id": "style-global-css",
+      "type": "style",
+      "label": "global.css",
+      "path": "src/styles/global.css",
+      "description": "Estilos globales de 923 líneas. Importa Inter, JetBrains Mono y Space Grotesk desde Fontsource. Define --font, --font-display y --mono, y varios @media (768px y 1024px).",
+      "tags": [
+        "css"
+      ]
+    },
+    {
+      "id": "content-translations-texts",
+      "type": "content",
+      "label": "Textos de traducción",
+      "path": "src/data/translations.ts",
+      "description": "Textos visibles en es y en. 128 claves se usan con literal en getTranslation y 43 claves no se usan (fuera de projects.*).",
+      "tags": [
+        "textos"
+      ]
+    },
+    {
+      "id": "content-faq",
+      "type": "content",
+      "label": "Preguntas FAQ",
+      "path": "src/components/FAQ.astro; src/layouts/BaseLayout.astro",
+      "description": "6 preguntas en FAQ.astro (faq.q1 a faq.q6). Las mismas 6 aparecen en el JSON-LD FAQPage de BaseLayout, con respuestas escritas a mano en el layout.",
+      "tags": [
+        "faq",
+        "schema"
+      ]
+    },
+    {
+      "id": "content-metrics",
+      "type": "content",
+      "label": "Métricas repetidas",
+      "path": "src/components/Metrics.astro; src/components/Hero.astro; src/components/Experience.astro; src/data/translations.ts",
+      "description": "3s a 0.2s, 13 grupos y 8 proyectos aparecen en varios componentes, con números escritos a mano en cada uno.",
+      "tags": [
+        "métricas"
+      ]
+    },
+    {
+      "id": "content-internal-docs",
+      "type": "content",
+      "label": "Documentos internos de la raíz",
+      "path": "CLAUDE.md; AUDIT_REPORT.md; PORTFOLIO_STRATEGY.md; ATScv.md; design.md; ORIGINAL_REQUEST.md",
+      "description": "No incluidos en el build. CLAUDE.md (46 KB) describe la marca y la tipografía. AUDIT_REPORT.md (81 KB) es un informe previo.",
+      "tags": [
+        "no incluido en el build"
+      ]
+    },
+    {
+      "id": "service-whatsapp",
+      "type": "service",
+      "label": "WhatsApp",
+      "path": "https://wa.me/573136638097",
+      "description": "Enlace de contacto con el número 573136638097. Aparece en 9 líneas de 7 archivos.",
+      "tags": [
+        "contacto"
+      ]
+    },
+    {
+      "id": "service-github",
+      "type": "service",
+      "label": "GitHub",
+      "path": "https://github.com/NikkoWebDev",
+      "description": "Perfil de GitHub. Los repositorios de FIBOG e InduSEC están en projects.ts.",
+      "tags": [
+        "social"
+      ]
+    },
+    {
+      "id": "service-linkedin",
+      "type": "service",
+      "label": "LinkedIn",
+      "path": "https://www.linkedin.com/in/nikolas-gallo-25546b375/",
+      "description": "Perfil de LinkedIn.",
+      "tags": [
+        "social"
+      ]
+    },
+    {
+      "id": "service-email",
+      "type": "service",
+      "label": "Correo",
+      "path": "mailto:nikolasgallo095@gmail.com",
+      "description": "Enlace mailto en Contact.astro.",
+      "tags": [
+        "contacto"
+      ]
+    },
+    {
+      "id": "external-demo-repre",
+      "type": "external",
+      "label": "Demo Reprebot",
+      "path": "https://repre.nikko.dev/",
+      "description": "Chat en vivo del proyecto Reprebot. Enlazado desde Projects, Impacto y la página de caso de estudio.",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "id": "external-demo-sinpresupuesto",
+      "type": "external",
+      "label": "Demo SinPresupuesto",
+      "path": "https://sinpresupuesto.com",
+      "description": "Demo del proyecto SinPresupuesto.",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "id": "external-demo-fibog",
+      "type": "external",
+      "label": "Demo FIBOG",
+      "path": "ninguna",
+      "description": "Demo de FIBOG eliminada. Se quitó el enlace en projects.ts, Projects.astro y las páginas de caso. semilleros.nikko.dev es otro sitio y no forma parte de nikko.dev.",
+      "tags": [
+        "demo",
+        "inconsistencia"
+      ]
+    },
+    {
+      "id": "external-demo-ceis",
+      "type": "external",
+      "label": "Demo CEIS",
+      "path": "https://ceis-unal.com",
+      "description": "Plataforma institucional del CEIS.",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "id": "external-demo-autorreparacion",
+      "type": "external",
+      "label": "Demo Autorreparación",
+      "path": "https://www.autorreparacion.com",
+      "description": "Landing de cliente real.",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "id": "external-demo-indusec",
+      "type": "external",
+      "label": "Demo InduSEC",
+      "path": "https://puertasindusec.com",
+      "description": "Landing de cliente real.",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "id": "tech-astro",
+      "type": "technology",
+      "label": "Astro",
+      "path": "package.json (astro ^7.3.3)",
+      "description": "Framework del sitio. Fuente: dependencia en package.json. También aparece en el texto de proyectos.",
+      "tags": [
+        "dependencia"
+      ]
+    },
+    {
+      "id": "tech-typescript",
+      "type": "technology",
+      "label": "TypeScript",
+      "path": "package.json (typescript ^6.0.3, devDependency)",
+      "description": "Lenguaje de src/data y src/lib. Fuente: devDependency en package.json.",
+      "tags": [
+        "dependencia"
+      ]
+    },
+    {
+      "id": "tech-gsap",
+      "type": "technology",
+      "label": "GSAP",
+      "path": "texto visible en projects.ts, translations.ts y SkillsMarquee",
+      "description": "Mencionado en el texto de proyectos y en la marquesina. No es dependencia: el código ya usa un tween propio en index.astro y en.astro.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-fontsource",
+      "type": "technology",
+      "label": "Fontsource (Inter, JetBrains Mono, Space Grotesk)",
+      "path": "package.json y src/styles/global.css",
+      "description": "Fuentes autoalojadas. Fuente: dependencias @fontsource-variable/* en package.json e importaciones en global.css.",
+      "tags": [
+        "dependencia",
+        "tipografía"
+      ]
+    },
+    {
+      "id": "tech-vercel",
+      "type": "technology",
+      "label": "Vercel",
+      "path": "vercel.json",
+      "description": "Plataforma de despliegue. Fuente: configuración vercel.json. No es dependencia npm.",
+      "tags": [
+        "despliegue"
+      ]
+    },
+    {
+      "id": "tech-supabase",
+      "type": "technology",
+      "label": "Supabase",
+      "path": "texto visible en projects.ts, Projects.astro y Experience.astro",
+      "description": "Base de datos y autenticación en FIBOG, CEIS y SinPresupuesto. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-cloudflare",
+      "type": "technology",
+      "label": "Cloudflare Workers / Edge",
+      "path": "texto visible en projects.ts, Hero.astro y Services.astro",
+      "description": "Infraestructura Edge de SinPresupuesto y del sitio. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-llama-3-1",
+      "type": "technology",
+      "label": "Llama 3.1",
+      "path": "texto visible en projects.ts y Experience.astro",
+      "description": "Modelo del chatbot de SinPresupuesto. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto",
+        "IA"
+      ]
+    },
+    {
+      "id": "tech-qwen-3-5",
+      "type": "technology",
+      "label": "Qwen 3.5 4B",
+      "path": "texto visible en projects.ts, Projects.astro y translations.ts (impact.m3)",
+      "description": "Modelo con fine-tune para Reprebot. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto",
+        "IA"
+      ]
+    },
+    {
+      "id": "tech-nextjs",
+      "type": "technology",
+      "label": "Next.js",
+      "path": "texto visible en projects.ts y Experience.astro",
+      "description": "Framework de SinPresupuesto. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-react",
+      "type": "technology",
+      "label": "React",
+      "path": "texto visible en projects.ts y SkillsMarquee.astro",
+      "description": "Librería de CEIS. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-vite",
+      "type": "technology",
+      "label": "Vite",
+      "path": "texto visible en projects.ts y Projects.astro",
+      "description": "Herramienta de build de CEIS. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-tailwind",
+      "type": "technology",
+      "label": "Tailwind CSS",
+      "path": "texto visible en projects.ts y SkillsMarquee.astro",
+      "description": "Estilos de CEIS. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto"
+      ]
+    },
+    {
+      "id": "tech-openrouter",
+      "type": "technology",
+      "label": "OpenRouter",
+      "path": "texto visible en Experience.astro y SkillsMarquee.astro",
+      "description": "Acceso a modelos de IA. Solo aparece en contenido visible.",
+      "tags": [
+        "solo texto",
+        "IA"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "page-index",
+      "to": "component-navbar",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-hero",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "component-skills-marquee",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-metrics",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-projects",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-impacto",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-services",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-about",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-experience",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-certifications",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-faq",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "section-contact",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "component-footer",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "component-navbar",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-hero",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "component-skills-marquee",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-metrics",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-projects",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-impacto",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-services",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-about",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-experience",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-certifications",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-faq",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "section-contact",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "component-footer",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "layout-base-layout",
+      "relation": "contiene",
+      "note": "la página envuelve su contenido en el layout"
+    },
+    {
+      "from": "page-en",
+      "to": "layout-base-layout",
+      "relation": "contiene",
+      "note": "la página envuelve su contenido en el layout"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "layout-base-layout",
+      "relation": "contiene",
+      "note": "la página envuelve su contenido en el layout"
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "layout-base-layout",
+      "relation": "contiene",
+      "note": "la página envuelve su contenido en el layout"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "component-navbar",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "component-footer",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "component-navbar",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "component-footer",
+      "relation": "contiene",
+      "note": ""
+    },
+    {
+      "from": "page-index",
+      "to": "page-en",
+      "relation": "alternativa_de",
+      "note": "hreflang es y en"
+    },
+    {
+      "from": "page-en",
+      "to": "page-index",
+      "relation": "alternativa_de",
+      "note": "hreflang es y en"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "page-en-projects-slug",
+      "relation": "alternativa_de",
+      "note": "hreflang es y en"
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "page-proyectos-slug",
+      "relation": "alternativa_de",
+      "note": "hreflang es y en"
+    },
+    {
+      "from": "component-navbar",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-hero",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-metrics",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-projects",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-impacto",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-services",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-about",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-experience",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-certifications",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-faq",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-contact",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "llama a getTranslation"
+    },
+    {
+      "from": "section-projects",
+      "to": "data-projects-inline",
+      "relation": "usa",
+      "note": "arreglo inline de proyectos"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "data-projects-ts",
+      "relation": "usa",
+      "note": "getStaticPaths y datos del caso"
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "data-projects-ts",
+      "relation": "usa",
+      "note": "getStaticPaths y rutas"
+    },
+    {
+      "from": "component-navbar",
+      "to": "data-analytics-ts",
+      "relation": "usa",
+      "note": "track('lang_toggle')"
+    },
+    {
+      "from": "layout-base-layout",
+      "to": "data-analytics-ts",
+      "relation": "usa",
+      "note": "track de scroll y clics data-track"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "data-analytics-ts",
+      "relation": "usa",
+      "note": "track('case_view')"
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "data-analytics-ts",
+      "relation": "usa",
+      "note": "track('case_view')"
+    },
+    {
+      "from": "layout-base-layout",
+      "to": "style-global-css",
+      "relation": "usa",
+      "note": "importa global.css"
+    },
+    {
+      "from": "content-faq",
+      "to": "data-translations-ts",
+      "relation": "usa",
+      "note": "claves faq.q1 a faq.q6 y faq.a1 a faq.a6"
+    },
+    {
+      "from": "component-navbar",
+      "to": "section-projects",
+      "relation": "enlaza_a",
+      "note": "ancla #projects"
+    },
+    {
+      "from": "component-navbar",
+      "to": "section-services",
+      "relation": "enlaza_a",
+      "note": "ancla #services"
+    },
+    {
+      "from": "component-navbar",
+      "to": "section-about",
+      "relation": "enlaza_a",
+      "note": "ancla #about"
+    },
+    {
+      "from": "component-navbar",
+      "to": "section-experience",
+      "relation": "enlaza_a",
+      "note": "ancla #experience"
+    },
+    {
+      "from": "component-navbar",
+      "to": "section-contact",
+      "relation": "enlaza_a",
+      "note": "ancla #contact"
+    },
+    {
+      "from": "section-hero",
+      "to": "section-projects",
+      "relation": "enlaza_a",
+      "note": "botón y scroll cue a #proyectos"
+    },
+    {
+      "from": "component-navbar",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "botón WhatsApp"
+    },
+    {
+      "from": "section-hero",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "botón WhatsApp"
+    },
+    {
+      "from": "component-footer",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "enlace y botón flotante"
+    },
+    {
+      "from": "section-contact",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "tarjeta WhatsApp"
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "botón de contacto"
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "service-whatsapp",
+      "relation": "enlaza_a",
+      "note": "botón de contacto"
+    },
+    {
+      "from": "component-footer",
+      "to": "service-github",
+      "relation": "enlaza_a",
+      "note": "enlace social"
+    },
+    {
+      "from": "component-footer",
+      "to": "service-linkedin",
+      "relation": "enlaza_a",
+      "note": "enlace social"
+    },
+    {
+      "from": "section-contact",
+      "to": "service-email",
+      "relation": "enlaza_a",
+      "note": "mailto"
+    },
+    {
+      "from": "section-contact",
+      "to": "service-github",
+      "relation": "enlaza_a",
+      "note": "tarjeta GitHub"
+    },
+    {
+      "from": "section-contact",
+      "to": "service-linkedin",
+      "relation": "enlaza_a",
+      "note": "tarjeta LinkedIn"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-repre",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-sinpresupuesto",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-fibog",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-ceis",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-autorreparacion",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-projects",
+      "to": "external-demo-indusec",
+      "relation": "enlaza_a",
+      "note": "enlace a demo (project-preview)"
+    },
+    {
+      "from": "section-impacto",
+      "to": "external-demo-ceis",
+      "relation": "enlaza_a",
+      "note": "botón primario"
+    },
+    {
+      "from": "section-impacto",
+      "to": "external-demo-repre",
+      "relation": "enlaza_a",
+      "note": "botón secundario"
+    },
+    {
+      "from": "page-index",
+      "to": "page-en",
+      "relation": "duplica",
+      "note": "mismo bloque script y style (animaciones y reveal) y mismo listado de secciones"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "data-projects-ts",
+      "relation": "duplica",
+      "note": "mismos 6 proyectos con campos distintos (code vs repo, ids sinpre/autorep)"
+    },
+    {
+      "from": "layout-base-layout",
+      "to": "service-whatsapp",
+      "relation": "duplica",
+      "note": "número de WhatsApp repetido en el JSON-LD"
+    },
+    {
+      "from": "section-faq",
+      "to": "layout-base-layout",
+      "relation": "duplica",
+      "note": "mismas 6 preguntas en el JSON-LD FAQPage"
+    },
+    {
+      "from": "section-hero",
+      "to": "content-metrics",
+      "relation": "duplica",
+      "note": "3s a 0.2s"
+    },
+    {
+      "from": "section-metrics",
+      "to": "content-metrics",
+      "relation": "duplica",
+      "note": "3s a 0.2s y 13 grupos"
+    },
+    {
+      "from": "section-experience",
+      "to": "content-metrics",
+      "relation": "duplica",
+      "note": "3s a 0.2s (texto fijo)"
+    },
+    {
+      "from": "data-sitemap",
+      "to": "page-index",
+      "relation": "sirve",
+      "note": "URL listada en el sitemap"
+    },
+    {
+      "from": "data-sitemap",
+      "to": "page-en",
+      "relation": "sirve",
+      "note": "URL listada en el sitemap"
+    },
+    {
+      "from": "data-sitemap",
+      "to": "page-proyectos-slug",
+      "relation": "sirve",
+      "note": "URL listada en el sitemap"
+    },
+    {
+      "from": "data-sitemap",
+      "to": "page-en-projects-slug",
+      "relation": "sirve",
+      "note": "URL listada en el sitemap"
+    },
+    {
+      "from": "data-robots",
+      "to": "data-sitemap",
+      "relation": "sirve",
+      "note": "anuncia el sitemap"
+    },
+    {
+      "from": "data-vercel-json",
+      "to": "layout-base-layout",
+      "relation": "sirve",
+      "note": "CSP y cabeceras de todas las rutas"
+    },
+    {
+      "from": "data-astro-config",
+      "to": "layout-base-layout",
+      "relation": "sirve",
+      "note": "site y opciones de build"
+    },
+    {
+      "from": "page-index",
+      "to": "tech-astro",
+      "relation": "depende_de",
+      "note": ""
+    },
+    {
+      "from": "page-en",
+      "to": "tech-astro",
+      "relation": "depende_de",
+      "note": ""
+    },
+    {
+      "from": "page-proyectos-slug",
+      "to": "tech-astro",
+      "relation": "depende_de",
+      "note": ""
+    },
+    {
+      "from": "page-en-projects-slug",
+      "to": "tech-astro",
+      "relation": "depende_de",
+      "note": ""
+    },
+    {
+      "from": "data-astro-config",
+      "to": "tech-astro",
+      "relation": "depende_de",
+      "note": ""
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-typescript",
+      "relation": "depende_de",
+      "note": "archivo .ts"
+    },
+    {
+      "from": "data-analytics-ts",
+      "to": "tech-typescript",
+      "relation": "depende_de",
+      "note": "archivo .ts"
+    },
+    {
+      "from": "style-global-css",
+      "to": "tech-fontsource",
+      "relation": "depende_de",
+      "note": "importa las fuentes"
+    },
+    {
+      "from": "data-vercel-json",
+      "to": "tech-vercel",
+      "relation": "depende_de",
+      "note": "despliegue"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-astro",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-supabase",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-nextjs",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-llama-3-1",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-qwen-3-5",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-react",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-vite",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-tailwind",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-ts",
+      "to": "tech-gsap",
+      "relation": "menciona",
+      "note": "stack o texto del caso"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-astro",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-supabase",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-llama-3-1",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-qwen-3-5",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-nextjs",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-react",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-vite",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "data-projects-inline",
+      "to": "tech-tailwind",
+      "relation": "menciona",
+      "note": "tags del proyecto"
+    },
+    {
+      "from": "content-translations-texts",
+      "to": "tech-gsap",
+      "relation": "menciona",
+      "note": "texto traducido"
+    },
+    {
+      "from": "content-translations-texts",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "texto traducido"
+    },
+    {
+      "from": "section-experience",
+      "to": "tech-nextjs",
+      "relation": "menciona",
+      "note": "tarjetas de experiencia"
+    },
+    {
+      "from": "section-experience",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "tarjetas de experiencia"
+    },
+    {
+      "from": "section-experience",
+      "to": "tech-supabase",
+      "relation": "menciona",
+      "note": "tarjetas de experiencia"
+    },
+    {
+      "from": "section-experience",
+      "to": "tech-openrouter",
+      "relation": "menciona",
+      "note": "tarjetas de experiencia"
+    },
+    {
+      "from": "section-experience",
+      "to": "tech-llama-3-1",
+      "relation": "menciona",
+      "note": "tarjetas de experiencia"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-typescript",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-gsap",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-openrouter",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-supabase",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-nextjs",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-react",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-tailwind",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "component-skills-marquee",
+      "to": "tech-llama-3-1",
+      "relation": "menciona",
+      "note": "píldoras de la marquesina"
+    },
+    {
+      "from": "section-hero",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "Cloudflare Edge en la terminal"
+    },
+    {
+      "from": "section-services",
+      "to": "tech-cloudflare",
+      "relation": "menciona",
+      "note": "tarjeta de servicios"
+    },
+    {
+      "from": "section-services",
+      "to": "tech-nextjs",
+      "relation": "menciona",
+      "note": "tarjeta de servicios"
+    },
+    {
+      "from": "section-about",
+      "to": "tech-astro",
+      "relation": "menciona",
+      "note": "terminal de About"
+    },
+    {
+      "from": "section-about",
+      "to": "tech-typescript",
+      "relation": "menciona",
+      "note": "terminal de About"
+    },
+    {
+      "from": "section-impacto",
+      "to": "tech-qwen-3-5",
+      "relation": "menciona",
+      "note": "métrica Qwen 3.5 4B"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "category": "duplicacion",
+      "severity": "alta",
+      "description": "index.astro (script en las líneas 37-164 y style en 166-223) y en.astro (script en 39-163 y style en 165-198) contienen el mismo bloque de animaciones: tween, onVisible, writeCount, animateCounter, reveal y el contador dash-featured. Son unas 125 líneas de script casi idénticas, con dos diferencias de formato y un comentario. Cualquier cambio hay que hacerlo dos veces.",
+      "related_nodes": [
+        "page-index",
+        "page-en"
+      ],
+      "suggested_direction": "Mover el script y el style a un módulo compartido (por ejemplo src/scripts/animations.ts) importado desde BaseLayout o desde un componente común."
+    },
+    {
+      "id": "F-02",
+      "category": "datos",
+      "severity": "alta",
+      "description": "Hay tres fuentes de datos de proyectos. (1) src/data/projects.ts (línea 14) tiene repo, problem, work, result y los slugs fibog, ceis, reprebot, sinpresupuesto, autorreparacion, indusec. (2) El arreglo inline projects de Projects.astro (líneas 10 a 65) usa code, tags y los ids sinpre y autorep. (3) El objeto copy de en/projects/[slug].astro (línea 7) guarda textos en inglés que no salen de translations.ts. Además, los textos del caso en español salen de projects.ts, pero la sección usa projects.<id>.* de translations.ts.",
+      "related_nodes": [
+        "data-projects-ts",
+        "data-projects-inline",
+        "page-en-projects-slug",
+        "section-projects"
+      ],
+      "suggested_direction": "Definir una sola fuente (projects.ts con campos por idioma) y que Projects.astro, las dos plantillas y los textos EN la consuman. Unificar los ids."
+    },
+    {
+      "id": "F-03",
+      "category": "datos",
+      "severity": "media",
+      "description": "La demo de FIBOG es https://semilleros.nikko.dev en src/data/projects.ts (línea 19), en Projects.astro (línea 34) y en el texto de translations.ts (línea 88). CLAUDE.md (línea 938) indica https://semilleros-fibog.vercel.app/. La demo de Autorreparación en projects.ts usa https://www.autorreparacion.com. Hay que confirmar cuál es la URL vigente antes de rediseñar.",
+      "related_nodes": [
+        "external-demo-fibog",
+        "data-projects-ts",
+        "data-projects-inline",
+        "content-internal-docs"
+      ],
+      "suggested_direction": "Confirmar la URL de FIBOG con el responsable del proyecto y corregir CLAUDE.md o los datos. Centralizar las URLs en una sola fuente."
+    },
+    {
+      "id": "F-04",
+      "category": "i18n",
+      "severity": "alta",
+      "description": "Textos fijos en español que también se muestran en /en. Footer.astro: 'Full-Stack & Applied AI Engineer' (línea 8), aria-label 'Enlaces externos' (línea 11), texto '© ... Hecho con precisión, código limpio y rendimiento extremo' (línea 18) y aria-label 'Contactar por WhatsApp' (línea 23). SkillsMarquee.astro: aria-label 'Tecnologías' (línea 1). Navbar.astro: aria-label 'Cambiar idioma' (línea 34), 'Cambiar tema' (línea 26) y 'Abrir menú' (línea 44). Footer.astro no llama a getTranslation (0 usos). La clave footer.tagline existe en translations.ts (línea 268) y no se usa.",
+      "related_nodes": [
+        "component-footer",
+        "component-skills-marquee",
+        "component-navbar",
+        "data-translations-ts"
+      ],
+      "suggested_direction": "Pasar todos los textos y aria-labels por getTranslation y añadir las claves faltantes. Usar footer.tagline."
+    },
+    {
+      "id": "F-05",
+      "category": "i18n",
+      "severity": "media",
+      "description": "getTranslation (src/data/translations.ts, líneas 271-273) devuelve la clave cruda cuando falta una traducción: 't[key]?.[lang] ?? key'. No hay aviso en build ni test que lo detecte. Hoy todas las 128 claves usadas con literal están definidas, pero el riesgo se mantiene al añadir textos.",
+      "related_nodes": [
+        "data-translations-ts"
+      ],
+      "suggested_direction": "Validar en build que cada clave usada existe en ambos idiomas, o lanzar error en desarrollo cuando falte una clave."
+    },
+    {
+      "id": "F-06",
+      "category": "i18n",
+      "severity": "media",
+      "description": "Hay textos con ternarios lang === 'en' además de getTranslation. Hero.astro (líneas 11 a 13, estado ONLINE y EN LÍNEA), Navbar.astro (línea 12, aria-label de la marca, y línea 35, clase lang-text), Projects.astro (línea 119, aria-label, y línea 121, href) y BaseLayout.astro (25 líneas, sobre todo JSON-LD y og:image:alt).",
+      "related_nodes": [
+        "section-hero",
+        "component-navbar",
+        "section-projects",
+        "layout-base-layout"
+      ],
+      "suggested_direction": "Mover los ternarios a translations.ts para tener una sola forma de traducir."
+    },
+    {
+      "id": "F-07",
+      "category": "duplicacion",
+      "severity": "media",
+      "description": "El número de WhatsApp 573136638097 aparece en 9 líneas de 7 archivos: Contact.astro (línea 8), Footer.astro (líneas 14 y 23), Hero.astro (línea 41), Navbar.astro (líneas 39 y 317), BaseLayout.astro (línea 80, JSON-LD), proyectos/[slug].astro (línea 15) y en/projects/[slug].astro (línea 60). Projects.astro no contiene el número. Los enlaces de GitHub y LinkedIn también se repiten en Footer.astro (líneas 12 y 13) y Contact.astro.",
+      "related_nodes": [
+        "service-whatsapp",
+        "component-navbar",
+        "component-footer",
+        "section-hero",
+        "section-contact",
+        "layout-base-layout",
+        "page-proyectos-slug",
+        "page-en-projects-slug"
+      ],
+      "suggested_direction": "Definir contacto y enlaces sociales en un único módulo de configuración."
+    },
+    {
+      "id": "F-08",
+      "category": "codigo",
+      "severity": "media",
+      "description": "La lista fija 'Edge', 'B2', '~$0', '13' y '2' decide qué contadores no se animan (index.astro línea 95 y en.astro línea 97). 'Edge' no aparece como texto en ningún .dash-num, así que esa entrada no hace nada. '13' y '2' bloquean tres métricas que sí tienen data-count (Metrics.astro líneas 33, 66 y 84). Metrics.astro no contiene esta lista, aunque el briefing la atribuía a ese archivo.",
+      "related_nodes": [
+        "page-index",
+        "page-en",
+        "section-metrics"
+      ],
+      "suggested_direction": "Marcar en el HTML qué métricas se animan (data-animate) en lugar de comparar textos."
+    },
+    {
+      "id": "F-09",
+      "category": "contenido",
+      "severity": "media",
+      "description": "Las mismas métricas se escriben a mano en varios sitios. 3s a 0.2s: Hero.astro (líneas 74 y 91), Metrics.astro (líneas 42 a 44), Experience.astro (líneas 74 y 78), translations.ts (líneas 21 y 185). 13 grupos: Metrics.astro (línea 33), translations.ts (línea 88 y exp.item2.desc, línea 183). 8 proyectos: Metrics.astro (línea 20, data-count 8), que en el script se muestra como '8+'. Impacto.astro no repite 3s: sus métricas son ceis-unal.com, 3 canales, Qwen 3.5 4B y 100%.",
+      "related_nodes": [
+        "content-metrics",
+        "section-hero",
+        "section-metrics",
+        "section-experience",
+        "section-impacto"
+      ],
+      "suggested_direction": "Guardar las métricas en un único dato y renderizarlas en cada sección."
+    },
+    {
+      "id": "F-10",
+      "category": "visual",
+      "severity": "media",
+      "description": "CLAUDE.md (línea 403) pide 'Geist o Inter' y (línea 405) JetBrains Mono. El CSS usa Inter para el texto (global.css, línea 56), JetBrains Mono para código (línea 58) y Space Grotesk para títulos (línea 57, --font-display). Space Grotesk no aparece en CLAUDE.md. Geist no se usa. Las dos fuentes de verdad no coinciden.",
+      "related_nodes": [
+        "style-global-css",
+        "tech-fontsource",
+        "content-internal-docs"
+      ],
+      "suggested_direction": "Decidir la tipografía de marca, actualizar CLAUDE.md o el CSS, y mantener solo las fuentes realmente usadas."
+    },
+    {
+      "id": "F-11",
+      "category": "responsive",
+      "severity": "baja",
+      "description": "global.css tiene 923 líneas y 6 bloques @media. El punto de quiebre de 768px aparece en tres bloques (líneas 249, 871 y 918), el de 1024px en uno (línea 865), y prefers-reduced-motion en dos (líneas 140 y 899). Los componentes tienen además estilos con scope propios.",
+      "related_nodes": [
+        "style-global-css"
+      ],
+      "suggested_direction": "Consolidar los puntos de quiebre en variables o en un solo bloque por breakpoint antes del rediseño."
+    },
+    {
+      "id": "F-12",
+      "category": "accesibilidad",
+      "severity": "media",
+      "description": "Services.astro, About.astro, Experience.astro, Certifications.astro, FAQ.astro, Metrics.astro y Contact.astro no tienen ningún atributo aria-. Navbar.astro tiene 16 líneas con aria-. El grupo de la marquesina y los iconos decorativos sí están marcados. Los logotipos de Navbar y Footer tienen alt vacío, lo que es correcto porque al lado hay texto. Los contadores de Metrics.astro no tienen texto alternativo.",
+      "related_nodes": [
+        "section-services",
+        "section-about",
+        "section-experience",
+        "section-certifications",
+        "section-faq",
+        "section-metrics",
+        "section-contact",
+        "component-navbar"
+      ],
+      "suggested_direction": "Auditar cada sección con un lector de pantalla y añadir landmarks, etiquetas y textos alternativos donde falten."
+    },
+    {
+      "id": "F-13",
+      "category": "seguridad",
+      "severity": "media",
+      "description": "vercel.json (línea 10) define la CSP con 'unsafe-inline' en script-src y style-src. Hay scripts inline en index.astro (línea 37), en.astro (línea 39) y BaseLayout.astro (línea 273). Con esta CSP cualquier script inyectado se ejecuta igual.",
+      "related_nodes": [
+        "data-vercel-json",
+        "page-index",
+        "page-en",
+        "layout-base-layout"
+      ],
+      "suggested_direction": "Migrar los scripts inline a archivos o usar hashes o nonces. Revisar la opción de CSP de Astro en la versión instalada."
+    },
+    {
+      "id": "F-14",
+      "category": "seo",
+      "severity": "baja",
+      "description": "Projects.astro (línea 121) enlaza a /proyectos/slug/ y /en/projects/slug/ con barra final. sitemap.xml lista las URLs sin barra, y BaseLayout usa canonical sin barra. vercel.json activa cleanUrls. Con esa opción, Vercel suele redirigir la versión con barra. Confirmar con una petición real tras el despliegue.",
+      "related_nodes": [
+        "section-projects",
+        "data-sitemap",
+        "layout-base-layout"
+      ],
+      "suggested_direction": "Usar URLs sin barra final en todo el sitio y comprobar los redirects."
+    },
+    {
+      "id": "F-15",
+      "category": "seo",
+      "severity": "baja",
+      "description": "La canonical de la portada es https://nikko.dev, sin barra (BaseLayout.astro, línea 36). sitemap.xml (línea 5) lista https://nikko.dev/ con barra.",
+      "related_nodes": [
+        "layout-base-layout",
+        "data-sitemap",
+        "page-index"
+      ],
+      "suggested_direction": "Elegir una forma canónica (con o sin barra) y usarla en canonical, hreflang y sitemap."
+    },
+    {
+      "id": "F-16",
+      "category": "i18n",
+      "severity": "media",
+      "description": "El botón de idioma (Navbar.astro, línea 340) manda a '/en' o a '/' sin conservar la página. Desde /proyectos/fibog lleva a la portada, y desde /en/projects/fibog lleva a la portada en español. BaseLayout ya calcula el alternativo hreflang de cada caso de estudio (líneas 39 a 48).",
+      "related_nodes": [
+        "component-navbar",
+        "page-proyectos-slug",
+        "page-en-projects-slug"
+      ],
+      "suggested_direction": "Usar el mapa hreflang para que el botón lleve a la versión equivalente de la página actual."
+    },
+    {
+      "id": "F-17",
+      "category": "rendimiento",
+      "severity": "media",
+      "description": "La imagen de Projects.astro (línea 132) no tiene width ni height, mientras que las plantillas de caso de estudio sí (width 1280 en proyectos/[slug].astro, línea 34). Los archivos de public/projects pesan mucho: autorreparacion.jpg 533 KB, sinpresupuesto.jpg 194 KB e indusec.jpg 156 KB.",
+      "related_nodes": [
+        "section-projects",
+        "page-proyectos-slug"
+      ],
+      "suggested_direction": "Generar versiones WebP o AVIF de tamaño adecuado y fijar width y height en todas las imágenes."
+    },
+    {
+      "id": "F-18",
+      "category": "deuda",
+      "severity": "baja",
+      "description": "Hay cuatro imágenes sin ninguna referencia en src ni en public: public/projects/boombox.jpg, kala-chat.jpg, pawcare.jpg y piggy.jpg (unos 240 KB en total).",
+      "related_nodes": [
+        "section-projects"
+      ],
+      "suggested_direction": "Borrarlas o moverlas a una carpeta de archivo si se quieren conservar."
+    },
+    {
+      "id": "F-19",
+      "category": "deuda",
+      "severity": "baja",
+      "description": "En translations.ts hay 43 claves que no se usan en el código, fuera de projects.* (por ejemplo about.terminal.*, about.highlight1 a 4, hero.code.*, hero.stat.*, footer.tagline, contact.cv, os.label, system.title, terminal.*). Las claves projects.* se usan con plantillas dinámicas y no se cuentan aquí.",
+      "related_nodes": [
+        "data-translations-ts",
+        "content-translations-texts"
+      ],
+      "suggested_direction": "Eliminar las claves sin uso, o conectarlas a los componentes que las necesitan."
+    },
+    {
+      "id": "F-20",
+      "category": "deuda",
+      "severity": "baja",
+      "description": "La clase .typo-line y su animación aparecen en los <style is:global> de index.astro (líneas 182 y 218) y en.astro (líneas 177 y 196), pero ningún componente la usa en el marcado.",
+      "related_nodes": [
+        "page-index",
+        "page-en"
+      ],
+      "suggested_direction": "Eliminar el CSS muerto junto con el bloque duplicado (F-01)."
+    },
+    {
+      "id": "F-21",
+      "category": "seo",
+      "severity": "baja",
+      "description": "Las 6 respuestas del JSON-LD FAQPage están escritas a mano dentro de BaseLayout.astro (líneas 183 a 240). Las respuestas visibles viven en translations.ts (faq.a1 a faq.a6). Pueden divergir sin que nadie lo note.",
+      "related_nodes": [
+        "layout-base-layout",
+        "content-faq",
+        "data-translations-ts"
+      ],
+      "suggested_direction": "Generar el JSON-LD desde las mismas claves de traducción que la sección FAQ."
+    },
+    {
+      "id": "F-22",
+      "category": "analitica",
+      "severity": "baja",
+      "description": "src/lib/analytics.ts envía eventos a un endpoint solo si <html> tiene data-analytics-endpoint. Ningún archivo del proyecto define ese atributo, así que los eventos solo quedan en window.__nikkoEvents. Los eventos emitidos son whatsapp_click (7 atributos estáticos y 1 dinámico en Contact.astro), demo_click (6), code_click (3), social_click (2), scroll_25 a scroll_100, lang_toggle y case_view.",
+      "related_nodes": [
+        "data-analytics-ts",
+        "layout-base-layout"
+      ],
+      "suggested_direction": "Definir el endpoint de analítica o retirar el código de envío si no se usará."
+    },
+    {
+      "id": "F-23",
+      "category": "documentacion",
+      "severity": "baja",
+      "description": "CLAUDE.md (46 KB) y AUDIT_REPORT.md (81 KB) están versionados en la raíz del repositorio. No forman parte del build, pero CLAUDE.md describe una identidad visual que el CSS no sigue por completo (ver F-10).",
+      "related_nodes": [
+        "content-internal-docs"
+      ],
+      "suggested_direction": "Mover los documentos internos a docs/ o a un repositorio separado, y mantener CLAUDE.md alineado con el código."
+    }
+  ]
+}
