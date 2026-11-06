@@ -22,25 +22,6 @@ export const t: TranslationMap = {
   "hero.loc": { es: "Full-Stack & Applied AI Engineer · Arquitecturas Edge · Bogotá / Remoto", en: "Full-Stack & Applied AI Engineer · Edge Architectures · Remote / Worldwide" },
   "hero.cta.whatsapp": { es: "WhatsApp", en: "WhatsApp" },
   "hero.cta.projects": { es: "Ver qué hice", en: "See what I built" },
-  "hero.stat.projects": { es: "Proyectos reales", en: "Real projects" },
-  "hero.stat.speed": { es: "Carga optimizada", en: "Optimized load" },
-  "hero.stat.edge": { es: "Arquitectura ligera", en: "Lightweight architecture" },
-
-  // Hero code snippet (nikko.config.js)
-  "hero.code.title": { es: "nikko.config.js", en: "nikko.config.js" },
-  "hero.code.name": { es: "Nikolas Gallo", en: "Nikolas Gallo" },
-  "hero.code.alias": { es: "Nikko.Dev", en: "Nikko.Dev" },
-  "hero.code.role": { es: "Full-Stack · IA · Edge", en: "Full-Stack · AI · Edge" },
-  "hero.code.obsession": { es: "cargar rápido", en: "load fast" },
-  "hero.code.comment": { es: "construyo lo que necesitas, nada más", en: "build what you need, nothing more" },
-
-  // Terminal / System panel
-  "terminal.stack": { es: "Astro, Next.js, Supabase, Cloudflare", en: "Astro, Next.js, Supabase, Cloudflare" },
-  "terminal.focus": { es: "negocios, educación, startups", en: "business, education, startups" },
-  "terminal.mode": { es: "premium visual + optimización brutal", en: "premium visuals + brutal optimization" },
-  "terminal.status": { es: "disponible", en: "available" },
-  "system.title": { es: "SYSTEM STATUS", en: "SYSTEM STATUS" },
-  "os.label": { es: "Centro de control de un ingeniero especializado en velocidad, SEO, IA y sistemas modernos.", en: "Control center of an engineer specialized in speed, SEO, AI and modern systems." },
 
   // Services
   "services.eyebrow": { es: "/ servicios y arquitectura", en: "/ services & architecture" },
@@ -59,7 +40,6 @@ export const t: TranslationMap = {
   "projects.eyebrow": { es: "// lo que construí", en: "// what I built" },
   "projects.title": { es: "No son screenshots. Son historias reales.", en: "Not screenshots. Real stories." },
   "projects.sub": { es: "Cada proyecto tiene un problema, una decisión técnica y un resultado medible. No todo salió perfecto — y eso también importa.", en: "Every project has a problem, a technical decision and a measurable result. Not everything went perfect — and that matters too." },
-  "projects.btn.site": { es: "Ver sitio", en: "Visit site" },
   "projects.btn.demo": { es: "Ver demo", en: "View demo" },
   "projects.btn.code": { es: "Código", en: "Code" },
 
@@ -137,34 +117,6 @@ export const t: TranslationMap = {
   "about.title": { es: "Si nos tomamos un café y me preguntas qué hago:", en: "If we grab coffee and you ask what I do:" },
   "about.quote": { es: "La verdadera sofisticación no se ve. Se siente.", en: "True sophistication isn't seen. It's felt." },
   "about.story": { es: "Ingeniero de Sistemas y Computación (UNAL) enfocado en arquitecturas web de alto rendimiento, modelos de lenguaje aplicados y sistemas distribuidos. Mi obsesión es la optimización brutal: procesar más con menos recursos y diseñar software resiliente que escale a costo mínimo. Creo en la belleza de lo esencial: cada línea de código es una decisión consciente, cada milisegundo ahorrado un valor real para quien nos elige.", en: "Systems and Computing Engineer (UNAL) focused on high-performance web architectures, applied language models, and distributed systems. My obsession is brutal optimization: processing more with fewer resources and designing resilient software that scales at minimal cost. I believe in the beauty of the essential: every line of code is a conscious decision, every millisecond saved delivers real value." },
-  "about.badge.unal": { es: "Universidad Nacional de Colombia · Ingeniería de Sistemas", en: "Universidad Nacional de Colombia · Systems Engineering" },
-  "about.highlight1": { es: "Optimización extrema · más con menos", en: "Extreme optimization · more with less" },
-  "about.highlight2": { es: "IA aplicada sin quemar presupuesto", en: "Applied AI without burning budget" },
-  "about.highlight3": { es: "Proyectos reales, no solo práctica", en: "Real projects, not just practice" },
-  "about.highlight4": { es: "Logro técnico: Optimización 3s→0.2s (93% más rápido)", en: "Technical achievement: 3s→0.2s optimization (93% faster)" },
-
-  // About terminal (VS Code snippet)
-  "about.terminal.title": { es: "VS Code: ~/nikko/about.ts", en: "VS Code: ~/nikko/about.ts" },
-  "about.terminal.sidebar.title": { es: "Explorer", en: "Explorer" },
-  "about.terminal.sidebar.active": { es: "about.ts", en: "about.ts" },
-  "about.terminal.sidebar.folder": { es: "projects", en: "projects" },
-  "about.terminal.sidebar.skills": { es: "skills.json", en: "skills.json" },
-  "about.terminal.sidebar.contact": { es: "contact.sh", en: "contact.sh" },
-  "about.terminal.prop.name": { es: "nombre", en: "name" },
-  "about.terminal.prop.alias": { es: "alias", en: "alias" },
-  "about.terminal.prop.university": { es: "universidad", en: "university" },
-  "about.terminal.prop.year": { es: "especialidad", en: "specialty" },
-  "about.terminal.prop.language": { es: "idioma", en: "language" },
-  "about.terminal.prop.values": { es: "valores", en: "values" },
-  "about.terminal.val.name": { es: "Brayan Nikolas Gallo León", en: "Brayan Nikolas Gallo León" },
-  "about.terminal.val.alias": { es: "NikkoDev", en: "NikkoDev" },
-  "about.terminal.val.university": { es: "Universidad Nacional de Colombia", en: "Universidad Nacional de Colombia" },
-  "about.terminal.val.year": { es: "Edge Runtimes & Applied AI", en: "Edge Runtimes & Applied AI" },
-  "about.terminal.val.language": { es: "ES nativo · EN B2", en: "ES native · EN B2" },
-  "about.terminal.val.values": { es: '["optimización", "honestidad", "aprendizaje", "resiliencia"]', en: '["optimization", "honesty", "learning", "resilience"]' },
-  "about.terminal.comment1": { es: "// lo que me importa", en: "// what matters to me" },
-  "about.terminal.comment2": { es: "// cosas reales que hice", en: "// real things I did" },
-  "about.terminal.echo": { es: "Técnica por dentro. Hermosa por fuera.", en: "Technical inside. Beautiful outside." },
 
   // Currently doing / system log
   "currently.title": { es: "system.log — tail -f /var/log/nikkodev/currently.log", en: "system.log — tail -f /var/log/nikkodev/currently.log" },
@@ -254,7 +206,6 @@ export const t: TranslationMap = {
   "contact.eyebrow": { es: "// contacto", en: "// contact" },
   "contact.title": { es: "¿Tienes un proyecto o una idea?", en: "Got a project or an idea?" },
   "contact.desc": { es: "¿Listo para crear algo extraordinario? Un mensaje. Una conversación. Un proyecto que hable por ti. La elegancia está en la simplicidad del primer paso.", en: "Ready to create something extraordinary? One message. One conversation. One project that speaks for you. Elegance lies in the simplicity of the first step." },
-  "contact.cv": { es: "Descargar CV", en: "Download CV" },
   "contact.shell.header": { es: "nikko@dev:~$ contact --list", en: "nikko@dev:~$ contact --list" },
   "contact.cmd.whatsapp": { es: "whatsapp", en: "whatsapp" },
   "contact.cmd.email": { es: "email", en: "email" },
@@ -265,7 +216,6 @@ export const t: TranslationMap = {
   "contact.label.github": { es: "El código habla", en: "The code speaks" },
 
   // Footer
-  "footer.tagline": { es: "Optimizado hasta el último byte.", en: "Optimized to the last byte." },
 };
 
 export function getTranslation(key: string, lang: Lang): string {
