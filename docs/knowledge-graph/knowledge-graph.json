@@ -387,8 +387,8 @@
       "id": "external-demo-fibog",
       "type": "external",
       "label": "Demo FIBOG",
-      "path": "https://semilleros.nikko.dev",
-      "description": "Demo de FIBOG según projects.ts y Projects.astro. CLAUDE.md indica semilleros-fibog.vercel.app (ver F-03).",
+      "path": "ninguna",
+      "description": "Demo de FIBOG eliminada. Se quitó el enlace en projects.ts, Projects.astro y las páginas de caso. semilleros.nikko.dev es otro sitio y no forma parte de nikko.dev.",
       "tags": [
         "demo",
         "inconsistencia"

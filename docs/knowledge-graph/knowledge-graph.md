@@ -282,7 +282,7 @@ flowchart LR
 | `service-email` | service | Correo | `mailto:nikolasgallo095@gmail.com` | Enlace mailto en Contact.astro. |
 | `external-demo-repre` | external | Demo Reprebot | `https://repre.nikko.dev/` | Chat en vivo del proyecto Reprebot. Enlazado desde Projects, Impacto y la página de caso de estudio. |
 | `external-demo-sinpresupuesto` | external | Demo SinPresupuesto | `https://sinpresupuesto.com` | Demo del proyecto SinPresupuesto. |
-| `external-demo-fibog` | external | Demo FIBOG | `https://semilleros.nikko.dev` | Demo de FIBOG según projects.ts y Projects.astro. CLAUDE.md indica semilleros-fibog.vercel.app (ver F-03). |
+| `external-demo-fibog` | external | Demo FIBOG (eliminada) | Ninguna | Se quitó el enlace de demo de FIBOG en projects.ts, Projects.astro y las páginas de caso. semilleros.nikko.dev es otro sitio y no forma parte de nikko.dev. |
 | `external-demo-ceis` | external | Demo CEIS | `https://ceis-unal.com` | Plataforma institucional del CEIS. |
 | `external-demo-autorreparacion` | external | Demo Autorreparación | `https://www.autorreparacion.com` | Landing de cliente real. |
 | `external-demo-indusec` | external | Demo InduSEC | `https://puertasindusec.com` | Landing de cliente real. |
