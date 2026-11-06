@@ -258,7 +258,7 @@ const jsonLd = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="author" content="Brayan Nikolas Gallo León" />
-  <meta name="theme-color" id="themeColor" content="#F0FDF6" />
+  <meta name="theme-color" id="themeColor" content="#F1FAF6" />
   <meta name="robots" content="index, follow" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="generator" content="Astro" />
@@ -282,7 +282,7 @@ const jsonLd = {
         root.classList.toggle('light', theme === 'light');
         root.dataset.theme = theme;
         var meta = document.getElementById('themeColor');
-        if (meta) meta.setAttribute('content', theme === 'dark' ? '#040816' : '#F0FDF6');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#050B0A' : '#F1FAF6');
       } catch (e) {
         document.documentElement.classList.add('light');
       }
@@ -330,12 +330,12 @@ const jsonLd = {
   <script type="application/ld+json" data-schema="nikkodev" set:html={JSON.stringify(jsonLd)}></script>
 
   <style is:global>
-    /* Critical inline CSS — Obsidian & Zinc */
-    :root { --bg-fallback: #F8FAFC; --white-fallback: #0F172A; --font-fallback: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; }
-    :root.light, html.light { --bg-fallback: #F8FAFC; --white-fallback: #0F172A; }
-    :root.dark, html.dark { --bg-fallback: #09090B; --white-fallback: #F4F4F5; }
+    /* Critical inline CSS — Mint Glass (evita el flash antes de cargar global.css) */
+    :root { --bg-fallback: #F1FAF6; --white-fallback: #0F172A; --font-fallback: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; }
+    :root.light, html.light { --bg-fallback: #F1FAF6; --white-fallback: #0F172A; }
+    :root.dark, html.dark { --bg-fallback: #050B0A; --white-fallback: #F8FAFC; }
     body { background-color: var(--bg-fallback); color: var(--white-fallback); font-family: var(--font-fallback); }
-    html.dark body { background-color: #09090B !important; color: #F4F4F5 !important; }
+    html.dark body { background-color: #050B0A !important; color: #F8FAFC !important; }
   </style>
 </head>
 <body>
