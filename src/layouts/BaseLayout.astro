@@ -1,445 +1,106 @@
 ---
 import "../styles/global.css";
+import CommandPalette from "../components/CommandPalette.astro";
+import { PERSON } from "../data/site";
+import { alternatePath, useTranslations, type Lang } from "../i18n/utils";
+import { absoluteUrl, organizationSchema, personSchema, serializeGraph, webPageSchema, websiteSchema, type SchemaNode } from "../lib/schema";
 
-export interface Props {
-  title?: string;
-  description?: string;
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  /** Ruta de esta página (/, /en, /proyectos/fibog…): canonical, hreflang y paleta salen de aquí. */
+  path: string;
   ogImage?: string;
-  lang?: "es" | "en";
-  canonicalPath?: string;
+  ogType?: "website" | "article";
+  /** Nodos JSON-LD propios de la página (FAQ, caso de estudio, migas…). */
+  schema?: SchemaNode[];
+  noindex?: boolean;
 }
 
-const SITE = "https://nikko.dev";
-const CURRENT_DATE = "2026-09-16";
+const { title, description, lang, path, ogImage = "/og-image.png", ogType = "website", schema = [], noindex = false } = Astro.props;
+const t = useTranslations(lang);
 
-const defaultTitle = {
-  es: "NikkoDev | Desarrollo Web, IA y Automatización",
-  en: "NikkoDev | Web Development, AI and Automation",
-};
-
-const defaultDescription = {
-  es: "Soy Brayan. Hago cosas web que cargan rápido y no desperdician un solo byte. Landing pages, apps con IA y automatización para empresas.",
-  en: "I'm Brayan. I build web things that load fast and don't waste a single byte. Landing pages, AI apps and automation for businesses.",
-};
-
-const {
-  title: propTitle,
-  description: propDescription,
-  ogImage = `${SITE}/og-image.png`,
-  lang = "es",
-  canonicalPath,
-} = Astro.props;
-
-const title = propTitle ?? defaultTitle[lang];
-const description = propDescription ?? defaultDescription[lang];
-const pagePath = canonicalPath ?? (lang === "en" ? "/en" : "/");
-const canonicalUrl = `${SITE}${pagePath === "/" ? "" : pagePath}`;
-
-// Hreflang: global en home, por página en casos de estudio
-let hreflangEs = SITE;
-let hreflangEn = `${SITE}/en`;
-if (canonicalPath) {
-  const slug = canonicalPath.split("/").pop();
-  if (canonicalPath.startsWith("/proyectos/")) {
-    hreflangEs = canonicalUrl;
-    hreflangEn = `${SITE}/en/projects/${slug}`;
-  } else if (canonicalPath.startsWith("/en/projects/")) {
-    hreflangEs = `${SITE}/proyectos/${slug}`;
-    hreflangEn = canonicalUrl;
-  }
-}
-const ogImageUrl = ogImage.startsWith("http")
-  ? ogImage
-  : `${SITE}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
-
-const ogTitle = lang === "en"
-  ? "NikkoDev | Web Development, AI and Automation"
-  : "NikkoDev | Desarrollo Web, IA y Automatización";
-const ogDescription = lang === "en"
-  ? "AI-powered web development: fast, beautiful and optimized. Landing pages, web apps and intelligent automation for businesses."
-  : "Desarrollo web con IA: rápido, hermoso y optimizado. Landing pages, apps web y automatización inteligente para empresas.";
-const twitterHandle = "@NikkoWebDev";
-
-// JSON-LD Structured Data
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${SITE}/#person`,
-      "name": "Brayan Nikolas Gallo León",
-      "alternateName": "NikkoDev",
-      "givenName": "Brayan Nikolas",
-      "familyName": "Gallo León",
-      "jobTitle": lang === "en" ? "Full-Stack Developer & AI Integrator" : "Full-Stack Developer e Integrador de IA",
-      "description": description,
-      "url": SITE,
-      "sameAs": [
-        "https://github.com/NikkoWebDev",
-        "https://www.linkedin.com/in/nikolas-gallo-25546b375/",
-        "https://wa.me/573136638097"
-      ],
-      "knowsAbout": [
-        "Astro",
-        "Next.js",
-        "React",
-        "TypeScript",
-        "JavaScript",
-        "Tailwind CSS",
-        "HTML5",
-        "CSS3",
-        "Supabase",
-        "PostgreSQL",
-        "SQL",
-        "Cloudflare Workers",
-        "Cloudflare Workers AI",
-        "Edge Computing",
-        "Serverless Architecture",
-        "OpenRouter",
-        "Llama 3.1",
-        "RAG",
-        "Retrieval Augmented Generation",
-        "OAuth",
-        "JWT",
-        "Progressive Web Apps",
-        "SEO",
-        "GSAP",
-        "Linux",
-        "Arch Linux",
-        "Git",
-        "GitHub",
-        "Python",
-        "Artificial Intelligence",
-        "Machine Learning",
-        "Web Development",
-        "Automation"
-      ],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Universidad Nacional de Colombia"
-      },
-      "image": `${SITE}/og-image.png`
-    },
-    {
-      "@type": "Organization",
-      "@id": `${SITE}/#organization`,
-      "name": "NikkoDev",
-      "alternateName": "NikkoDev OS",
-      "url": SITE,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE}/logo.png`
-      },
-      "description": lang === "en"
-        ? "Edge-First Full-Stack Development. AI-powered web development: fast, beautiful and optimized."
-        : "Edge-First Full-Stack Development. Desarrollo web con IA: rápido, hermoso y optimizado.",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+57-313-663-8097",
-        "contactType": "sales",
-        "availableLanguage": ["Spanish", "English"],
-        "areaServed": "CO"
-      },
-      "sameAs": [
-        "https://github.com/NikkoWebDev",
-        "https://www.linkedin.com/in/nikolas-gallo-25546b375/"
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE}/#website`,
-      "name": "NikkoDev",
-      "alternateName": "NikkoDev Portfolio",
-      "url": SITE,
-      "description": lang === "en"
-        ? "AI-powered web development: fast, beautiful and optimized."
-        : "Desarrollo web con IA: rápido, hermoso y optimizado.",
-      "inLanguage": ["es", "en"],
-      "publisher": { "@id": `${SITE}/#organization` }
-    },
-    {
-      "@type": "WebPage",
-      "@id": `${canonicalUrl}/#webpage`,
-      "url": canonicalUrl,
-      "name": title,
-      "description": description,
-      "inLanguage": lang,
-      "isPartOf": { "@id": `${SITE}/#website` },
-      "about": { "@id": `${SITE}/#person` },
-      "datePublished": CURRENT_DATE,
-      "dateModified": CURRENT_DATE
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${SITE}/#breadcrumb`,
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": lang === "en" ? "Home" : "Inicio", "item": SITE },
-        { "@type": "ListItem", "position": 2, "name": lang === "en" ? "Services" : "Servicios", "item": `${SITE}/#servicios` },
-        { "@type": "ListItem", "position": 3, "name": lang === "en" ? "Projects" : "Proyectos", "item": `${SITE}/#proyectos` },
-        { "@type": "ListItem", "position": 4, "name": lang === "en" ? "Contact" : "Contacto", "item": `${SITE}/#contacto` }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${SITE}/#faq`,
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "What kind of clients are you looking for?" : "¿Qué tipo de clientes buscas?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Small businesses, startups, educational institutions and businesses that want to sell more, build digital presence, automate processes or integrate AI."
-              : "Empresas pequeñas, startups, instituciones educativas y negocios que quieran mejorar ventas, crear presencia digital, automatizar procesos o integrar IA."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "Do you work remotely?" : "¿Trabajas remoto?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Yes. Remote work, per project, per sprint or part-time. I can also collaborate with existing teams."
-              : "Sí. Trabajo remoto, por proyecto, por sprint o medio tiempo. También puedo colaborar con equipos."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "Can you build a landing page from scratch?" : "¿Puedes hacer una landing desde cero?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Yes. Copy, design, development, basic SEO, deployment, WhatsApp integration and performance optimization."
-              : "Sí. Puedo crear copy, diseño, desarrollo, SEO básico, despliegue, integración con WhatsApp y optimización de rendimiento."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "Do you also do AI?" : "¿También haces IA?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Yes. I integrate chatbots, AI APIs, assistants, automations, smart search and educational AI tools for businesses."
-              : "Sí. Integro chatbots, APIs de IA, asistentes, automatizaciones, búsqueda inteligente y herramientas educativas con IA para negocios."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "Can you work with small businesses?" : "¿Puedes trabajar con empresas pequeñas?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Yes. My main focus is helping small businesses access powerful technology without overspending."
-              : "Sí. De hecho, mi enfoque principal es ayudar a negocios pequeños a acceder a tecnología potente sin gastar de más."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "en" ? "Can you teach AI?" : "¿Puedes enseñar IA?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "en"
-              ? "Yes. Workshops for schools and institutions on prompting, AI fundamentals, agents and practical uses."
-              : "Sí. Puedo crear talleres o clases para colegios sobre prompting, fundamentos de IA, agentes y usos prácticos."
-          }
-        }
-      ]
-    }
-  ]
-};
+const canonical = absoluteUrl(path);
+const esUrl = absoluteUrl(alternatePath(path, "es"));
+const enUrl = absoluteUrl(alternatePath(path, "en"));
+const ogImageUrl = absoluteUrl(ogImage);
+const jsonLd = serializeGraph([
+  personSchema(lang),
+  organizationSchema(lang),
+  websiteSchema(),
+  webPageSchema({ url: canonical, name: title, description, lang }),
+  ...schema,
+]);
 ---
 
-<!DOCTYPE html>
-<html lang={lang}>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<!doctype html>
+<html lang={lang} class="dark" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={PERSON.name} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" id="themeColor" content="#050B0A" />
+    <meta name="application-name" content="NikkoDev OS" />
+    <meta name="generator" content="Astro" />
+    <meta name="geo.region" content="CO" />
+    <meta name="geo.placename" content="Bogotá, Colombia" />
 
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="author" content="Brayan Nikolas Gallo León" />
-  <meta name="theme-color" id="themeColor" content="#F1FAF6" />
-  <meta name="robots" content="index, follow" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="generator" content="Astro" />
-  <meta name="application-name" content="NikkoDev OS" />
-
-  <!-- Geo / Local SEO -->
-  <meta name="geo.region" content="CO" />
-  <meta name="geo.placename" content="Bogotá, Colombia" />
-
-  <!-- Theme initialization — resuelve localStorage y, si no hay elección, el sistema.
-       Corre antes de pintar para que no haya flash ni salto de tema. -->
-  <script is:inline>
-    (function () {
-      try {
-        var stored = localStorage.getItem('nikkodev-theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+    <!-- Tema antes de pintar: oscuro por defecto, claro solo si el visitante lo eligió. -->
+    <script is:inline>
+      (function () {
         var root = document.documentElement;
-        root.classList.add('js');
-        root.classList.toggle('dark', theme === 'dark');
-        root.classList.toggle('light', theme === 'light');
-        root.dataset.theme = theme;
-        var meta = document.getElementById('themeColor');
-        if (meta) meta.setAttribute('content', theme === 'dark' ? '#050B0A' : '#F1FAF6');
-      } catch (e) {
-        document.documentElement.classList.add('light');
-      }
-    })();
-  </script>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={ogTitle} />
-  <meta property="og:description" content={ogDescription} />
-  <meta property="og:type" content="website" />
-   <meta property="og:image" content={ogImageUrl} />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content={lang === "en" ? "NikkoDev — AI-powered web development: fast, beautiful and optimized" : "NikkoDev — Desarrollo web con IA: rápido, hermoso y optimizado"} />
-   <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:site_name" content="NikkoDev" />
-  <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={ogTitle} />
-  <meta name="twitter:description" content={ogDescription} />
-   <meta name="twitter:image" content={ogImageUrl} />
-   <meta name="twitter:image:alt" content={lang === "en" ? "NikkoDev — Web development, AI and automation" : "NikkoDev — Desarrollo web, IA y automatización"} />
-  <meta name="twitter:site" content={twitterHandle} />
-  <meta name="twitter:creator" content={twitterHandle} />
-
-  <!-- Canonical + Hreflang -->
-   <link rel="canonical" href={canonicalUrl} />
-   <link rel="alternate" hreflang="es" href={hreflangEs} />
-  <link rel="alternate" hreflang="en" href={hreflangEn} />
-  <link rel="alternate" hreflang="x-default" href={SITE} />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-  <!-- Preconnects for performance -->
-  <link rel="dns-prefetch" href="https://wa.me" />
-  <link rel="dns-prefetch" href="https://github.com" />
-  <link rel="dns-prefetch" href="https://www.linkedin.com" />
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json" data-schema="nikkodev" set:html={JSON.stringify(jsonLd)}></script>
-
-  <style is:global>
-    /* Critical inline CSS — Mint Glass (evita el flash antes de cargar global.css) */
-    :root { --bg-fallback: #F1FAF6; --white-fallback: #0F172A; --font-fallback: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; }
-    :root.light, html.light { --bg-fallback: #F1FAF6; --white-fallback: #0F172A; }
-    :root.dark, html.dark { --bg-fallback: #050B0A; --white-fallback: #F8FAFC; }
-    body { background-color: var(--bg-fallback); color: var(--white-fallback); font-family: var(--font-fallback); }
-    html.dark body { background-color: #050B0A !important; color: #F8FAFC !important; }
-  </style>
-</head>
-<body>
-  <!-- Page loading progress bar -->
-  <div class="page-progress" id="pageProgress"></div>
-  
-  <slot />
-
-  <script>
-    import { track } from '../lib/analytics';
-
-    // ── Page Progress Bar + scroll depth ──
-    (() => {
-      const bar = document.getElementById('pageProgress');
-      if (!bar) return;
-      let ticking = false;
-      // Dispara scroll_25/50/75/100 una sola vez cada uno, reusando el
-      // mismo listener de scroll del progress bar (sin duplicar lógica).
-      const depthFired = new Set();
-      const checkDepth = (progress) => {
-        [25, 50, 75, 100].forEach((mark) => {
-          if (progress >= mark && !depthFired.has(mark)) {
-            depthFired.add(mark);
-            track(`scroll_${mark}`);
+        root.classList.add("js");
+        try {
+          if (localStorage.getItem("nikkodev-theme") === "light") {
+            root.classList.remove("dark");
+            root.classList.add("light");
+            root.dataset.theme = "light";
+            var meta = document.getElementById("themeColor");
+            if (meta) meta.setAttribute("content", "#F4FAF7");
           }
-        });
-      };
-      const update = () => {
-        const scroll = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? (scroll / docHeight) * 100 : 0;
-        bar.style.width = Math.min(progress, 100) + '%';
-        checkDepth(progress);
-        ticking = false;
-      };
-      window.addEventListener('scroll', () => {
-        if (!ticking) { requestAnimationFrame(update); ticking = true; }
-      });
-      update();
-    })();
+        } catch (e) {}
+      })();
+    </script>
 
-    // ── Status Bar Clock ──
-    (() => {
-      const el = document.getElementById('sbTime');
-      if (!el) return;
-      const pad = (n) => String(n).padStart(2, '0');
-      const tick = () => {
-        const d = new Date();
-        el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      };
-      tick();
-      setInterval(tick, 30000);
-    })();
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {!noindex && <link rel="alternate" hreflang="es" href={esUrl} />}
+    {!noindex && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={esUrl} />}
 
-    // ── Cursor Glow ── (una escritura por frame, y apagado en táctil o reduced-motion)
-    (() => {
-      const glow = document.getElementById('cursorGlow');
-      if (!glow) return;
-      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!finePointer || reduceMotion) {
-        glow.style.display = 'none';
-        return;
-      }
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      let rafId: number | null = null;
-      let lastEvent: MouseEvent | null = null;
-      const show = () => {
-        glow.classList.add('active');
-        clearTimeout(timer);
-        timer = setTimeout(() => glow.classList.remove('active'), 2000);
-      };
-      const render = () => {
-        rafId = null;
-        if (!lastEvent) return;
-        glow.style.setProperty('--cx', lastEvent.clientX + 'px');
-        glow.style.setProperty('--cy', lastEvent.clientY + 'px');
-        show();
-      };
-      document.addEventListener('mousemove', (e) => {
-        lastEvent = e;
-        if (rafId === null) rafId = requestAnimationFrame(render);
-      }, { passive: true });
-    })();
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="NikkoDev" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={t("meta.og.alt")} />
+    <meta property="og:locale" content={t("meta.locale")} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:site" content="@NikkoWebDev" />
 
-    // ── Analítica: clicks delegados con [data-track] ──
-    // Un solo listener para toda la página; los elementos marcan el evento
-    // con data-track="nombre" y props opcionales data-track-prop-<clave>.
-    (() => {
-      document.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement | null;
-        const el = target ? target.closest<HTMLElement>('[data-track]') : null;
-        if (!el) return;
-        const name = el.getAttribute('data-track');
-        if (!name) return;
-        const props = Object.create(null);
-        for (const attr of el.attributes) {
-          if (attr.name.startsWith('data-track-prop-')) {
-            props[attr.name.slice('data-track-prop-'.length)] = attr.value;
-          }
-        }
-        track(name, props);
-      });
-    })();
-  </script>
-</body>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <script type="application/ld+json" set:html={jsonLd}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t("a11y.skip")}</a>
+    <div class="page-progress" aria-hidden="true"></div>
+    <slot />
+    <CommandPalette lang={lang} path={path} />
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script>
+      import "../scripts/app";
+    </script>
+  </body>
 </html>

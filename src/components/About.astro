@@ -1,319 +1,366 @@
 ---
-import { getTranslation, type Lang } from "../data/translations";
+import SectionHeading from "./SectionHeading.astro";
+import type { UIKey } from "../i18n/ui";
+import { PERSON } from "../data/site";
+import { useTranslations, type Lang } from "../i18n/utils";
 
-export interface Props {
-  lang?: Lang;
+interface Props {
+  lang: Lang;
 }
 
-const { lang = "es" } = Astro.props;
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const specs: { label: UIKey; value: UIKey }[] = [
+  { label: "about.spec.specialty", value: "about.spec.specialty.value" },
+  { label: "about.spec.focus", value: "about.spec.focus.value" },
+  { label: "about.spec.daily", value: "about.spec.daily.value" },
+  { label: "about.spec.location", value: "about.spec.location.value" },
+  { label: "about.spec.languages", value: "about.spec.languages.value" },
+];
+
+const timeline: { date: UIKey; title: UIKey; desc: UIKey; status: UIKey }[] = [
+  { date: "exp.item1.date", title: "exp.item1.title", desc: "exp.item1.desc", status: "exp.status.active" },
+  { date: "exp.item2.date", title: "exp.item2.title", desc: "exp.item2.desc", status: "exp.status.ongoing" },
+];
+
+const education: { org: UIKey; title: UIKey; meta: UIKey }[] = [
+  { org: "edu.unal.org", title: "edu.unal.title", meta: "edu.unal.meta" },
+  { org: "edu.google.org", title: "edu.google.title", meta: "edu.google.meta" },
+];
+
+const log: { tag: UIKey; text: UIKey }[] = [
+  { tag: "currently.tag1", text: "currently.log1" },
+  { tag: "currently.tag2", text: "currently.log2" },
+  { tag: "currently.tag3", text: "currently.log3" },
+];
 ---
 
-<section id="sobre-mi">
+<section class="section" id="sobre-mi" aria-labelledby="sobre-mi-title">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-text">
-        <div class="eyebrow">{getTranslation("about.eyebrow", lang)}</div>
-        <h2>{getTranslation("about.title", lang)}</h2>
-        <p class="about-story">{getTranslation("about.story", lang)}</p>
-        <div class="about-quote">
-          "{getTranslation("about.quote", lang)}"
-        </div>
+    <div class="about-top">
+      <div class="about-intro">
+        <SectionHeading id="sobre-mi-title" index="05" eyebrow={t("about.eyebrow")} title={t("about.title")} />
+        <p class="about-story" data-reveal>{t("about.story")}</p>
+        <blockquote class="about-quote" data-reveal><p>“{t("about.quote")}”</p></blockquote>
       </div>
 
-      <div class="about-card">
-        <div class="card-header">
-          <span class="card-title">Ingeniería & Perfil</span>
-          <span class="badge-tag">UNAL Sistemas</span>
-        </div>
-        <div class="about-specs">
-          <div class="spec-row">
-            <span class="spec-label">Especialidad</span>
-            <span class="spec-val">Edge Runtimes & Applied AI</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Enfoque</span>
-            <span class="spec-val">RAG, Microservicios, Cloudflare Workers</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Stack Diario</span>
-            <span class="spec-val">TypeScript, Python, Astro, Next.js, Supabase</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Ubicación</span>
-            <span class="spec-val">Bogotá, Colombia (Remoto Global)</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Idiomas</span>
-            <span class="spec-val">Español (Nativo) · Inglés (B2 Profesional)</span>
+      <aside class="about-card" aria-label={t("about.card.title")} data-reveal>
+        <div class="about-id">
+          <span class="about-avatar" aria-hidden="true">{PERSON.initials}</span>
+          <div>
+            <p class="about-name">{PERSON.name}</p>
+            <p class="about-alias">{PERSON.alias} · {t("about.card.badge")}</p>
           </div>
         </div>
+        <dl class="about-specs">
+          {specs.map((spec) => (
+            <div class="about-spec">
+              <dt>{t(spec.label)}</dt>
+              <dd>{t(spec.value)}</dd>
+            </div>
+          ))}
+        </dl>
+      </aside>
+    </div>
+
+    <div class="about-cols">
+      <div class="about-block" data-reveal>
+        <h3 class="about-block-title">{t("about.timeline.title")}</h3>
+        <ol class="timeline" role="list">
+          {timeline.map((item) => (
+            <li class="timeline-item">
+              <p class="timeline-meta"><span>{t(item.date)}</span><span class="timeline-status"><span class="dot" aria-hidden="true"></span>{t(item.status)}</span></p>
+              <h4 class="timeline-title">{t(item.title)}</h4>
+              <p class="timeline-desc">{t(item.desc)}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="about-block" data-reveal>
+        <h3 class="about-block-title">{t("about.edu.title")}</h3>
+        <ul class="edu" role="list">
+          {education.map((item) => (
+            <li class="edu-item">
+              <p class="edu-org">{t(item.org)}</p>
+              <p class="edu-title">{t(item.title)}</p>
+              <p class="edu-meta">{t(item.meta)}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
 
-    <div class="currently">
-      <div class="currently-header">{getTranslation("currently.title", lang)}</div>
-      <div class="currently-body">
-        <div class="log-line">
-          <span class="log-time">[Prod]</span>
-          <span class="log-level">CEIS</span>
-          <span set:html={getTranslation("currently.log1", lang)}></span>
-        </div>
-        <div class="log-line">
-          <span class="log-time">[Prod]</span>
-          <span class="log-level">Reprebot</span>
-          <span set:html={getTranslation("currently.log2", lang)}></span>
-        </div>
-        <div class="log-line">
-          <span class="log-time">[Edge]</span>
-          <span class="log-level">FIBOG</span>
-          <span set:html={getTranslation("currently.log3", lang)}></span>
-        </div>
-      </div>
+    <div class="log" data-reveal>
+      <p class="log-head"><span class="dot dot-pulse" aria-hidden="true"></span>{t("currently.title")}</p>
+      <ul class="log-lines" role="list">
+        {log.map((line) => (
+          <li><span class="log-tag">[{t(line.tag)}]</span> <span>{t(line.text)}</span></li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
 
 <style>
-  section {
-    padding: 96px 0;
-  }
-
-  .about-grid {
+  .about-top {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    align-items: start;
+    gap: clamp(32px, 5vw, 64px);
   }
 
-  .about-text .eyebrow {
-    color: var(--accent-text);
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    opacity: 0.8;
-  }
-
-  .about-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
+  .about-intro :global(.sh) {
     margin-bottom: 24px;
   }
 
   .about-story {
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.85;
-    margin-bottom: 24px;
+    max-width: 640px;
+    color: var(--text-2);
+    font-size: 1.04rem;
+    line-height: 1.8;
   }
 
-  /* ── Quantum Glass About Card ── */
+  .about-quote {
+    max-width: 640px;
+    margin-top: 28px;
+    padding-left: 20px;
+    border-left: 2px solid var(--accent);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1rem + 0.6vw, 1.45rem);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+
   .about-card {
-    background: var(--glass-card);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.3s var(--ease);
-    position: relative;
+    padding: 22px;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border-2);
+    background: var(--glass);
+    box-shadow: var(--shadow-2);
   }
 
-  .about-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    pointer-events: none;
-  }
-
-  .about-card:hover {
-    border-color: var(--line-green);
-    box-shadow: var(--glass-shadow-hover);
-    transform: translateY(-2px);
-  }
-
-  .card-header {
+  .about-id {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 18px 22px;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--line);
+    gap: 14px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .card-title {
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--white);
-  }
-
-  .badge-tag {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--line);
+  .about-avatar {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background:
+      linear-gradient(var(--bg-2), var(--bg-2)) padding-box,
+      linear-gradient(135deg, var(--accent), var(--aqua-text)) border-box;
+    border: 2px solid transparent;
     color: var(--accent-text);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+
+  .about-name {
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .about-alias {
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
   }
 
   .about-specs {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    display: grid;
+    gap: 14px;
+    padding-top: 18px;
   }
 
-  .spec-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .spec-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .spec-label {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text-dim);
+  .about-spec dt {
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
-  .spec-val {
-    font-size: 0.92rem;
-    color: var(--white);
+  .about-spec dd {
+    color: var(--text);
+    font-size: 0.94rem;
     font-weight: 500;
   }
 
-  /* Currently / system log */
-  .currently {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 48px;
+  .about-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: 16px;
+    margin-top: clamp(40px, 6vw, 64px);
   }
 
-  .currently-header {
-    background: var(--glass-light);
-    backdrop-filter: var(--glass-blur-sm);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
-    border-bottom: 1px solid var(--line);
-    padding: 12px 16px;
-    font-family: var(--mono);
+  .about-block {
+    padding: clamp(20px, 3vw, 28px);
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .about-block-title {
+    margin-bottom: 18px;
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 22px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 7px;
+    bottom: -22px;
+    width: 1px;
+    background: linear-gradient(var(--accent), transparent);
+    opacity: 0.5;
+  }
+
+  .timeline-item:last-child::before {
+    bottom: 0;
+  }
+
+  .timeline-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .timeline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 12px;
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+  }
+
+  .timeline-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-3);
+  }
+
+  .timeline-title {
+    margin: 6px 0 8px;
+    font-size: 1.08rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .timeline-desc {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .edu {
+    display: grid;
+    gap: 12px;
+  }
+
+  .edu-item {
+    padding: 14px 16px;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+
+  .edu-org {
+    color: var(--accent-text);
+    font-family: var(--font-mono);
     font-size: 0.72rem;
-    color: var(--muted);
+  }
+
+  .edu-title {
+    margin: 4px 0 2px;
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .edu-meta {
+    color: var(--text-3);
+    font-size: 0.84rem;
+  }
+
+  .log {
+    margin-top: 16px;
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    font-family: var(--font-mono);
+  }
+
+  .log-head {
     display: flex;
     align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-3);
+    font-size: 0.72rem;
+    overflow-wrap: anywhere;
+  }
+
+  .log-lines {
+    display: grid;
     gap: 8px;
-  }
-
-  .currently-header::before {
-    content: "●";
-    color: var(--accent-text);
-    animation: pulse 2s infinite;
-  }
-
-  .currently-body {
-    padding: 16px 20px;
-    font-family: var(--mono);
+    padding: 16px 18px 18px;
+    color: var(--text-2);
     font-size: 0.82rem;
-    line-height: 1.9;
+    line-height: 1.7;
   }
 
-  .log-line {
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  .log-time {
-    color: var(--text-dim);
-    margin-right: 10px;
-  }
-
-  .log-level {
+  .log-tag {
     color: var(--accent-text);
-    margin-right: 10px;
   }
 
-  .log-line span:last-child strong {
-    color: var(--white);
-    font-weight: 600;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  @media (max-width: 1024px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      text-align: center;
-    }
-
-    .about-text {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .about-quote {
-      text-align: left;
-    }
-
-    .about-editor {
-      max-width: 620px;
-      margin: 0 auto;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .about-editor-body {
-      grid-template-columns: 1fr;
-    }
-
-    .editor-sidebar {
-      display: none;
-    }
-
-    .about-text h2 {
-      font-size: 1.6rem;
-    }
-
-    .about-editor {
-      font-size: 0.72rem;
-    }
-
-    .currently {
-      margin-top: 36px;
-    }
-
-    .currently-body {
-      font-size: 0.75rem;
-      padding: 14px 16px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .currently-header::before {
-      animation: none;
+  @media (max-width: 960px) {
+    .about-top,
+    .about-cols {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

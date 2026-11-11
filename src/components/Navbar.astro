@@ -1,444 +1,376 @@
 ---
-import { getTranslation, type Lang } from "../data/translations";
+import { SECTIONS, whatsappLink } from "../data/site";
+import { alternatePath, homePath, normalizePath, otherLang, sectionPath, useTranslations, type Lang } from "../i18n/utils";
 
-export interface Props {
-  lang?: Lang;
+interface Props {
+  lang: Lang;
+  path: string;
 }
 
-const { lang = "es" } = Astro.props;
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+const onHome = normalizePath(path) === homePath(lang);
+const sectionHref = (id: string) => (onHome ? `#${id}` : sectionPath(id, lang));
+const other = otherLang(lang);
+const altHref = alternatePath(path, other);
+const wa = whatsappLink(t("wa.message"));
+const navSections = SECTIONS.filter((section) => section.inNav);
 ---
-<nav class="navbar" role="navigation" aria-label="Navegación principal">
-  <div class="nav-inner">
-      <a href={lang === "en" ? "/en" : "/"} class="brand" aria-label={lang === "en" ? "NikkoDev, home" : "NikkoDev, inicio"}>
-      <img src="/logo-nav.png" alt="" class="brand-mark" width="36" height="36" loading="eager" />
-      <span class="brand-name">Nikko<span class="green">Dev</span></span>
+
+<header class="nav" id="top" data-nav>
+  <div class="nav-bar">
+    <a class="nav-brand" href={homePath(lang)} aria-label={t("nav.home")}>
+      <img class="nav-logo" src="/logo-nav.png" alt="" width="32" height="32" />
+      <span class="nav-wordmark" aria-hidden="true">Nikko<span>Dev</span></span>
     </a>
 
-    <div class="nav-links">
-      <a href="#servicios">{getTranslation("nav.servicios", lang)}</a>
-      <a href="#proyectos">{getTranslation("nav.proyectos", lang)}</a>
-      <a href="#sobre-mi">{getTranslation("nav.sobre-mi", lang)}</a>
-      <a href="#experiencia">{getTranslation("nav.experiencia", lang)}</a>
-      <a href="#contacto">{getTranslation("nav.contacto", lang)}</a>
-    </div>
+    <nav class="nav-links" aria-label={t("nav.label")}>
+      <ul role="list">
+        {navSections.map((section) => (
+          <li><a href={sectionHref(section.id)} data-nav-link={section.id}>{t(section.navKey)}</a></li>
+        ))}
+      </ul>
+    </nav>
 
     <div class="nav-actions">
-      <button class="theme-btn" type="button" id="themeToggle" aria-label="Cambiar tema" aria-pressed="false">
-        <span class="theme-icon-dark" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </span>
-        <span class="theme-icon-light" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        </span>
+      <button class="nav-btn nav-search" type="button" data-cmdk-open aria-label={t("palette.open")} aria-keyshortcuts="Control+K Meta+K">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <kbd class="nav-kbd" data-kbd-mod>Ctrl K</kbd>
       </button>
-      <button class="lang-btn" type="button" id="langToggle" aria-label="Cambiar idioma">
-        <span class={`lang-text ${lang === "en" ? "inactive" : ""}`}>ES</span>
-        <span class="lang-divider">/</span>
-        <span class={`lang-text ${lang === "es" ? "inactive" : ""}`}>EN</span>
-      </button>
-      <a class="btn btn-primary btn-sm" href="https://wa.me/573136638097" target="_blank" rel="noopener" data-track="whatsapp_click">
-        {getTranslation("nav.hablemos", lang)}
+      <a class="nav-btn nav-lang" href={altHref} hreflang={other} aria-label={t("lang.switch")} data-lang-switch data-track="lang_toggle" data-track-prop-target={other}>
+        <span class={lang === "es" ? "is-current" : undefined}>ES</span>
+        <span class="nav-lang-sep" aria-hidden="true">/</span>
+        <span class={lang === "en" ? "is-current" : undefined}>EN</span>
       </a>
+      <button class="nav-btn nav-theme" type="button" data-theme-toggle aria-label={t("theme.toLight")} title={t("theme.toLight")} data-label-to-light={t("theme.toLight")} data-label-to-dark={t("theme.toDark")}>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+      </button>
+      <a class="btn btn-primary btn-sm nav-cta" href={wa} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-prop-place="nav">{t("nav.hablemos")}</a>
+      <button class="nav-btn nav-menu" type="button" data-menu-open aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileMenu" aria-label={t("nav.menu.open")}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
+      </button>
     </div>
-
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-controls="mobileOverlay" type="button" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
-</nav>
+</header>
+
+<dialog class="menu" id="mobileMenu" aria-label={t("nav.menu.title")}>
+  <div class="menu-panel">
+    <div class="menu-head">
+      <span class="menu-title">{t("nav.menu.title")}</span>
+      <button class="nav-btn" type="button" data-menu-close aria-label={t("nav.menu.close")}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+    <nav aria-label={t("nav.label")}>
+      <ul class="menu-links" role="list">
+        {SECTIONS.map((section, index) => (
+          <li><a href={sectionHref(section.id)} data-menu-close data-nav-link={section.id}><span class="menu-index">{String(index + 1).padStart(2, "0")}</span>{t(section.navKey)}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="menu-foot">
+      <a class="btn btn-ghost" href={altHref} hreflang={other} aria-label={t("lang.switch")} data-lang-switch data-track="lang_toggle" data-track-prop-target={other}>{lang === "es" ? "English" : "Español"}</a>
+      <button class="btn btn-ghost" type="button" data-theme-toggle aria-label={t("theme.toLight")} data-label-to-light={t("theme.toLight")} data-label-to-dark={t("theme.toDark")}>{t("theme.label")}</button>
+      <a class="btn btn-primary menu-wa" href={wa} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-prop-place="menu">{t("hero.cta.whatsapp")}</a>
+    </div>
+  </div>
+</dialog>
 
 <style>
-  .navbar {
+  .nav {
     position: sticky;
-    top: 16px;
+    top: 0;
     z-index: 1000;
-    margin-top: 16px;
+    padding-top: 12px;
   }
 
-  .nav-inner {
-    width: min(var(--max), calc(100% - 40px));
-    margin: 0 auto;
+  .nav-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border: 1px solid var(--glass-border);
-    background: var(--glass-nav);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    gap: 12px;
+    width: min(var(--container), 100% - 2 * var(--gutter));
+    height: var(--nav-h);
+    margin-inline: auto;
+    padding: 0 10px 0 14px;
     border-radius: var(--radius-full);
-    padding: 10px 18px;
-    box-shadow: var(--glass-shadow);
-    position: relative;
-    transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 58%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: var(--shadow-1);
+    transition:
+      background-color 0.3s var(--ease),
+      border-color 0.3s var(--ease),
+      box-shadow 0.3s var(--ease);
   }
 
-  .navbar.is-scrolled .nav-inner {
-    background: var(--glass-card-hover);
-    border-color: rgba(var(--accent-rgb), 0.3);
-    box-shadow: var(--glass-shadow-hover);
+  .nav.is-scrolled .nav-bar {
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-color: var(--border-2);
+    box-shadow: var(--shadow-2);
   }
 
-  .nav-inner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    pointer-events: none;
-  }
-
-  .brand {
-    display: flex;
+  .nav-brand {
+    display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-weight: 800;
-    font-size: 1.1rem;
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    font-weight: 700;
     letter-spacing: -0.03em;
+    border-radius: var(--radius-full);
   }
 
-  .brand-mark {
-    width: 36px;
-    height: 36px;
+  .nav-logo {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.28);
+    box-shadow: 0 0 0 1px var(--border-2);
   }
 
-  .brand-name { color: var(--white); }
-  .brand-name .green { color: var(--accent-text); }
+  .nav-wordmark span {
+    color: var(--accent-text);
+  }
 
   .nav-links {
+    margin-inline: auto;
+  }
+
+  .nav-links ul {
     display: flex;
-    align-items: center;
-    gap: 24px;
-    color: var(--muted);
-    font-size: 0.9rem;
+    gap: 2px;
   }
 
   .nav-links a {
-    position: relative;
-    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    padding: 4px 0;
-  }
-
-  .nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1.5px;
-    background: var(--green);
-    transition: width 0.3s var(--ease);
+    height: 36px;
+    padding: 0 13px;
+    border-radius: var(--radius-full);
+    color: var(--text-2);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition:
+      color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
   }
 
   .nav-links a:hover {
-    color: var(--white);
+    color: var(--text);
+    background: var(--surface-2);
   }
 
-  .nav-links a:hover::after {
-    width: 100%;
-  }
-
-  .nav-links a:focus-visible,
-  .brand:focus-visible,
-  .nav-actions button:focus-visible,
-  .mobile-toggle:focus-visible,
-  .mobile-overlay a:focus-visible {
-    outline: 2px solid var(--focus);
-    outline-offset: 4px;
+  .nav-links a[aria-current="true"] {
+    color: var(--accent-text);
+    background: var(--accent-soft);
   }
 
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
   }
 
-  .lang-btn {
-    display: flex;
+  .nav-btn {
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
-    border: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--white);
-    min-height: 44px;
-    padding: 8px 12px;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 10px;
     border-radius: var(--radius-full);
-    font-family: var(--mono);
-    font-size: 0.78rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-2);
     cursor: pointer;
-    transition: border-color 0.2s var(--ease);
+    transition:
+      color 0.2s var(--ease),
+      border-color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
   }
 
-  .lang-btn:hover { border-color: var(--green); }
-
-  .lang-text { transition: opacity 0.2s var(--ease); }
-  .lang-text.inactive { opacity: 0.5; }
-  .lang-divider { opacity: 0.2; }
-
-  .theme-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--line);
-    background: var(--glass-card);
-    color: var(--white);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
-    font-size: 1rem;
-    line-height: 1;
+  .nav-btn:hover {
+    color: var(--text);
+    border-color: var(--border-accent);
+    background: var(--surface-2);
   }
 
-  .theme-btn:hover {
-    border-color: var(--green);
-    background: var(--glass-card-hover);
+  .nav-kbd {
+    padding: 3px 5px;
+    font-size: 0.68rem;
   }
 
-  .theme-icon-dark, .theme-icon-light {
-    position: absolute;
-    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-  }
-
-  .theme-icon-light { opacity: 0; transform: rotate(-90deg) scale(0); }
-  :global(.light) .theme-icon-light { opacity: 1; transform: rotate(0) scale(1); }
-  :global(.light) .theme-icon-dark { opacity: 0; transform: rotate(90deg) scale(0); }
-
-  .theme-btn { position: relative; }
-
-  .btn-sm {
-    padding: 10px 18px;
-    font-size: 0.85rem;
-  }
-
-  .mobile-toggle {
-    display: none;
-    flex-direction: column;
+  .nav-lang {
     gap: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    min-width: 44px;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
+    padding: 0 12px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-3);
   }
 
-  .mobile-toggle span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--white);
-    border-radius: 2px;
-    transition: 0.3s var(--ease);
+  .nav-lang .is-current {
+    color: var(--text);
+    font-weight: 600;
   }
 
-  /* Mobile menu overlay */
-  .mobile-overlay {
+  .nav-lang-sep {
+    opacity: 0.45;
+  }
+
+  .icon-moon {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--glass-bg-heavy);
-    backdrop-filter: var(--glass-blur-sm);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
-    z-index: 999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.22, 0.7, 0.2, 1);
   }
 
-  .mobile-overlay.open {
-    display: flex;
-    opacity: 1;
+  :global(.light) .icon-sun {
+    display: none;
   }
 
-  .mobile-overlay a {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.03em;
+  :global(.light) .icon-moon {
+    display: block;
   }
 
-  .mobile-overlay a:hover {
-    color: var(--accent-text);
+  .nav-cta {
+    margin-left: 4px;
   }
 
-  .mobile-overlay .btn {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    padding: 16px 32px;
+  .nav-menu {
+    display: none;
   }
 
-  @media (max-width: 768px) {
-    .nav-links, .nav-actions .btn-primary {
-      display: none;
-    }
-
-    .mobile-toggle {
-      display: flex;
-    }
-
-    .nav-inner {
-      padding: 8px 12px;
-      gap: 10px;
-    }
-
-    .brand-name {
+  @media (max-width: 1023px) {
+    .nav-links,
+    .nav-cta {
       display: none;
     }
 
     .nav-actions {
-      gap: 8px;
       margin-left: auto;
     }
 
-    .theme-btn {
-      width: 36px;
-      height: 36px;
-    }
-
-    .lang-btn {
-      padding: 7px 10px;
-      font-size: 0.72rem;
+    .nav-menu {
+      display: inline-flex;
     }
   }
-</style>
 
-<div class="mobile-overlay" id="mobileOverlay" aria-label="Menú móvil" aria-hidden="true">
-  <a href="#servicios" data-mobile-close>{getTranslation("nav.servicios", lang)}</a>
-  <a href="#proyectos" data-mobile-close>{getTranslation("nav.proyectos", lang)}</a>
-  <a href="#sobre-mi" data-mobile-close>{getTranslation("nav.sobre-mi", lang)}</a>
-  <a href="#experiencia" data-mobile-close>{getTranslation("nav.experiencia", lang)}</a>
-  <a href="#contacto" data-mobile-close>{getTranslation("nav.contacto", lang)}</a>
-  <a class="btn btn-primary" href="https://wa.me/573136638097" target="_blank" rel="noopener noreferrer" data-mobile-close data-track="whatsapp_click">
-    {getTranslation("nav.hablemos", lang)}
-  </a>
-</div>
-
-<script>
-  import { track } from '../lib/analytics';
-
-  // Language toggle — navigate between ES/EN versions
-  document.getElementById('langToggle')?.addEventListener('click', () => {
-    const currentLang = window.location.pathname.startsWith('/en') ? 'en' : 'es';
-    const target = currentLang === 'es' ? 'en' : 'es';
-    track('lang_toggle', { target });
-    const texts = document.querySelectorAll('.lang-text');
-    const [es, en] = texts;
-    if (currentLang === 'es') {
-      es.classList.add('inactive');
-      en.classList.remove('inactive');
-    } else {
-      en.classList.add('inactive');
-      es.classList.remove('inactive');
+  @media (max-width: 520px) {
+    .nav-lang,
+    .nav-theme,
+    .nav-kbd {
+      display: none;
     }
-    setTimeout(() => {
-      window.location.href = currentLang === 'es' ? '/en' : '/';
-    }, 150);
-  });
+  }
 
-  // Navbar con vidrio más denso al hacer scroll (listener pasivo, un cambio por frame)
-  (() => {
-    const nav = document.querySelector('.navbar');
-    if (!nav) return;
-    let ticking = false;
-    const update = () => {
-      nav.classList.toggle('is-scrolled', window.scrollY > 24);
-      ticking = false;
-    };
-    window.addEventListener('scroll', () => {
-      if (!ticking) { requestAnimationFrame(update); ticking = true; }
-    }, { passive: true });
-    update();
-  })();
+  @media (hover: none) {
+    .nav-kbd {
+      display: none;
+    }
+  }
 
-  // Mobile menu
-  (() => {
-    const toggle = document.getElementById('mobileToggle');
-    const overlay = document.getElementById('mobileOverlay');
-    if (!toggle || !overlay) return;
+  /* ── Menú móvil (<dialog> modal: foco atrapado y Escape gratis) ── */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+  }
 
-    const open = () => {
-      overlay.classList.add('open');
-      overlay.setAttribute('aria-hidden', 'false');
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Cerrar menú');
-      document.body.style.overflow = 'hidden';
-    };
+  .menu::backdrop {
+    background: rgba(2, 7, 6, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
 
-    const close = () => {
-      overlay.classList.remove('open');
-      overlay.setAttribute('aria-hidden', 'true');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Abrir menú');
-      document.body.style.overflow = '';
-    };
+  .menu-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: min(420px, 100% - 24px);
+    max-height: calc(100% - 24px);
+    margin: 12px 12px 0 auto;
+    padding: 18px;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-2);
+    background: var(--glass-strong);
+    box-shadow: var(--shadow-2);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+  }
 
-    toggle.addEventListener('click', () => {
-      if (overlay.classList.contains('open')) close();
-      else open();
-    });
+  .menu[open] .menu-panel {
+    animation: menu-in 0.32s var(--ease);
+  }
 
-    overlay.querySelectorAll('[data-mobile-close]').forEach(el => {
-      el.addEventListener('click', close);
-    });
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      translate: 0 -8px;
+    }
+  }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
-    });
-  })();
+  .menu-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-  // Theme toggle — alterna claro/oscuro, persiste y mantiene el estado accesible
-  (() => {
-    const btn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    if (!btn) return;
+  .menu-title {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
 
-    const current = () => (html.classList.contains('dark') ? 'dark' : 'light');
+  .menu-links {
+    display: grid;
+    gap: 2px;
+  }
 
-    const sync = () => {
-      const isDark = current() === 'dark';
-      btn.setAttribute('aria-pressed', String(isDark));
-      btn.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
-      btn.setAttribute('title', isDark ? 'Tema claro' : 'Tema oscuro');
-      const meta = document.getElementById('themeColor');
-      if (meta) meta.setAttribute('content', isDark ? '#050B0A' : '#F1FAF6');
-    };
+  .menu-links a {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 10px;
+    border-radius: var(--radius-m);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
 
-    const apply = (theme) => {
-      html.classList.toggle('dark', theme === 'dark');
-      html.classList.toggle('light', theme === 'light');
-      html.dataset.theme = theme;
-      sync();
-    };
+  .menu-links a:hover,
+  .menu-links a[aria-current="true"] {
+    background: var(--surface-2);
+    color: var(--accent-text);
+  }
 
-    sync();
+  .menu-index {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 400;
+    color: var(--text-3);
+  }
 
-    btn.addEventListener('click', () => {
-      const next = current() === 'dark' ? 'light' : 'dark';
-      apply(next);
-      try { localStorage.setItem('nikkodev-theme', next); } catch (e) {}
-    });
+  .menu-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
 
-    // Mientras el usuario no elija manualmente, seguimos la preferencia del sistema
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const onSystemChange = (e: MediaQueryListEvent) => {
-      let stored: string | null = null;
-      try { stored = localStorage.getItem('nikkodev-theme'); } catch (err) {}
-      if (!stored) apply(e.matches ? 'dark' : 'light');
-    };
-    if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
-    else if (mq.addListener) mq.addListener(onSystemChange);
-  })();
-</script>
+  .menu-wa {
+    flex: 1 1 100%;
+  }
+</style>

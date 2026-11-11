@@ -1,192 +1,130 @@
 ---
-import { getTranslation, type Lang } from "../data/translations";
-export interface Props { lang?: Lang; }
-const { lang = "es" } = Astro.props;
+import SectionHeading from "./SectionHeading.astro";
+import { services, tagText } from "../data/content";
+import { whatsappLink } from "../data/site";
+import { useTranslations, type Lang } from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<section id="servicios" class="section-bg-mesh">
+<section class="section" id="servicios" aria-labelledby="servicios-title">
   <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">{getTranslation("services.eyebrow", lang)}</div>
-      <h2 class="display-sm">{getTranslation("services.title", lang)}</h2>
-      <p class="section-sub section-sub-wide">
-        {getTranslation("services.sub", lang)}
-      </p>
-    </div>
-
-    <div class="serv-grid">
-      <article class="serv-card">
-        <div class="serv-header">
-          <span class="serv-number">01</span>
-          <span class="serv-tag">Architecture</span>
-        </div>
-        <h3>{getTranslation("services.card1.title", lang)}</h3>
-        <p>{getTranslation("services.card1.desc", lang)}</p>
-        <div class="serv-tags">
-          <span class="tag">Next.js / Astro</span>
-          <span class="tag">Cloudflare Edge</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">PostgreSQL RLS</span>
-        </div>
-      </article>
-
-      <article class="serv-card">
-        <div class="serv-header">
-          <span class="serv-number">02</span>
-          <span class="serv-tag">Applied AI</span>
-        </div>
-        <h3>{getTranslation("services.card2.title", lang)}</h3>
-        <p>{getTranslation("services.card2.desc", lang)}</p>
-        <div class="serv-tags">
-          <span class="tag">FastAPI</span>
-          <span class="tag">Python RAG</span>
-          <span class="tag">Vector Search</span>
-          <span class="tag">Webhooks</span>
-        </div>
-      </article>
-
-      <article class="serv-card">
-        <div class="serv-header">
-          <span class="serv-number">03</span>
-          <span class="serv-tag">Performance</span>
-        </div>
-        <h3>{getTranslation("services.card3.title", lang)}</h3>
-        <p>{getTranslation("services.card3.desc", lang)}</p>
-        <div class="serv-tags">
-          <span class="tag tag-amber">Core Web Vitals</span>
-          <span class="tag tag-amber">Latencia 0.2s</span>
-          <span class="tag">Zero Infra Cost</span>
-          <span class="tag">Astro SSG</span>
-        </div>
-      </article>
-
-      <article class="serv-card">
-        <div class="serv-header">
-          <span class="serv-number">04</span>
-          <span class="serv-tag">Product Engineering</span>
-        </div>
-        <h3>{getTranslation("services.card4.title", lang)}</h3>
-        <p>{getTranslation("services.card4.desc", lang)}</p>
-        <div class="serv-tags">
-          <span class="tag">PWA Offline</span>
-          <span class="tag">SEO Técnico</span>
-          <span class="tag">Interactive UI</span>
-          <span class="tag">Alta Conversión</span>
-        </div>
-      </article>
+    <SectionHeading id="servicios-title" index="03" eyebrow={t("services.eyebrow")} title={t("services.title")} sub={t("services.sub")} />
+    <ul class="svc-grid" role="list">
+      {services.map((service) => (
+        <li class="svc" data-spotlight data-reveal>
+          <p class="svc-top"><span class="svc-n">{service.n}</span><span class="svc-label">{t(service.labelKey)}</span></p>
+          <h3 class="svc-title">{t(service.titleKey)}</h3>
+          <p class="svc-desc">{t(service.descKey)}</p>
+          <ul class="svc-tags" role="list">
+            {service.tags.map((tag) => <li class="tag">{tagText(tag, lang)}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+    <div class="svc-cta" data-reveal>
+      <p>{t("services.cta.text")}</p>
+      <a class="btn btn-primary" href={whatsappLink(t("wa.message"))} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-prop-place="services">{t("nav.hablemos")} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
 <style>
-  .serv-grid {
+  .svc-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 
-  .serv-card {
-    background: var(--glass-card);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
-    padding: 34px;
+  .svc {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    box-shadow: var(--glass-shadow);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s var(--ease);
+    gap: 16px;
+    padding: clamp(24px, 3vw, 34px);
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    box-shadow: var(--shadow-1);
+    transition: border-color 0.3s var(--ease);
   }
 
-  .serv-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-    pointer-events: none;
+  .svc:hover {
+    border-color: var(--border-accent);
   }
 
-  .serv-card:hover {
-    border-color: var(--line-green);
-    background: var(--glass-card-hover);
-    transform: translateY(-4px);
-    box-shadow: var(--glass-shadow-hover);
-  }
-
-  .serv-header {
+  .svc-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
   }
 
-  .serv-number {
-    font-family: var(--mono);
-    font-size: 0.9rem;
-    font-weight: 700;
+  .svc-n {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+    background: var(--accent-soft);
     color: var(--accent-text);
+    font-weight: 600;
   }
 
-  .serv-tag {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--text-dim);
+  .svc-label {
+    color: var(--text-3);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
 
-  .serv-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+  .svc-title {
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
   }
 
-  .serv-card p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    flex-grow: 1;
+  .svc-desc {
+    flex: 1;
+    color: var(--text-2);
+    font-size: 0.96rem;
+    line-height: 1.7;
   }
 
-  .serv-tags {
-    margin-top: auto;
+  .svc-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
 
-  .tag {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    background: var(--surface-2);
-    border: 1px solid var(--line);
-    color: var(--white);
-    backdrop-filter: blur(8px);
-    transition: all 0.2s var(--ease);
+  .svc-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-top: 18px;
+    padding: 20px 22px 20px 26px;
+    border-radius: var(--radius-l);
+    border: 1px dashed var(--border-2);
   }
 
-  .tag:hover {
-    border-color: var(--line-green);
-    color: var(--accent-text);
-  }
-
-  .tag-amber {
-    color: var(--amber-text);
-    border-color: var(--line-amber);
+  .svc-cta p {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
   }
 
   @media (max-width: 860px) {
-    .serv-grid { grid-template-columns: 1fr; }
-    .serv-card { padding: 26px; }
+    .svc-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

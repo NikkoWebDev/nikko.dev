@@ -1,0 +1,19 @@
+---
+// Encabezado común de sección: índice, ruta en mono, título y subtítulo.
+// Sus estilos (.sh-*) están en src/styles/global.css porque lo usan todas las secciones.
+interface Props {
+  id: string;
+  index: string;
+  eyebrow: string;
+  title: string;
+  sub?: string;
+}
+
+const { id, index, eyebrow, title, sub } = Astro.props;
+---
+
+<header class="sh" data-reveal>
+  <p class="sh-eyebrow"><span class="sh-index">{index}</span><span class="sh-rule" aria-hidden="true"></span><span>{eyebrow}</span></p>
+  <h2 class="sh-title" id={id}>{title}</h2>
+  {sub && <p class="sh-sub">{sub}</p>}
+</header>

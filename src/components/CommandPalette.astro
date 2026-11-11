@@ -1,0 +1,286 @@
+---
+// Paleta de comandos estilo "NikkoDev OS". Las opciones se generan aquí, en el
+// idioma de la página; src/scripts/palette.ts solo filtra y ejecuta.
+import { projects } from "../data/projects";
+import { CONTACT, SECTIONS, whatsappLink } from "../data/site";
+import { alternatePath, homePath, normalizePath, otherLang, pick, projectPath, sectionPath, useTranslations, type Lang } from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+interface Item {
+  id: string;
+  icon: string;
+  label: string;
+  meta?: string;
+  keywords?: string;
+  href?: string;
+  external?: boolean;
+  action?: "theme" | "copy" | "top";
+  value?: string;
+  success?: string;
+  error?: string;
+}
+
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+const onHome = normalizePath(path) === homePath(lang);
+const sectionHref = (id: string) => (onHome ? `#${id}` : sectionPath(id, lang));
+
+const groups: { id: string; label: string; items: Item[] }[] = [
+  {
+    id: "nav",
+    label: t("palette.group.nav"),
+    items: [
+      { id: "top", icon: "↑", label: t("palette.action.top"), keywords: "inicio home top hero", action: "top" },
+      ...SECTIONS.map((section) => ({ id: `section-${section.id}`, icon: "#", label: t(section.navKey), meta: `#${section.id}`, keywords: section.id, href: sectionHref(section.id) })),
+    ],
+  },
+  {
+    id: "projects",
+    label: t("palette.group.projects"),
+    items: projects.map((project) => ({
+      id: `project-${project.slug}`,
+      icon: "◆",
+      label: project.name,
+      meta: pick(project.kind, lang),
+      keywords: `${project.stack.join(" ")} ${project.domain ?? ""} ${pick(project.title, lang)}`,
+      href: projectPath(project.slug, lang),
+    })),
+  },
+  {
+    id: "actions",
+    label: t("palette.group.actions"),
+    items: [
+      { id: "theme", icon: "◐", label: t("palette.action.theme"), keywords: "tema theme dark light oscuro claro modo", action: "theme" },
+      { id: "lang", icon: "⇄", label: t("palette.action.lang"), meta: otherLang(lang).toUpperCase(), keywords: "idioma language english español", href: alternatePath(path, otherLang(lang)) },
+      { id: "whatsapp", icon: "✆", label: t("palette.action.whatsapp"), meta: CONTACT.whatsappDisplay, keywords: "contacto contact chat mensaje", href: whatsappLink(t("wa.message")), external: true },
+      { id: "email", icon: "@", label: t("palette.action.email"), meta: CONTACT.email, keywords: "correo mail contacto contact", action: "copy", value: CONTACT.email, success: t("toast.copied"), error: t("toast.copyError") },
+      { id: "github", icon: "{}", label: t("palette.action.github"), meta: CONTACT.githubHandle, keywords: "codigo code repos", href: CONTACT.github, external: true },
+      { id: "linkedin", icon: "in", label: t("palette.action.linkedin"), keywords: "cv perfil profile", href: CONTACT.linkedin, external: true },
+    ],
+  },
+];
+---
+
+<dialog class="cmdk" id="cmdk" aria-label={t("palette.title")}>
+  <div class="cmdk-panel">
+    <div class="cmdk-search">
+      <svg class="cmdk-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="cmdk-input" class="cmdk-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label={t("palette.title")} placeholder={t("palette.placeholder")} autocomplete="off" spellcheck="false" />
+      <kbd>esc</kbd>
+    </div>
+    <ul class="cmdk-list" id="cmdk-list" role="listbox" aria-label={t("palette.title")}>
+      {groups.map((group) => (
+        <li class="cmdk-group" role="presentation" data-cmdk-group>
+          <span class="cmdk-group-label" id={`cmdk-group-${group.id}`} aria-hidden="true">{group.label}</span>
+          <ul class="cmdk-options" role="group" aria-labelledby={`cmdk-group-${group.id}`}>
+            {group.items.map((item) => (
+              <li class="cmdk-item" role="option" aria-selected="false" id={`cmdk-${item.id}`} data-id={item.id} data-href={item.href} data-external={item.external ? "true" : undefined} data-action={item.action} data-value={item.value} data-success={item.success} data-error={item.error} data-keywords={item.keywords}>
+                <span class="cmdk-icon" aria-hidden="true">{item.icon}</span>
+                <span class="cmdk-label">{item.label}</span>
+                {item.meta && <span class="cmdk-meta">{item.meta}</span>}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+    <p class="cmdk-empty" id="cmdk-empty" hidden>{t("palette.empty")}</p>
+    <div class="cmdk-foot" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> {t("palette.hint.move")}</span>
+      <span><kbd>enter</kbd> {t("palette.hint.run")}</span>
+      <span><kbd>esc</kbd> {t("palette.hint.close")}</span>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .cmdk {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+  }
+
+  .cmdk::backdrop {
+    background: rgba(2, 7, 6, 0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  .cmdk-panel {
+    width: min(640px, 100% - 24px);
+    margin: min(14vh, 128px) auto 0;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border-2);
+    background: var(--glass-strong);
+    box-shadow:
+      0 40px 120px -24px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(var(--accent-rgb), 0.12);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    backdrop-filter: blur(24px) saturate(170%);
+    overflow: hidden;
+  }
+
+  .cmdk[open] .cmdk-panel {
+    animation: cmdk-in 0.28s var(--ease);
+  }
+
+  @keyframes cmdk-in {
+    from {
+      opacity: 0;
+      translate: 0 -10px;
+      scale: 0.98;
+    }
+  }
+
+  .cmdk-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 60px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-3);
+  }
+
+  .cmdk-input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    outline: none;
+    background: none;
+    color: var(--text);
+    font-size: 1.02rem;
+  }
+
+  .cmdk-input::placeholder {
+    color: var(--text-3);
+  }
+
+  /* El panel ya marca el contexto; el anillo de foco va en la barra de búsqueda completa. */
+  .cmdk-input:focus-visible {
+    outline: none;
+  }
+
+  .cmdk-search:focus-within {
+    box-shadow: inset 0 -1px 0 rgba(var(--accent-rgb), 0.5);
+  }
+
+  .cmdk-list {
+    max-height: min(56vh, 440px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 6px 8px 10px;
+    list-style: none;
+  }
+
+  .cmdk-options {
+    list-style: none;
+    padding: 0;
+  }
+
+  .cmdk-group-label {
+    display: block;
+    padding: 12px 10px 6px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .cmdk-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 0 10px;
+    border-radius: 10px;
+    color: var(--text-2);
+    cursor: pointer;
+    scroll-margin: 8px;
+  }
+
+  .cmdk-item[aria-selected="true"] {
+    background: var(--accent-soft);
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.28);
+  }
+
+  .cmdk-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .cmdk-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.94rem;
+  }
+
+  .cmdk-meta {
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-3);
+  }
+
+  .cmdk-empty {
+    padding: 28px 16px 34px;
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.92rem;
+  }
+
+  .cmdk-foot {
+    display: flex;
+    gap: 18px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.76rem;
+  }
+
+  .cmdk-foot span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .cmdk-panel {
+      margin-top: 12px;
+    }
+
+    .cmdk-foot {
+      display: none;
+    }
+  }
+</style>

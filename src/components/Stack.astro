@@ -1,0 +1,113 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { stackGroups } from "../data/content";
+import { useTranslations, type Lang } from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section" id="stack" aria-labelledby="stack-title">
+  <div class="container">
+    <SectionHeading id="stack-title" index="04" eyebrow={t("stack.eyebrow")} title={t("stack.title")} sub={t("stack.sub")} />
+    <div class="stack-grid">
+      {stackGroups.map((group) => (
+        <div class="stack-group" data-reveal>
+          <div class="stack-head">
+            <span class="stack-glyph" aria-hidden="true">{group.glyph}</span>
+            <h3 class="stack-title" id={`stack-${group.id}`}>{t(group.titleKey)}</h3>
+            <span class="stack-count" aria-hidden="true">{String(group.items.length).padStart(2, "0")}</span>
+          </div>
+          <ul class="stack-items" role="list" aria-labelledby={`stack-${group.id}`}>
+            {group.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 14px;
+  }
+
+  .stack-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stack-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .stack-glyph {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    border: 1px solid rgba(var(--accent-rgb), 0.28);
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .stack-title {
+    flex: 1;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+
+  .stack-count {
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .stack-items {
+    display: grid;
+    gap: 2px;
+  }
+
+  .stack-items li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .stack-items li:last-child {
+    border-bottom: 0;
+  }
+
+  .stack-items li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.7;
+  }
+</style>

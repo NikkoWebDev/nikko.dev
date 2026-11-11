@@ -1,0 +1,157 @@
+---
+// 404 bilingüe: no sabemos en qué idioma llegó el visitante, así que mostramos los dos.
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n/utils";
+
+const es = useTranslations("es");
+const en = useTranslations("en");
+---
+
+<BaseLayout title="404 · NikkoDev" description={es("notfound.text")} lang="es" path="/404" noindex>
+  <Navbar lang="es" path="/404" />
+  <main id="main" class="nf">
+    <div class="container nf-inner">
+      <div class="nf-term" aria-hidden="true">
+        <p class="nf-bar"><span class="nf-dots"><i></i><i></i><i></i></span>nikko@edge: ~</p>
+        <div class="nf-body">
+          <p><span class="nf-prompt">$</span> cd <span data-nf-path>/ruta</span></p>
+          <p class="nf-error">bash: cd: no such file or directory</p>
+          <p><span class="nf-prompt">$</span> <span class="nf-caret"></span></p>
+        </div>
+      </div>
+      <h1 class="nf-code">404</h1>
+      <p class="nf-title">{es("notfound.title")} <span class="nf-sep" aria-hidden="true">/</span> <span lang="en">{en("notfound.title")}</span></p>
+      <p class="nf-text">{es("notfound.text")}<br /><span lang="en">{en("notfound.text")}</span></p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href="/">{es("notfound.home")}</a>
+        <a class="btn btn-ghost" href="/en" hreflang="en" lang="en">{en("notfound.home")}</a>
+      </div>
+    </div>
+    <script>
+      const target = document.querySelector("[data-nf-path]");
+      if (target) target.textContent = window.location.pathname;
+    </script>
+  </main>
+  <Footer lang="es" path="/404" />
+</BaseLayout>
+
+<style>
+  .nf {
+    padding-block: clamp(48px, 9vw, 120px) 0;
+  }
+
+  .nf-inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .nf-term {
+    width: min(460px, 100%);
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border-2);
+    background: var(--glass);
+    box-shadow: var(--shadow-2);
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .nf-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.74rem;
+  }
+
+  .nf-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .nf-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--border-2);
+  }
+
+  .nf-dots i:first-child {
+    background: var(--accent);
+  }
+
+  .nf-body {
+    display: grid;
+    gap: 6px;
+    padding: 16px 16px 18px;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+
+  .nf-prompt {
+    color: var(--accent-text);
+  }
+
+  .nf-error {
+    color: var(--aqua-text);
+  }
+
+  .nf-caret {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    vertical-align: text-bottom;
+    background: var(--accent);
+    animation: nf-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes nf-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .nf-code {
+    margin-top: 40px;
+    background: linear-gradient(95deg, var(--accent-text), var(--aqua-text));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: clamp(5rem, 3rem + 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+
+  .nf-title {
+    margin-top: 16px;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .nf-sep {
+    color: var(--text-3);
+  }
+
+  .nf-text {
+    max-width: 520px;
+    margin-top: 12px;
+    color: var(--text-2);
+  }
+
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+</style>

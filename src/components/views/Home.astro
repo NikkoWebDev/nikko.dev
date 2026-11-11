@@ -1,0 +1,43 @@
+---
+// Portada. index.astro (/) y en.astro (/en) solo eligen el idioma.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import About from "../About.astro";
+import Contact from "../Contact.astro";
+import FAQ from "../FAQ.astro";
+import Footer from "../Footer.astro";
+import Hero from "../Hero.astro";
+import Metrics from "../Metrics.astro";
+import Navbar from "../Navbar.astro";
+import Projects from "../Projects.astro";
+import Services from "../Services.astro";
+import Stack from "../Stack.astro";
+import TrustStrip from "../TrustStrip.astro";
+import { homePath, useTranslations, type Lang } from "../../i18n/utils";
+import { absoluteUrl, breadcrumbSchema, faqSchema } from "../../lib/schema";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const path = homePath(lang);
+const url = absoluteUrl(path);
+const schema = [faqSchema(lang, url), breadcrumbSchema([{ name: t("meta.breadcrumb.home"), url }])];
+---
+
+<BaseLayout title={t("meta.home.title")} description={t("meta.home.description")} lang={lang} path={path} schema={schema}>
+  <Navbar lang={lang} path={path} />
+  <main id="main">
+    <Hero lang={lang} />
+    <TrustStrip lang={lang} />
+    <Projects lang={lang} />
+    <Metrics lang={lang} />
+    <Services lang={lang} />
+    <Stack lang={lang} />
+    <About lang={lang} />
+    <FAQ lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} path={path} />
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+import { clientsFor } from "../data/projects";
+import { useTranslations, type Lang } from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const clients = clientsFor(lang);
+---
+
+<div class="trust" role="group" aria-label={t("trust.label")}>
+  <div class="container trust-inner">
+    <p class="trust-label">{t("trust.label")}</p>
+    <ul class="trust-list" role="list">
+      {clients.map((client) => <li>{client}</li>)}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .trust-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 32px;
+    padding-block: 22px;
+    border-block: 1px solid var(--border);
+  }
+
+  .trust-label {
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .trust-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .trust-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--text-2);
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Separador al final de cada elemento: si la lista salta de línea, el punto queda al final y no colgando a la izquierda. */
+  .trust-list li:not(:last-child)::after {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+</style>

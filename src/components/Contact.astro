@@ -1,197 +1,196 @@
 ---
-import { getTranslation, type Lang } from "../data/translations";
-export interface Props { lang?: Lang; }
-const { lang = "es" } = Astro.props;
+import SectionHeading from "./SectionHeading.astro";
+import { CONTACT, whatsappLink } from "../data/site";
+import { useTranslations, type Lang } from "../i18n/utils";
 
-const contactLinks = [
-  {
-    href: "https://wa.me/573136638097",
-    cmd: getTranslation("contact.cmd.whatsapp", lang),
-    label: getTranslation("contact.label.whatsapp", lang),
-    icon: "💬",
-    isWA: true,
-    external: true,
-  },
-  {
-    href: "mailto:nikolasgallo095@gmail.com",
-    cmd: getTranslation("contact.cmd.email", lang),
-    label: getTranslation("contact.label.email", lang),
-    isWA: false,
-    external: false,
-  },
-  {
-    href: "https://github.com/NikkoWebDev",
-    cmd: getTranslation("contact.cmd.github", lang),
-    label: getTranslation("contact.label.github", lang),
-    isWA: false,
-    external: true,
-  },
-  {
-    href: "https://www.linkedin.com/in/nikolas-gallo-25546b375/",
-    cmd: getTranslation("contact.cmd.linkedin", lang),
-    label: "LinkedIn",
-    isWA: false,
-    external: true,
-  },
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const wa = whatsappLink(t("wa.message"));
+
+const channels = [
+  { id: "whatsapp", via: "whatsapp", detail: CONTACT.whatsappDisplay, desc: t("contact.whatsapp.desc"), href: wa, external: true, track: "whatsapp_click" },
+  { id: "email", via: "email", detail: CONTACT.email, desc: t("contact.email.desc"), href: `mailto:${CONTACT.email}`, external: false, track: "email_click" },
+  { id: "github", via: "github", detail: `@${CONTACT.githubHandle}`, desc: t("contact.github.desc"), href: CONTACT.github, external: true, track: "social_click" },
+  { id: "linkedin", via: "linkedin", detail: "Nikolas Gallo", desc: t("contact.linkedin.desc"), href: CONTACT.linkedin, external: true, track: "social_click" },
 ];
 ---
 
-<section id="contacto" class="contact-section">
+<section class="section contact" id="contacto" aria-labelledby="contacto-title">
   <div class="container">
-    <div class="section-label">{getTranslation("contact.eyebrow", lang)}</div>
-    <h2 class="section-title">{getTranslation("contact.title", lang)}</h2>
-    <p class="section-desc">{getTranslation("contact.desc", lang)}</p>
-
-    <div class="contact-shell">
-      <div class="contact-shell-header">
-        {getTranslation("contact.shell.header", lang)}
+    <div class="contact-panel" data-spotlight data-reveal>
+      <div class="contact-copy">
+        <SectionHeading id="contacto-title" index="07" eyebrow={t("contact.eyebrow")} title={t("contact.title")} sub={t("contact.desc")} />
+        <p class="contact-status"><span class="dot dot-pulse" aria-hidden="true"></span>{t("contact.available")}</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary btn-lg" href={wa} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-prop-place="contact">{t("hero.cta.whatsapp")}</a>
+          <button class="btn btn-ghost btn-lg" type="button" data-copy={CONTACT.email} data-copy-success={t("toast.copied")} data-copy-error={t("toast.copyError")} aria-label={t("contact.copyLabel")}>
+            <span class="contact-at" aria-hidden="true">@</span>
+            {t("contact.copy")} email
+          </button>
+        </div>
       </div>
-      <div class="contact-list">
-        {contactLinks.map((link) => (
-          <a
-            href={link.href}
-            class={`contact-cmd ${link.isWA ? "wa-cmd" : ""}`}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noopener noreferrer" : undefined}
-            data-track={link.isWA ? "whatsapp_click" : undefined}
-          >
-            {link.icon && <span class="wa-icon">{link.icon}</span>}
-            <span class="cmd-prompt">$</span>
-            <span class="cmd-name">contact</span>
-            <span class="cmd-args">--via {link.cmd}</span>
-            <span class="cmd-desc">{link.label}</span>
-          </a>
-        ))}
+
+      <div class="contact-shell">
+        <p class="contact-shell-head"><span class="contact-prompt" aria-hidden="true">$</span> contact --list</p>
+        <ul class="contact-list" role="list">
+          {channels.map((channel) => (
+            <li>
+              <a class="contact-row" href={channel.href} target={channel.external ? "_blank" : undefined} rel={channel.external ? "noopener noreferrer" : undefined} data-track={channel.track} data-track-prop-channel={channel.id}>
+                <span class="contact-via"><span class="contact-flag">--via</span> {channel.via}</span>
+                <span class="contact-detail">{channel.detail}</span>
+                <span class="contact-desc">{channel.desc}</span>
+                <span class="contact-arrow" aria-hidden="true">{channel.external ? "↗" : "→"}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .contact-section {
-    padding: 96px 0;
+  .contact-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(28px, 5vw, 64px);
+    padding: clamp(28px, 5vw, 56px);
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-2);
+    background:
+      radial-gradient(640px 360px at 0% 0%, rgba(var(--accent-rgb), 0.16), transparent 65%),
+      radial-gradient(520px 320px at 100% 100%, rgba(var(--aqua-rgb), 0.08), transparent 65%),
+      var(--glass);
+    box-shadow: var(--shadow-2);
   }
 
-  .contact-section .container {
-    max-width: 820px;
-    margin: 0 auto;
+  .contact-copy :global(.sh) {
+    margin-bottom: 22px;
   }
 
-  .section-label {
-    font-family: var(--mono, 'JetBrains Mono', monospace);
-    font-size: 0.75rem;
-    color: var(--accent-text, #047857);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
+  .contact-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
   }
 
-  .section-title {
-    font-size: 2.2rem;
-    font-weight: 900;
-    letter-spacing: -1px;
-    margin-bottom: 1rem;
-    line-height: 1.15;
-    color: var(--white, #F8FAFC);
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
   }
 
-  .section-desc {
-    color: var(--muted, #94A3B8);
-    max-width: 650px;
-    margin-bottom: 3rem;
-    font-size: 1.05rem;
-    line-height: 1.7;
+  .contact-at {
+    color: var(--accent-text);
+    font-family: var(--font-mono);
   }
 
   .contact-shell {
-    background: var(--glass-card);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
     overflow: hidden;
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    box-shadow: var(--glass-shadow);
-    position: relative;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    font-family: var(--font-mono);
   }
 
-  .contact-shell::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    pointer-events: none;
+  .contact-shell-head {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.76rem;
   }
 
-  .contact-shell-header {
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--line);
-    padding: 14px 22px;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--muted);
+  .contact-prompt {
+    color: var(--accent-text);
   }
 
   .contact-list {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    padding: 8px;
   }
 
-  .contact-cmd {
-    display: flex;
+  .contact-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "via arrow"
+      "detail arrow"
+      "desc arrow";
     align-items: center;
-    gap: 12px;
-    padding: 14px 18px;
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--muted);
-    transition: all 0.2s var(--ease);
-    font-family: var(--mono);
-    font-size: 0.9rem;
+    column-gap: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
     border: 1px solid transparent;
+    font-size: 0.82rem;
+    transition:
+      background-color 0.2s var(--ease),
+      border-color 0.2s var(--ease);
   }
 
-  .contact-cmd:hover {
-    background: var(--surface-hover);
-    color: var(--white);
-    border-color: var(--line);
-    transform: translateX(4px);
-  }
-
-  .contact-cmd.wa-cmd {
+  .contact-row:hover {
     background: var(--surface-2);
-    border: 1px solid var(--line-green);
+    border-color: var(--border);
   }
 
-  .contact-cmd.wa-cmd:hover {
-    background: var(--surface-hover);
-    border-color: var(--green);
-    box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15);
+  .contact-via {
+    grid-area: via;
+    color: var(--text);
+    font-weight: 600;
   }
 
-  .wa-icon {
-    color: #25D366;
-    font-size: 1.1rem;
+  .contact-flag {
+    color: var(--aqua-text);
+    font-weight: 400;
   }
 
-  .cmd-prompt { color: var(--accent-text, #047857); }
-  .cmd-name { color: var(--white, #F8FAFC); font-weight: 600; }
-  .cmd-args { color: var(--accent-2-text, #0f766e); }
-  .cmd-desc {
-    color: var(--muted, #94A3B8);
-    margin-left: auto;
+  .contact-detail {
+    grid-area: detail;
+    overflow: hidden;
+    color: var(--accent-text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .contact-desc {
+    grid-area: desc;
+    color: var(--text-3);
+    font-family: var(--font-sans);
     font-size: 0.8rem;
   }
 
-  @media (max-width: 768px) {
-    .contact-section { padding: 72px 0; }
-    .section-title { font-size: 1.8rem; }
-    .contact-list { padding: 1rem; }
-    .contact-cmd { flex-wrap: wrap; gap: 0.5rem; font-size: 0.88rem; }
-    .cmd-desc { margin-left: 0; width: 100%; padding-left: 1.6rem; }
+  .contact-arrow {
+    grid-area: arrow;
+    color: var(--text-3);
+    font-size: 1rem;
+    transition:
+      color 0.2s var(--ease),
+      translate 0.2s var(--ease);
+  }
+
+  .contact-row:hover .contact-arrow {
+    color: var(--accent-text);
+    translate: 2px -2px;
+  }
+
+  @media (max-width: 960px) {
+    .contact-panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-actions .btn {
+      width: 100%;
+    }
   }
 </style>
