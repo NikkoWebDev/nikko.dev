@@ -19,7 +19,7 @@ const lastIndex = projects.length - 1;
     <ul class="work-grid" role="list">
       {projects.map((project, index) => (
         <li class={index === 0 ? "work-item work-item-feature" : index === lastIndex ? "work-item work-item-last" : "work-item"} data-reveal>
-          <ProjectCard project={project} index={index} lang={lang} feature={index === 0} wide={index === 0 || index === lastIndex} />
+          <ProjectCard project={project} index={index} lang={lang} feature={index === 0} wide={index === lastIndex} />
         </li>
       ))}
     </ul>

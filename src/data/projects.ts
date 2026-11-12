@@ -29,6 +29,8 @@ export interface Project {
   stack: string[];
   image: string;
   imageSmall: string;
+  /** Punto de enfoque (object-position) cuando la tarjeta recorta la captura por los lados. */
+  focus?: string;
   /** Dominio público, si el proyecto tiene uno enlazable. */
   domain?: string;
   links: { demo?: string; repo?: string };
@@ -75,6 +77,7 @@ export const projects: Project[] = [
     stack: ["Qwen 3.5 4B", "Fine-tuning", "RAG", "FastAPI", "WhatsApp", "API"],
     image: "/projects/reprebot.jpg",
     imageSmall: "/projects/reprebot-640.jpg",
+    focus: "67% top",
     domain: "repre.nikko.dev",
     links: { demo: "https://repre.nikko.dev/" },
     client: { es: "CEIS · UNAL", en: "CEIS · UNAL" },

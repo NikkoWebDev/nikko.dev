@@ -29,7 +29,7 @@ const cardClass = ["work", feature ? "work-feature" : "", wide ? "work-wide" : "
       <span class="work-chrome-status"><span class="dot" aria-hidden="true"></span>prod</span>
     </div>
     <div class="work-shot">
-      <img src={project.imageSmall} srcset={`${project.imageSmall} 640w, ${project.image} 1280w`} sizes={sizes} width="1280" height="800" alt={`${t("case.shot")} ${project.name}`} loading="lazy" decoding="async" />
+      <img src={project.imageSmall} srcset={`${project.imageSmall} 640w, ${project.image} 1280w`} sizes={sizes} width="1280" height="800" alt={`${t("case.shot")} ${project.name}`} style={project.focus ? `object-position: ${project.focus}` : undefined} loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -42,7 +42,18 @@ const cardClass = ["work", feature ? "work-feature" : "", wide ? "work-wide" : "
     <h3 class="work-title"><a class="work-link" href={href}>{project.name}</a></h3>
     <p class="work-tagline">{pick(project.tagline, lang)}</p>
     <p class="work-highlight"><strong>{project.highlight.value}</strong> <span>{pick(project.highlight.label, lang)}</span></p>
-    {feature && <p class="work-result" set:html={pick(project.result, lang)}></p>}
+    {feature && (
+      <div class="work-story">
+        <div class="work-story-problem">
+          <p class="work-story-label">{t("case.problem.label")}</p>
+          <p set:html={pick(project.problem, lang)}></p>
+        </div>
+        <div>
+          <p class="work-story-label">{t("case.result.label")}</p>
+          <p set:html={pick(project.result, lang)}></p>
+        </div>
+      </div>
+    )}
     <ul class="work-tags" role="list">
       {tags.map((tag) => <li class="tag">{tag}</li>)}
     </ul>
@@ -190,9 +201,23 @@ const cardClass = ["work", feature ? "work-feature" : "", wide ? "work-wide" : "
     min-width: 0;
   }
 
-  .work-result {
+  .work-story {
+    display: grid;
+    gap: 16px;
     padding-left: 14px;
     border-left: 2px solid rgba(var(--accent-rgb), 0.5);
+  }
+
+  .work-story-label {
+    margin-bottom: 4px;
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .work-story p:not(.work-story-label) {
     color: var(--text-2);
     font-size: 0.92rem;
     line-height: 1.65;
@@ -350,6 +375,13 @@ const cardClass = ["work", feature ? "work-feature" : "", wide ? "work-wide" : "
 
     .work-wide .work-body {
       flex: 1;
+    }
+  }
+
+  /* En móvil la tarjeta principal conserva solo el resultado, para no alargar la página. */
+  @media (max-width: 719px) {
+    .work-story-problem {
+      display: none;
     }
   }
 
