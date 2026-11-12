@@ -18,7 +18,7 @@ export const ui = {
     es: "Desarrollo web con IA: rápido, hermoso y optimizado. Landing pages, apps web y automatización inteligente para empresas.",
     en: "AI-powered web development: fast, beautiful and optimized. Landing pages, web apps and intelligent automation for businesses.",
   },
-  "meta.og.alt": { es: "NikkoDev — Desarrollo web con IA: rápido, hermoso y optimizado", en: "NikkoDev — AI-powered web development: fast, beautiful and optimized" },
+  "meta.og.alt": { es: "NikkoDev — Full-Stack & Applied AI Engineer. En producción, no en demos.", en: "NikkoDev — Full-Stack & Applied AI Engineer. In production, not in demos." },
   "meta.locale": { es: "es_CO", en: "en_US" },
   "meta.jobTitle": { es: "Full-Stack Developer e Integrador de IA", en: "Full-Stack Developer & AI Integrator" },
   "meta.org.description": {

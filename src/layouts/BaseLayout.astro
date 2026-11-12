@@ -12,13 +12,15 @@ interface Props {
   /** Ruta de esta página (/, /en, /proyectos/fibog…): canonical, hreflang y paleta salen de aquí. */
   path: string;
   ogImage?: string;
+  /** Texto alternativo de la imagen social; por defecto describe la tarjeta de marca. */
+  ogImageAlt?: string;
   ogType?: "website" | "article";
   /** Nodos JSON-LD propios de la página (FAQ, caso de estudio, migas…). */
   schema?: SchemaNode[];
   noindex?: boolean;
 }
 
-const { title, description, lang, path, ogImage = "/og-image.png", ogType = "website", schema = [], noindex = false } = Astro.props;
+const { title, description, lang, path, ogImage = "/og-image.png", ogImageAlt, ogType = "website", schema = [], noindex = false } = Astro.props;
 const t = useTranslations(lang);
 
 const canonical = absoluteUrl(path);
@@ -78,12 +80,13 @@ const jsonLd = serializeGraph([
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:alt" content={t("meta.og.alt")} />
+    <meta property="og:image:alt" content={ogImageAlt ?? t("meta.og.alt")} />
     <meta property="og:locale" content={t("meta.locale")} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt ?? t("meta.og.alt")} />
     <meta name="twitter:site" content="@NikkoWebDev" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />

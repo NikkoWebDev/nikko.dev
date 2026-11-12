@@ -41,7 +41,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={`${title} — ${t("case.titleSuffix")}`} description={pick(project.summary, lang)} lang={lang} path={path} ogImage={project.image} ogType="article" schema={schema}>
+<BaseLayout title={`${title} — ${t("case.titleSuffix")}`} description={pick(project.summary, lang)} lang={lang} path={path} ogImage={project.image} ogImageAlt={`${t("case.shot")} ${project.name}`} ogType="article" schema={schema}>
   <Navbar lang={lang} path={path} />
   <main id="main" class="case" data-project-slug={project.slug}>
     <div class="container">
