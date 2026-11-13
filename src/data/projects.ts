@@ -1,5 +1,15 @@
+export type Palette = "mint" | "cyan" | "violet" | "amber" | "teal";
+
+type Bilingual = { es: string; en: string };
+
 export type Project = {
   slug: string;
+  /** Paleta fija de la página del caso (también tiñe el vidrio y el fondo). */
+  palette: Palette;
+  /** Tipo de proyecto, mostrado como pill en la cabecera del caso. */
+  kind: Bilingual;
+  /** Cifras verificables (solo datos reales del proyecto). */
+  metrics?: { value: string; label: Bilingual }[];
   title: string;
   image: string;
   demo: string;
@@ -14,6 +24,13 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "fibog",
+    palette: "mint",
+    kind: { es: "Plataforma institucional", en: "Institutional platform" },
+    metrics: [
+      { value: "13", label: { es: "grupos de investigación gestionados", en: "research groups managed" } },
+      { value: "875+", label: { es: "líneas de SQL (RLS + RPC)", en: "lines of SQL (RLS + RPC)" } },
+      { value: "11k+", label: { es: "líneas de código", en: "lines of code" } }
+    ],
     title: "Semilleros FIBOG — Universidad Nacional de Colombia",
     image: "/projects/fibog.jpg",
     demo: "https://semilleros.nikko.dev",
@@ -26,17 +43,25 @@ export const projects: Project[] = [
   },
   {
     slug: "ceis",
+    palette: "cyan",
+    kind: { es: "Plataforma institucional", en: "Institutional platform" },
     title: "CEIS — Consejo Estudiantil de Ingeniería de Sistemas | UNAL",
     image: "/projects/ceis.jpg",
     demo: "https://ceis-unal.com",
     description: "Plataforma institucional del Consejo Estudiantil de Ingeniería de Sistemas y Computación.",
     problem: "La comunidad de Ingeniería de Sistemas carecía de un hub digital centralizado para acceder a la malla curricular interactiva, la gestión de comisiones de trabajo, convocatorias y transparencia de representación estudiantil.",
-    work: "Desarrollo de una Single Page Application de alto rendimiento con React, Vite y Tailwind CSS, integrando Supabase para persistencia y backend serverless, sistema de temas claro/oscuro sin parpadeo y navegación fluida.",
+    work: "Co-desarrollo, como uno de los dos desarrolladores principales, de una Single Page Application de alto rendimiento con React, Vite y Tailwind CSS, integrando Supabase para persistencia y backend serverless, sistema de temas claro/oscuro sin parpadeo y navegación fluida.",
     result: "Plataforma institucional oficial en producción en https://ceis-unal.com, conectando a la comunidad estudiantil de la Universidad Nacional de Colombia.",
     stack: ["React", "Vite", "Supabase", "Tailwind CSS", "Malla Curricular", "UNAL"]
   },
   {
     slug: "reprebot",
+    palette: "violet",
+    kind: { es: "IA aplicada · API propia", en: "Applied AI · custom API" },
+    metrics: [
+      { value: "3", label: { es: "canales: WhatsApp, chat y foro", en: "channels: WhatsApp, chat and forum" } },
+      { value: "4B", label: { es: "parámetros, fine-tune sobre normativa UNAL", en: "parameters, fine-tuned on UNAL regulations" } }
+    ],
     title: "Reprebot — IA finetuneada para la UNAL",
     image: "/projects/reprebot.jpg",
     demo: "https://repre.nikko.dev/",
@@ -48,6 +73,12 @@ export const projects: Project[] = [
   },
   {
     slug: "sinpresupuesto",
+    palette: "amber",
+    kind: { es: "Plataforma educativa con IA", en: "AI-powered education platform" },
+    metrics: [
+      { value: "3s → 0.2s", label: { es: "tiempo de carga (93% más rápido)", en: "load time (93% faster)" } },
+      { value: "3", label: { es: "métodos de acceso: correo, Google y Microsoft", en: "sign-in methods: email, Google and Microsoft" } }
+    ],
     title: "SinPresupuesto",
     image: "/projects/sinpresupuesto.jpg",
     demo: "https://sinpresupuesto.com",
@@ -60,6 +91,8 @@ export const projects: Project[] = [
   },
   {
     slug: "autorreparacion",
+    palette: "teal",
+    kind: { es: "Landing comercial", en: "Commercial landing page" },
     title: "Autorreparación",
     image: "/projects/autorreparacion.jpg",
     demo: "https://www.autorreparacion.com",
@@ -71,6 +104,8 @@ export const projects: Project[] = [
   },
   {
     slug: "indusec",
+    palette: "cyan",
+    kind: { es: "Landing empresarial", en: "Business landing page" },
     title: "InduSEC",
     image: "/projects/indusec.jpg",
     demo: "https://puertasindusec.com",

@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════════════════
+   NikkoDev OS — FX layer
+   · Paletas que cambian por sección (colores registrados con @property)
+   · Fondo vivo: blobs + constelación (canvas) + grid con linterna
+   · Glass v4: tinte de paleta, borde con luz que sigue al cursor,
+     brillo interior, grano de vidrio esmerilado
+   · Transiciones entre páginas (View Transitions API)
+   Todo respeta prefers-reduced-motion y se apaga en táctil lo caro.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Colores animables ── */
+@property --fx-a     { syntax: "<color>"; inherits: true; initial-value: #10B981; }
+@property --fx-b     { syntax: "<color>"; inherits: true; initial-value: #38BDF8; }
+@property --fx-c     { syntax: "<color>"; inherits: true; initial-value: #8B5CF6; }
+@property --fx-solid { syntax: "<color>"; inherits: true; initial-value: #10B981; }
+@property --fx-ink   { syntax: "<color>"; inherits: true; initial-value: #047857; }
+
+html {
+  transition:
+    --fx-a 1.2s var(--ease),
+    --fx-b 1.2s var(--ease),
+    --fx-c 1.2s var(--ease),
+    --fx-solid 0.9s var(--ease),
+    --fx-ink 0.9s var(--ease);
+}
+
+/* Paletas. `solid` = relleno de botones/puntos, `ink` = texto de acento (AA sobre el fondo del tema). */
+:root, html[data-palette="mint"]   { --fx-a: #10B981; --fx-b: #38BDF8; --fx-c: #8B5CF6; --fx-solid: #10B981; --fx-ink: #047857; }
+html[data-palette="cyan"]          { --fx-a: #0EA5E9; --fx-b: #10B981; --fx-c: #6366F1; --fx-solid: #0EA5E9; --fx-ink: #0369A1; }
+html[data-palette="violet"]        { --fx-a: #8B5CF6; --fx-b: #38BDF8; --fx-c: #10B981; --fx-solid: #8B5CF6; --fx-ink: #6D28D9; }
+html[data-palette="amber"]         { --fx-a: #F59E0B; --fx-b: #10B981; --fx-c: #38BDF8; --fx-solid: #F59E0B; --fx-ink: #B45309; }
+html[data-palette="teal"]          { --fx-a: #14B8A6; --fx-b: #34D399; --fx-c: #38BDF8; --fx-solid: #14B8A6; --fx-ink: #0F766E; }
+
+:root.dark, html.dark[data-palette="mint"]   { --fx-solid: #34D399; --fx-ink: #34D399; }
+html.dark[data-palette="cyan"]               { --fx-solid: #38BDF8; --fx-ink: #38BDF8; }
+html.dark[data-palette="violet"]             { --fx-solid: #A78BFA; --fx-ink: #A78BFA; }
+html.dark[data-palette="amber"]              { --fx-solid: #FBBF24; --fx-ink: #FBBF24; }
+html.dark[data-palette="teal"]               { --fx-solid: #2DD4BF; --fx-ink: #2DD4BF; }
+
+/* El acento del sitio sigue a la paleta activa. */
+:root, :root.dark {
+  --green: var(--fx-solid);
+  --accent-text: var(--fx-ink);
+  --line-green: color-mix(in srgb, var(--fx-solid) 38%, transparent);
+  --glow-green: 0 0 32px color-mix(in srgb, var(--fx-solid) 24%, transparent);
+}
+
+::selection { background: color-mix(in srgb, var(--fx-solid) 28%, transparent); }
+
+/* Tokens que faltaban (el nav y el dock no tenían fondo) */
+:root {
+  --glass-nav: rgba(255, 255, 255, 0.62);
+  --glass-light: rgba(255, 255, 255, 0.45);
+  --glass-dock: rgba(255, 255, 255, 0.6);
+  --glass-term-log: rgba(255, 255, 255, 0.5);
+}
+:root.dark {
+  --glass-nav: rgba(10, 15, 25, 0.55);
+  --glass-light: rgba(255, 255, 255, 0.04);
+  --glass-dock: rgba(14, 20, 32, 0.6);
+  --glass-term-log: rgba(7, 9, 14, 0.5);
+}
+
+/* ── 2. Vidrio tintado: la paleta activa colorea cada superficie ── */
+:root {
+  --glass-card: color-mix(in oklab, var(--fx-a) 6%, rgba(255, 255, 255, 0.6));
+  --glass-card-hover: color-mix(in oklab, var(--fx-a) 9%, rgba(255, 255, 255, 0.8));
+  --glass-card-strong: color-mix(in oklab, var(--fx-a) 7%, rgba(255, 255, 255, 0.72));
+  --glass-blur: blur(22px) saturate(190%) brightness(1.03);
+  --glass-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+    0 18px 44px -12px color-mix(in srgb, var(--fx-a) 18%, rgba(15, 23, 42, 0.14)),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+  --glass-shadow-hover:
+    0 1px 0 #fff inset,
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+    0 28px 60px -14px color-mix(in srgb, var(--fx-a) 30%, rgba(15, 23, 42, 0.18)),
+    0 4px 10px rgba(15, 23, 42, 0.05);
+}
+:root.dark {
+  --glass-card: color-mix(in oklab, var(--fx-a) 7%, rgba(15, 22, 35, 0.5));
+  --glass-card-hover: color-mix(in oklab, var(--fx-a) 11%, rgba(22, 32, 52, 0.62));
+  --glass-card-strong: color-mix(in oklab, var(--fx-a) 8%, rgba(20, 30, 48, 0.58));
+  --glass-blur: blur(26px) saturate(200%) brightness(1.06);
+  --glass-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 -18px 32px -22px color-mix(in srgb, var(--fx-a) 22%, transparent) inset,
+    0 24px 56px -14px rgba(0, 0, 0, 0.6);
+  --glass-shadow-hover:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 -22px 36px -20px color-mix(in srgb, var(--fx-a) 34%, transparent) inset,
+    0 34px 70px -14px rgba(0, 0, 0, 0.7),
+    0 0 40px -10px color-mix(in srgb, var(--fx-a) 30%, transparent);
+}
+
+/* Utilidad: cualquier bloque puede ser vidrio con solo `class="glass"` */
+.glass {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Superficies de vidrio: reciben borde-luz (::after) y linterna (.fx-spot, inyectada por fx.ts,
+   que también fija position/isolation si la superficie no los tiene). */
+:is(.glass, .card, .about-card, .hero-terminal, .impact-panel, .dash-card, .nav-inner, .editor-window, .serv-card, .os-window)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  /* reflejo especular fijo arriba-izquierda + luz de paleta que sigue al cursor */
+  background:
+    radial-gradient(220px circle at var(--mx, 50%) var(--my, -40%), color-mix(in srgb, var(--fx-a) 90%, white), transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 28%, rgba(255, 255, 255, 0) 72%, color-mix(in srgb, var(--fx-b) 55%, white 25%));
+  opacity: 0.55;
+  transition: opacity 0.35s var(--ease);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+:root.dark :is(.glass, .card, .about-card, .hero-terminal, .impact-panel, .dash-card, .nav-inner, .editor-window, .serv-card, .os-window)::after {
+  opacity: 0.4;
+}
+
+:is(.glass, .card, .about-card, .hero-terminal, .impact-panel, .dash-card, .editor-window, .serv-card):hover::after,
+:is(.glass, .card, .about-card, .hero-terminal, .impact-panel, .dash-card, .editor-window, .serv-card).fx-lit::after {
+  opacity: 1;
+}
+
+/* Linterna interior + grano de vidrio esmerilado */
+.fx-spot {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  background:
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--fx-a) 17%, transparent), transparent 62%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: normal, normal;
+}
+.fx-lit > .fx-spot { opacity: 1; }
+
+/* Cards: vidrio más profundo en reposo (nuestra base `.card`) */
+.card { border-color: color-mix(in srgb, var(--glass-border) 85%, var(--fx-a) 15%); }
+
+/* ── 3. Fondo vivo ── */
+.fx-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+/* El aurora y el grid antiguos del <body> pasan a este componente */
+body::before, body::after { display: none; }
+
+.fx-blob {
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  opacity: 0.2;
+  will-change: transform;
+  background: radial-gradient(closest-side, var(--c), transparent);
+}
+:root.dark .fx-blob { opacity: 0.26; }
+
+.fx-blob.b1 { --c: var(--fx-a); top: -22vmax; left: -14vmax; animation: fx-drift-1 34s ease-in-out infinite alternate; }
+.fx-blob.b2 { --c: var(--fx-b); top: 8vmax;  right: -24vmax; opacity: 0.16; animation: fx-drift-2 41s ease-in-out infinite alternate; }
+.fx-blob.b3 { --c: var(--fx-c); bottom: -30vmax; left: 22vw; opacity: 0.12; animation: fx-drift-3 47s ease-in-out infinite alternate; }
+:root.dark .fx-blob.b2 { opacity: 0.2; }
+:root.dark .fx-blob.b3 { opacity: 0.16; }
+
+@keyframes fx-drift-1 { from { transform: translate3d(0, 0, 0) scale(1); }    to { transform: translate3d(10vmax, 8vmax, 0) scale(1.18); } }
+@keyframes fx-drift-2 { from { transform: translate3d(0, 0, 0) scale(1.1); }  to { transform: translate3d(-12vmax, 6vmax, 0) scale(0.92); } }
+@keyframes fx-drift-3 { from { transform: translate3d(0, 0, 0) scale(0.95); } to { transform: translate3d(8vmax, -10vmax, 0) scale(1.12); } }
+
+.fx-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--fx-ink) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--fx-ink) 18%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.55;
+  /* linterna: el grid solo se enciende cerca del cursor (centro por defecto) */
+  -webkit-mask-image: radial-gradient(360px circle at var(--px, 50%) var(--py, 28%), #000, transparent 75%);
+  mask-image: radial-gradient(360px circle at var(--px, 50%) var(--py, 28%), #000, transparent 75%);
+}
+
+.fx-net {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+/* viñeta suave para que el texto siempre gane contraste */
+.fx-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, color-mix(in srgb, var(--bg) 70%, transparent));
+}
+
+/* Progreso de scroll con la paleta activa */
+.page-progress {
+  background: linear-gradient(90deg, var(--fx-a), var(--fx-b)) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--fx-a) 60%, transparent);
+}
+
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--fx-b), var(--fx-a)); }
+
+/* ── 4. Transiciones entre páginas ── */
+@view-transition { navigation: auto; }
+
+.navbar { view-transition-name: fx-nav; }
+
+::view-transition-old(root) { animation: fx-out 0.28s var(--ease) both; }
+::view-transition-new(root) { animation: fx-in 0.5s var(--ease) both; }
+
+@keyframes fx-out { to { opacity: 0; transform: translateY(-8px) scale(0.995); filter: blur(4px); } }
+@keyframes fx-in  { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
+
+/* ── 5. Táctil: sin linterna ni constelación pesada ── */
+@media (hover: none), (pointer: coarse) {
+  .fx-spot { display: none; }
+  .fx-grid { -webkit-mask-image: radial-gradient(70% 50% at 50% 20%, #000, transparent); mask-image: radial-gradient(70% 50% at 50% 20%, #000, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-blob { animation: none; }
+  @view-transition { navigation: none; }
+  html { transition: none; }
+}
+
+/* ── 6. Elementos de marca que siguen la paleta activa ── */
+.tag:not(.tag-amber) {
+  color: var(--fx-ink);
+  border-color: color-mix(in srgb, var(--fx-solid) 28%, transparent);
+  background: color-mix(in srgb, var(--fx-solid) 10%, transparent);
+}
+
+.pulse-dot {
+  background: var(--fx-solid);
+  animation: fx-pulse 1.8s infinite;
+}
+
+@keyframes fx-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fx-solid) 60%, transparent); }
+  70%  { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/fx.css";
 
 export interface Props {
   title?: string;
@@ -7,6 +8,8 @@ export interface Props {
   ogImage?: string;
   lang?: "es" | "en";
   canonicalPath?: string;
+  /** Fija la paleta (mint | cyan | violet | amber | teal). Sin ella, cambia por sección. */
+  palette?: "mint" | "cyan" | "violet" | "amber" | "teal";
 }
 
 const SITE = "https://nikko.dev";
@@ -28,6 +31,7 @@ const {
   ogImage = `${SITE}/og-image.png`,
   lang = "es",
   canonicalPath,
+  palette,
 } = Astro.props;
 
 const title = propTitle ?? defaultTitle[lang];
@@ -250,7 +254,7 @@ const jsonLd = {
 ---
 
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} data-palette={palette} data-palette-lock={palette ? "" : undefined}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -339,6 +343,16 @@ const jsonLd = {
   </style>
 </head>
 <body>
+  <!-- Fondo vivo: blobs de paleta + constelación + grid con linterna -->
+  <div class="fx-bg" aria-hidden="true">
+    <i class="fx-blob b1"></i>
+    <i class="fx-blob b2"></i>
+    <i class="fx-blob b3"></i>
+    <div class="fx-grid"></div>
+    <canvas class="fx-net" id="fxNet"></canvas>
+    <div class="fx-vignette"></div>
+  </div>
+
   <!-- Page loading progress bar -->
   <div class="page-progress" id="pageProgress"></div>
   
@@ -346,6 +360,9 @@ const jsonLd = {
 
   <script>
     import { track } from '../lib/analytics';
+    import { initFx } from '../lib/fx';
+
+    initFx();
 
     // ── Page Progress Bar + scroll depth ──
     (() => {

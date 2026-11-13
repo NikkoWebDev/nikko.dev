@@ -1,0 +1,564 @@
+---
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+import { projects, type Project } from "../data/projects";
+
+export interface Props {
+  project: Project;
+  lang: "es" | "en";
+  text: { title: string; description: string; problem: string; work: string; result: string };
+}
+
+const { project, lang, text } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: "caso de estudio",
+    back: "Todos los proyectos",
+    backHref: "/#proyectos",
+    demo: "Ver demo",
+    repo: "Ver repositorio",
+    toc: "En este caso",
+    chapters: [
+      { id: "problema", n: "01", label: "El problema", h: "Contexto" },
+      { id: "solucion", n: "02", label: "Qué hice", h: "Implementación" },
+      { id: "resultado", n: "03", label: "Resultado", h: "Estado actual" },
+      { id: "stack", n: "04", label: "Stack", h: "Herramientas" },
+    ],
+    next: "Siguiente caso",
+    ctaTitle: "¿Necesitas algo así?",
+    ctaText: "Cuéntame tu idea y te digo cómo lo construiría, con qué stack y en cuánto tiempo.",
+    cta: "Escríbeme por WhatsApp",
+    shot: (t: string) => `Captura de ${t}`,
+    path: "/proyectos/",
+  },
+  en: {
+    eyebrow: "case study",
+    back: "All projects",
+    backHref: "/en#proyectos",
+    demo: "View demo",
+    repo: "View repository",
+    toc: "In this case",
+    chapters: [
+      { id: "problema", n: "01", label: "The problem", h: "Context" },
+      { id: "solucion", n: "02", label: "What I did", h: "Implementation" },
+      { id: "resultado", n: "03", label: "Result", h: "Current status" },
+      { id: "stack", n: "04", label: "Stack", h: "Tools" },
+    ],
+    next: "Next case",
+    ctaTitle: "Need something like this?",
+    ctaText: "Tell me your idea and I'll tell you how I'd build it, with what stack and how long it takes.",
+    cta: "Message me on WhatsApp",
+    shot: (t: string) => `Screenshot of ${t}`,
+    path: "/en/projects/",
+  },
+}[lang];
+
+const index = projects.findIndex((p) => p.slug === project.slug);
+const next = projects[(index + 1) % projects.length];
+const nextTitle = next.title.split(/\s[—|]\s/)[0];
+const host = new URL(project.demo).host;
+const whatsapp = "https://wa.me/573136638097";
+const bodies: Record<string, string> = {
+  problema: text.problem,
+  solucion: text.work,
+  resultado: text.result,
+};
+---
+
+<Navbar lang={lang} />
+<main class="case" data-project-slug={project.slug}>
+  <div class="container">
+    <a class="case-back" href={copy.backHref}>← {copy.back}</a>
+
+    <header class="case-head reveal">
+      <p class="case-eyebrow">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        // {copy.eyebrow} · {String(index + 1).padStart(2, "0")}/{String(projects.length).padStart(2, "0")}
+      </p>
+      <h1>{text.title}</h1>
+      <p class="case-lead">{text.description}</p>
+      <div class="case-meta">
+        <span class="case-kind">{project.kind[lang]}</span>
+        {project.stack.map((item) => <span class="tag">{item}</span>)}
+      </div>
+      <div class="case-actions">
+        <a class="btn btn-primary" href={project.demo} target="_blank" rel="noopener noreferrer" data-track="demo_click">
+          {copy.demo} ↗
+        </a>
+        {project.repo && (
+          <a class="btn btn-ghost" href={project.repo} target="_blank" rel="noopener noreferrer" data-track="code_click">
+            {copy.repo} ↗
+          </a>
+        )}
+      </div>
+    </header>
+
+    <figure class="browser reveal" aria-label={copy.shot(text.title)}>
+      <div class="browser-bar">
+        <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <a class="browser-url" href={project.demo} target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">🔒</span> {host}
+        </a>
+      </div>
+      <div class="browser-view">
+        <img
+          src={project.image}
+          alt={copy.shot(text.title)}
+          width="1280"
+          height="800"
+          decoding="async"
+          fetchpriority="high"
+          style={`view-transition-name: fx-cover-${project.slug}`}
+        />
+      </div>
+    </figure>
+
+    {project.metrics && (
+      <ul class="metrics reveal" aria-label="Metrics">
+        {project.metrics.map((m) => (
+          <li class="glass metric">
+            <strong data-count={m.value}>{m.value}</strong>
+            <span>{m.label[lang]}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="case-layout">
+      <aside class="toc" aria-label={copy.toc}>
+        <p class="toc-title">{copy.toc}</p>
+        <ol>
+          {copy.chapters.map((c) => (
+            <li><a href={`#${c.id}`} data-toc={c.id}><span>{c.n}</span>{c.label}</a></li>
+          ))}
+        </ol>
+      </aside>
+
+      <div class="chapters">
+        {copy.chapters.map((c) => (
+          <section class="glass chapter reveal" id={c.id} data-chapter={c.id}>
+            <span class="chapter-n" aria-hidden="true">{c.n}</span>
+            <p class="chapter-label">{c.label}</p>
+            <h2>{c.h}</h2>
+            {c.id === "stack" ? (
+              <div class="chapter-tags">
+                {project.stack.map((item) => <span class="tag">{item}</span>)}
+              </div>
+            ) : (
+              <p>{bodies[c.id]}</p>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+
+    <a class="glass next reveal" href={`${copy.path}${next.slug}/`} data-next={next.slug}>
+      <img src={next.image} alt="" width="320" height="200" loading="lazy" decoding="async" />
+      <span class="next-body">
+        <span class="next-label">{copy.next} →</span>
+        <span class="next-title">{nextTitle}</span>
+        <span class="next-kind">{next.kind[lang]}</span>
+      </span>
+    </a>
+
+    <section class="glass cta reveal">
+      <h2>{copy.ctaTitle}</h2>
+      <p>{copy.ctaText}</p>
+      <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">
+        {copy.cta} ↗
+      </a>
+    </section>
+  </div>
+</main>
+<Footer />
+
+<script>
+  import { track } from "../lib/analytics";
+
+  const slug = document.querySelector<HTMLElement>("main.case")?.dataset.projectSlug || "";
+  track("case_view", { slug });
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ── Capítulo activo en el índice lateral ──
+  const links = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>("[data-toc]").forEach((a) => links.set(a.dataset.toc!, a));
+  const chapters = document.querySelectorAll<HTMLElement>("[data-chapter]");
+  if ("IntersectionObserver" in window && chapters.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          links.forEach((a, id) => {
+            if (id === (entry.target as HTMLElement).dataset.chapter) a.setAttribute("aria-current", "true");
+            else a.removeAttribute("aria-current");
+          });
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px" },
+    );
+    chapters.forEach((c) => io.observe(c));
+  }
+
+  // ── Contadores (solo valores puramente numéricos: 13, 875+, 11k+) ──
+  const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+  document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+    const raw = el.dataset.count || "";
+    const m = raw.match(/^(\d+(?:\.\d+)?)(k?\+?)$/);
+    if (!m || reduce || !("IntersectionObserver" in window)) return;
+    const target = parseFloat(m[1]);
+    const suffix = m[2];
+    el.textContent = "0" + suffix;
+    const io = new IntersectionObserver((entries, obs) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      obs.disconnect();
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const p = Math.min((now - t0) / 1100, 1);
+        el.textContent = Math.round(target * ease(p)) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    io.observe(el);
+  });
+</script>
+
+<style>
+  .case {
+    padding: 56px 0 96px;
+  }
+
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent-text);
+    margin-bottom: 28px;
+    transition: transform 0.25s var(--ease);
+  }
+  .case-back:hover { transform: translateX(-4px); }
+
+  /* ── Cabecera ── */
+  .case-head { max-width: 860px; margin-bottom: 44px; }
+
+  .case-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  .case-head h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 5.4vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    margin: 14px 0 18px;
+    background: linear-gradient(120deg, var(--white) 40%, var(--fx-ink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .case-lead {
+    color: var(--muted);
+    font-size: 1.12rem;
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 26px 0 0;
+  }
+
+  .case-kind {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    color: var(--fx-ink);
+    border: 1px solid color-mix(in srgb, var(--fx-solid) 45%, transparent);
+    background: color-mix(in srgb, var(--fx-solid) 12%, transparent);
+  }
+
+  .case-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+  /* ── Marco de navegador con paneo por scroll ── */
+  .browser {
+    margin: 0 0 28px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-card);
+    box-shadow:
+      var(--glass-shadow),
+      0 50px 90px -40px color-mix(in srgb, var(--fx-a) 45%, transparent);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--glass-light);
+  }
+
+  .browser-dots { display: flex; gap: 7px; }
+  .browser-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--line-strong); }
+  .browser-dots i:nth-child(1) { background: #ff5f57; }
+  .browser-dots i:nth-child(2) { background: #febc2e; }
+  .browser-dots i:nth-child(3) { background: #28c840; }
+
+  .browser-url {
+    flex: 1;
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--muted);
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
+    background: var(--glass-term-log);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .browser-url:hover { color: var(--accent-text); }
+
+  .browser-view { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-2); }
+
+  .browser-view img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+  }
+
+  /* Las capturas full-page se recorren solas mientras haces scroll */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .browser-view img {
+        animation: pan linear both;
+        animation-timeline: view();
+        animation-range: entry 10% exit 90%;
+      }
+    }
+  }
+
+  @keyframes pan {
+    from { object-position: 50% 0%; }
+    to { object-position: 50% 45%; }
+  }
+
+  /* ── Métricas ── */
+  .metrics {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin: 0 0 56px;
+  }
+
+  .metric {
+    padding: 22px 24px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    display: grid;
+    gap: 6px;
+  }
+
+  .metric strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--fx-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric span { color: var(--muted); font-size: 0.86rem; line-height: 1.5; }
+
+  /* ── Cuerpo: índice sticky + capítulos de vidrio ── */
+  .case-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  .toc { position: sticky; top: 104px; }
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .toc ol { list-style: none; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+  .toc a {
+    display: flex;
+    gap: 10px;
+    padding: 8px 14px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    font-size: 0.9rem;
+    color: var(--muted);
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .toc a span { font-family: var(--mono); font-size: 0.72rem; opacity: 0.7; padding-top: 3px; }
+  .toc a:hover { color: var(--white); }
+  .toc a[aria-current="true"] {
+    color: var(--white);
+    border-left-color: var(--fx-solid);
+    transform: translateX(4px);
+  }
+
+  .chapters { display: grid; gap: 20px; }
+
+  .chapter {
+    padding: 34px 36px 36px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    scroll-margin-top: 110px;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .chapter:hover { transform: translateY(-3px); box-shadow: var(--glass-shadow-hover); }
+
+  .chapter-n {
+    position: absolute;
+    right: 22px;
+    top: 4px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(5rem, 11vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--fx-solid) 40%, transparent);
+    opacity: 0.55;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .chapter-label {
+    position: relative;
+    z-index: 1;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  .chapter h2 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    letter-spacing: -0.03em;
+    margin: 8px 0 14px;
+  }
+
+  .chapter p:not(.chapter-label) {
+    position: relative;
+    z-index: 1;
+    color: var(--muted);
+    font-size: 1.04rem;
+    line-height: 1.8;
+    max-width: 62ch;
+  }
+
+  .chapter-tags { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* ── Siguiente caso ── */
+  .next {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-top: 56px;
+    padding: 16px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .next:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow-hover); }
+
+  .next img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+
+  .next-body { display: grid; gap: 4px; }
+  .next-label { font-family: var(--mono); font-size: 0.74rem; color: var(--accent-text); letter-spacing: 0.08em; text-transform: uppercase; }
+  .next-title { font-family: var(--font-display); font-size: clamp(1.3rem, 2.8vw, 2rem); font-weight: 800; letter-spacing: -0.035em; }
+  .next-kind { color: var(--muted); font-size: 0.88rem; }
+
+  /* ── Cierre ── */
+  .cta {
+    margin-top: 20px;
+    padding: 44px 36px;
+    text-align: center;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background:
+      radial-gradient(60% 120% at 50% 0%, color-mix(in srgb, var(--fx-a) 20%, transparent), transparent 70%),
+      var(--glass-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+  }
+  .cta h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); letter-spacing: -0.04em; }
+  .cta p { color: var(--muted); max-width: 52ch; }
+
+  @media (max-width: 900px) {
+    .case-layout { grid-template-columns: 1fr; gap: 24px; }
+    .toc { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .case { padding-top: 32px; }
+    .chapter { padding: 26px 22px 28px; }
+    .next { grid-template-columns: 1fr; }
+    .case-actions { flex-direction: column; }
+    .case-actions .btn { width: 100%; }
+    .browser-url { display: none; }
+  }
+</style>

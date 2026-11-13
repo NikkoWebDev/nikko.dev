@@ -3,3 +3,11 @@ node_modules/
 .astro/
 dist/
 dist
+.kiro/
+.qa/
+.agents/
+CLAUDE.md
+AUDIT_REPORT.md
+design.md
+ORIGINAL_REQUEST.md
+ATScv.md
